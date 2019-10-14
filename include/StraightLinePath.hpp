@@ -36,9 +36,7 @@
 #include "IPathPlanner.hpp"
 
 class StraightLinePath : public IPathPlanner {
-
  public:
-
   /**
 
    * @brief Constructor for the Straight Line Path Class
@@ -81,7 +79,6 @@ class StraightLinePath : public IPathPlanner {
                                       const double &aIncrement);
 
  protected:
-
   /**
 
    * @brief Method to Determine the direction the next point should be in

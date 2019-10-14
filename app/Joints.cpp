@@ -28,23 +28,19 @@
 #include "Joints.hpp"
 
 IJoint::~IJoint() {
-
 }
 
 PrismaticJoint::PrismaticJoint()
     :
     length(0) {
-
 }
 
 PrismaticJoint::PrismaticJoint(double aLength)
     :
     length(aLength) {
-
 }
 
 PrismaticJoint::~PrismaticJoint() {
-
 }
 
 double PrismaticJoint::getConfig() {
@@ -58,17 +54,14 @@ void PrismaticJoint::setConfig(double aLength) {
 RevoluteJoint::RevoluteJoint()
     :
     angle(0) {
-
 }
 
 RevoluteJoint::RevoluteJoint(double aAngle)
     :
     angle(aAngle) {
-
 }
 
 RevoluteJoint::~RevoluteJoint() {
-
 }
 
 double RevoluteJoint::getConfig() {

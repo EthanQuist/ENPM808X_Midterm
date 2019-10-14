@@ -40,7 +40,6 @@
 
 class IPathPlanner {
  public:
-
   /**
 
    * @brief Method to Compute the 3 Dimensional path from start point to end
@@ -61,7 +60,6 @@ class IPathPlanner {
                                       const double &aIncrement) = 0;
 
  protected:
-
   /**
 
    * @brief Method to Determine the direction the next point should be in

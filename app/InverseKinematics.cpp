@@ -28,22 +28,18 @@
 #include "InverseKinematics.hpp"
 
 InverseKinematicsBase::~InverseKinematicsBase() {
-
 }
 
 InverseKinematicAcmeArm::InverseKinematicAcmeArm() {
-
 }
 
 InverseKinematicAcmeArm::~InverseKinematicAcmeArm() {
-
 }
-std::vector<JointPtr> InverseKinematicAcmeArm::computeIK(Coordinate aPoint) {
 
+std::vector<JointPtr> InverseKinematicAcmeArm::computeIK(Coordinate aPoint) {
   (void) aPoint;
   JointPtr defaultJoint(new RevoluteJoint());
   std::vector<JointPtr> jointAngles(5, defaultJoint);
 
   return jointAngles;
-
 }

@@ -2,7 +2,7 @@ set(GTEST_SHUFFLE 1)
 
 add_executable(
     cpp-test
-    main.cpp
+    mainTest.cpp
     test.cpp
     ${CMAKE_SOURCE_DIR}/app/InverseKinematics.cpp
     ${CMAKE_SOURCE_DIR}/app/Coordinate.cpp

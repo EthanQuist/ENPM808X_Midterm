@@ -42,8 +42,8 @@ TEST(StraightLinePath, PathAlongXAxis) {
   expected.push_back(Coordinate(3, 0, 0));
   expected.push_back(Coordinate(4, 0, 0));
   expected.push_back(end);
-  //Test the X axis
-  ASSERT_EQ( expected , result);
+  // Test the X axis
+  ASSERT_EQ(expected, result);
 }
 
 TEST(StraightLinePath, PathAlongYAxis) {
@@ -59,7 +59,7 @@ TEST(StraightLinePath, PathAlongYAxis) {
   expected.push_back(Coordinate(0, 3, 0));
   expected.push_back(Coordinate(0, 4, 0));
   expected.push_back(end);
-  //Test the Y axis
+  // Test the Y axis
   ASSERT_EQ(expected, result);
 }
 
@@ -76,8 +76,8 @@ TEST(StraightLinePath, PathAlongZAxis) {
   expected.push_back(Coordinate(0, 0, 3));
   expected.push_back(Coordinate(0, 0, 4));
   expected.push_back(end);
-  //Test the Z axis
+  // Test the Z axis
   ASSERT_EQ(expected, result);
 }
 
-//TODO (Yhap) Consider adding a Diagonal Straight line Path.
+// TODO(Yhap): Consider adding a Diagonal Straight line Path.

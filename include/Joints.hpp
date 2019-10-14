@@ -37,7 +37,6 @@
 
 class IJoint {
  public:
-
   /**
 
    * @brief Destructor for Joint Interface
@@ -76,7 +75,6 @@ typedef std::shared_ptr<IJoint> JointPtr;
 
 class PrismaticJoint : public IJoint {
  public:
-
   /**
 
    * @brief Prismatic Joint Constructor (Length Initialized to 0)
@@ -97,7 +95,7 @@ class PrismaticJoint : public IJoint {
    * @return None.
 
    */
-  PrismaticJoint(double);
+  explicit PrismaticJoint(double);
 
   /**
 
@@ -131,13 +129,13 @@ class PrismaticJoint : public IJoint {
 
    */
   void setConfig(double);
+
  private:
   double length;
 };
 
 class RevoluteJoint : public IJoint {
  public:
-
   /**
 
    * @brief Revolute Joint Constructor (Angle Initialized to 0)
@@ -158,7 +156,7 @@ class RevoluteJoint : public IJoint {
    * @return None.
 
    */
-  RevoluteJoint(double);
+  explicit RevoluteJoint(double);
 
   /**
 
@@ -192,6 +190,7 @@ class RevoluteJoint : public IJoint {
 
    */
   void setConfig(double);
+
  private:
   double angle;
 };

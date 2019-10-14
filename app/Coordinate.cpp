@@ -32,11 +32,9 @@ Coordinate::Coordinate(double aX, double aY, double aZ)
     x(aX),
     y(aY),
     z(aZ) {
-
 }
 
 Coordinate::~Coordinate() {
-
 }
 double Coordinate::getX() {
   return x;
@@ -85,5 +83,4 @@ Coordinate::Coordinate()
     x(0),
     y(0),
     z(0) {
-
 }

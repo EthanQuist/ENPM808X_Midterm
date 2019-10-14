@@ -39,7 +39,6 @@
 #include "Joints.hpp"
 
 class InverseKinematicsBase {
-
  public:
   /**
 
@@ -68,9 +67,7 @@ class InverseKinematicsBase {
 };
 
 class InverseKinematicAcmeArm : InverseKinematicsBase {
-
  public:
-
   /**
 
    * @brief Constructor for Inverse Kinematics Acme Arm

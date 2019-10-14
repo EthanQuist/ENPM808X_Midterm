@@ -24,27 +24,9 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
+#include <gtest/gtest.h>
 
-#include "Demo.hpp"
-#include "include/matplotlibcpp.h"
-
-// namespace plt = matplotlibcpp;
-
-void Demo::runDemo() {
-  int t = 1000;
-  int i = 0;
-  std::vector<double> x;
-  std::vector<double> y;
-  std::vector<double> z;
-  for (i = 0; i < t; i++) {
-    x.push_back(i);
-    y.push_back(sin(3.14 * i / 180));
-    if (i % 10 == 0) {
-      matplotlibcpp::clf();
-      matplotlibcpp::plot(x, y);
-      matplotlibcpp::title("Trajectory Demo");
-      matplotlibcpp::pause(0.01);
-    }
-  }
+int main(int argc, char** argv) {
+  ::testing::InitGoogleTest(&argc, argv);
+  return RUN_ALL_TESTS();
 }
-

@@ -26,6 +26,7 @@
 */
 
 #include <algorithm>
+
 #include <gtest/gtest.h>
 
 #include "InverseKinematics.hpp"
@@ -34,7 +35,7 @@ bool compareConfig(const JointPtr lhs, const JointPtr rhs) {
   return lhs->getConfig() == rhs->getConfig();
 }
 
-TEST(InverseKinematics, checkContract){
+TEST(InverseKinematics, checkContract) {
   InverseKinematicAcmeArm IKsolver;
   std::vector<JointPtr> result;
   // Using the Coordinates from the Paper
