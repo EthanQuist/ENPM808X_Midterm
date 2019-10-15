@@ -15,6 +15,6 @@ add_executable(
 
 target_include_directories(cpp-test PUBLIC ../vendor/googletest/googletest/include 
                                            ${CMAKE_SOURCE_DIR}/include
-                                           ${CMAKE_SOURCE_DIR}/../../Eigen
-                                           ${CMAKE_SOURCE_DIR}/../../matplotlib-cpp)
+                                           ${CMAKE_SOURCE_DIR}/../ThirdParty/Eigen
+                                           ${CMAKE_SOURCE_DIR}/../ThirdParty/matplotlib-cpp)
 target_link_libraries(cpp-test PUBLIC gtest)
