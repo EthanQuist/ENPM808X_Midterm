@@ -33,6 +33,10 @@
 */
 #pragma once
 
+#include <Dense>
+
+#include <ostream>
+
 class Coordinate {
  public:
   /**
@@ -96,6 +100,18 @@ class Coordinate {
 
   /**
 
+   * @brief Returns the Coordinate in a Vector from Eigen ( More easy for
+   * computations)
+
+   * @param None.
+
+   * @return Eigen 3 Vector of doubles Representing the Coordinates.
+
+   */
+  Eigen::Vector3d getAsVec() const;
+
+  /**
+
    * @brief Sets the X Coordinate
 
    * @param aX The new value of the X Coordinate.
@@ -142,6 +158,7 @@ class Coordinate {
    */
   void setXYZ(const double &aX, const double &aY, const double &aZ);
 
+  // Fixme(Yhap): Add doxygen comments here
   bool operator==(const Coordinate &rhs) const;
 
  private:
@@ -180,3 +197,5 @@ class Coordinate {
   double y;
   double z;
 };
+// Fixme(Yhap): Add doxygen comments here
+std::ostream& operator<<(std::ostream &os, const Coordinate &rhs);

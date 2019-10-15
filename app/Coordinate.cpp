@@ -47,6 +47,12 @@ double Coordinate::getZ() {
   return z;
 }
 
+Eigen::Vector3d Coordinate::getAsVec() const {
+  Eigen::Vector3d tReturn(x, y, z);
+  return tReturn;
+}
+
+
 void Coordinate::setX(const double &aX) {
   x = aX;
 }
@@ -67,6 +73,11 @@ void Coordinate::setXYZ(const double &aX, const double &aY, const double &aZ) {
 bool Coordinate::operator==(const Coordinate &rhs) const {
   return (x == rhs.x && y == rhs.y && z == rhs.z);
 }
+
+std::ostream& operator<<(std::ostream &os, const Coordinate &rhs) {
+  return os << rhs.getAsVec();
+}
+
 
 double Coordinate::convertM2F(double aMeters) {
   (void) aMeters;

@@ -25,33 +25,66 @@
  *
  */
 
+#include <Dense>
+
 #include "StraightLinePath.hpp"
+
 
 StraightLinePath::StraightLinePath() {
 }
 
 StraightLinePath::~StraightLinePath() {
 }
-
+//fixme remove after done coding
+#include <iostream>
 std::vector<Coordinate> StraightLinePath::computePath(
     const Coordinate &aStart, const Coordinate &aEnd,
     const double &aIncrement) {
-  (void) aStart;
-  (void) aEnd;
-  (void) aIncrement;
+  // Store end vector value as it will be used frequently.
+  Eigen::Vector3d tEndVec = aEnd.getAsVec();
 
+  // Initialize Points with Start Point
   std::vector<Coordinate> points;
+  points.push_back(aStart);
+  // Compute the distance to the goal from our last point
+  double tDistance = (tEndVec - points.back().getAsVec()).norm();
+
+  // Note: Because this is a straight line path the unit vector only needs to be
+  // computed once.
+
+  // Determine the direction to the goal
+  Eigen::Vector3d unitVec = determineDirection(aStart, aEnd, aIncrement);
+
+  while (tDistance > aIncrement) {
+
+    double tNewX = unitVec(0) + points.back().getX();
+    double tNewY = unitVec(1) + points.back().getY();
+    double tNewZ = unitVec(2) + points.back().getZ();
+    Coordinate tNewPoint(tNewX, tNewY, tNewZ);
+    // Put the newly calculated point on the list
+    points.push_back(tNewPoint);
+    // Recompute the new distance
+    tDistance = (tEndVec - points.back().getAsVec()).norm();
+  }
+  // Finally add the end point
+  points.push_back(aEnd);
 
   return points;
 }
 
-Coordinate StraightLinePath::determineDirection(const Coordinate &aStart,
+Eigen::Vector3d StraightLinePath::determineDirection(const Coordinate &aStart,
                                                 const Coordinate &aEnd,
                                                 const double &aIncrement) {
-  (void) aStart;
-  (void) aEnd;
+  Eigen::Vector3d tPnt;
+  // Compute the pointing vector
+  tPnt = aEnd.getAsVec() - aStart.getAsVec();
+
+  // Normalize the pointing vector for a unit vector
+  tPnt.normalize();
+
+  // Increment is not needed for this path planner to determine the direction.
+  // Assuming no obstacles to avoid.
   (void) aIncrement;
 
-  Coordinate tReturn(0, 0, 0);
-  return tReturn;
+  return tPnt;
 }

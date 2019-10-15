@@ -4,8 +4,11 @@ add_executable(shell-app main.cpp
  Coordinate.cpp
  Joints.cpp
  Demo.cpp)
+ message( ${CMAKE_SOURCE_DIR}/../../Eigen)
 include_directories(
     ${CMAKE_SOURCE_DIR}/include
+    ${CMAKE_SOURCE_DIR}/../../Eigen
+    ${CMAKE_SOURCE_DIR}/../../matplotlib-cpp
 )
 
 find_package(PythonLibs 2.7)

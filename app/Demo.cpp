@@ -25,8 +25,9 @@
  *
  */
 
+#include "matplotlibcpp.h"
+
 #include "Demo.hpp"
-#include "include/matplotlibcpp.h"
 
 // namespace plt = matplotlibcpp;
 

@@ -74,7 +74,7 @@ class IPathPlanner {
    * point along the path.
 
    */
-  virtual Coordinate determineDirection(const Coordinate &aStart,
+  virtual Eigen::Vector3d determineDirection(const Coordinate &aStart,
                                 const Coordinate &aEnd,
                                 const double &aIncrement) = 0;
 };

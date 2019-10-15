@@ -89,11 +89,11 @@ class StraightLinePath : public IPathPlanner {
 
    * @param aIncrement double. The max distance between path points.
 
-   * @return Coordinate The unit vector representing the direction of the next
+   * @return The unit vector representing the direction of the next
    * point along the path.
 
    */
-  Coordinate determineDirection(const Coordinate &aStart,
+  Eigen::Vector3d determineDirection(const Coordinate &aStart,
                                 const Coordinate &aEnd,
                                 const double &aIncrement);
 };
