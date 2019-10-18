@@ -34,6 +34,8 @@
 #pragma once
 
 #include <vector>
+#include "Eigen/Dense"
+
 #include "Joints.hpp"
 
 class DHTable {
@@ -102,7 +104,17 @@ class DHTable {
  private:
   std::vector<Frame> frames;
 
+  /**
+
+   * @brief DHTable Constructor with no Parameters. Shouldn't be used.
+
+   * @param None.
+
+   * @return None.
+
+   */
   DHTable();
+
   /**
 
    * @brief getTransform This function acts as a helper by taking the index of
