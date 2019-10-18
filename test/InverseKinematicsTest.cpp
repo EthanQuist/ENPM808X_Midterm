@@ -31,8 +31,10 @@
 
 #include "InverseKinematics.hpp"
 
-bool compareConfig(const JointPtr lhs, const JointPtr rhs) {
-  return lhs->getConfig() == rhs->getConfig();
+bool AreSame(double a, double b) {
+  double error = fabs(a - b);
+  double epsilon = 0.00001;
+  return error < epsilon;
 }
 
 TEST(InverseKinematics, checkContract) {
@@ -83,30 +85,36 @@ TEST(InverseKinematics, checkContract) {
   JointPtr result1 = result[0];
   double r1 = result1->getConfig();
   double q1 = tQ1->getConfig();
-  ASSERT_EQ(r1, q1);
+  bool joint_angle1 = AreSame(r1, q1);
+  ASSERT_EQ(joint_angle1, true);
 
   JointPtr result2 = result[1];
   double r2 = result2->getConfig();
   double q2 = tQ2->getConfig();
-  ASSERT_EQ(r2, q2);
+  bool joint_angle2 = AreSame(r2, q2);
+  ASSERT_EQ(joint_angle2, true);
 
   JointPtr result3 = result[2];
   double r3 = result3->getConfig();
   double q3 = tQ3->getConfig();
-  ASSERT_EQ(r3, q3);
+  bool joint_angle3 = AreSame(r3, q3);
+  ASSERT_EQ(joint_angle3, true);
 
   JointPtr result4 = result[3];
   double r4 = result4->getConfig();
   double q4 = tQ4->getConfig();
-  ASSERT_EQ(r4, q4);
+  bool joint_angle4 = AreSame(r4, q4);
+  ASSERT_EQ(joint_angle4, true);
 
   JointPtr result5 = result[4];
   double r5 = result5->getConfig();
   double q5 = tQ5->getConfig();
-  ASSERT_EQ(r5, q5);
+  bool joint_angle5 = AreSame(r5, q5);
+  ASSERT_EQ(joint_angle5, true);
 
   JointPtr result6 = result[5];
   double r6 = result6->getConfig();
   double q6 = tQ6->getConfig();
-  ASSERT_EQ(r6, q6);
+  bool joint_angle6 = AreSame(r6, q6);
+  ASSERT_EQ(joint_angle6, true);
 }

@@ -100,15 +100,6 @@ std::vector<JointPtr> InverseKinematicAcmeArm::computeIK(
   q6 = atan2(sin(q1) * r12 - cos(q1) * r22, -sin(q1) * r11 + cos(q1) * r21);
 
 
-  //rounding variables to allow for testing
-  q1 = floor(q1 * 10000 + 0.5) / 10000;
-  q2 = floor(q2 * 10000 + 0.5) / 10000;
-  q3 = floor(q3 * 10000 + 0.5) / 10000;
-  q4 = floor(q4 * 10000 + 0.5) / 10000;
-  q5 = floor(q5 * 10000 + 0.5) / 10000;
-  q6 = floor(q6 * 10000 + 0.5) / 10000;
-
-
   JointPtr joint_q1(new RevoluteJoint(q1));
   JointPtr joint_q2(new RevoluteJoint(q2));
   JointPtr joint_q3(new RevoluteJoint(q3));
