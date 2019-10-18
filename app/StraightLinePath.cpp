@@ -25,7 +25,7 @@
  *
  */
 
-#include <Dense>
+#include <Eigen/Dense>
 
 #include "StraightLinePath.hpp"
 

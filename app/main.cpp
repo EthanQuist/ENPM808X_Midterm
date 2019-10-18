@@ -28,7 +28,44 @@
 #include <lib.hpp>
 
 int main() {
-    Demo demonstration;
-    demonstration.runDemo();
-    return 0;
+
+  //build the IK Solver Class and result
+  InverseKinematicAcmeArm IKsolver;
+  std::vector < JointPtr > result;
+
+  //Set the inputs to the IK Solver
+  Coordinate inputPoint(2.0, 0.0, 2.5);
+  Eigen::Matrix3d Rotation(3, 3);
+  Rotation(0, 0) = 1.0;
+  Rotation(1, 1) = 1.0;
+  Rotation(2, 2) = 1.0;
+
+  //Run the IK Solver
+  result = IKsolver.computeIK(inputPoint, Rotation);
+
+  //Organize the results
+  JointPtr result1 = result[0];
+  JointPtr result2 = result[1];
+  JointPtr result3 = result[2];
+  JointPtr result4 = result[3];
+  JointPtr result5 = result[4];
+  JointPtr result6 = result[5];
+  double angle1 = result1->getConfig();
+  double angle2 = result2->getConfig();
+  double angle3 = result3->getConfig();
+  double angle4 = result4->getConfig();
+  double angle5 = result5->getConfig();
+  double angle6 = result6->getConfig();
+
+  //Print the results
+  std::cout << angle1 << std::endl;
+  std::cout << angle2 << std::endl;
+  std::cout << angle3 << std::endl;
+  std::cout << angle4 << std::endl;
+  std::cout << angle5 << std::endl;
+  std::cout << angle6 << std::endl;
+
+  //Demo demonstration;
+  //demonstration.runDemo();
+  return 0;
 }

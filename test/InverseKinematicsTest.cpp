@@ -40,7 +40,8 @@ TEST(InverseKinematics, checkContract) {
   std::vector<JointPtr> result;
   // Using the Coordinates from the Paper
   Coordinate inputPoint(3, 0, 2);
-  result = IKsolver.computeIK(inputPoint);
+  Eigen::Matrix3d Rotation(3, 3);
+  result = IKsolver.computeIK(inputPoint, Rotation);
 
   JointPtr tQ1(new RevoluteJoint(0));
   JointPtr tQ2(new RevoluteJoint(-49.9677));

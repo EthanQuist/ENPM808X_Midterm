@@ -37,6 +37,8 @@
 #include <vector>
 #include "Coordinate.hpp"
 #include "Joints.hpp"
+#include <Eigen/Dense>
+
 
 class InverseKinematicsBase {
  public:
@@ -63,7 +65,7 @@ class InverseKinematicsBase {
    * can be retrieved)
 
    */
-  virtual std::vector<JointPtr> computeIK(Coordinate) = 0;
+  virtual std::vector<JointPtr> computeIK(Coordinate, Eigen::Matrix3d) = 0;
 };
 
 class InverseKinematicAcmeArm : InverseKinematicsBase {
@@ -99,5 +101,5 @@ class InverseKinematicAcmeArm : InverseKinematicsBase {
    * @return std::vector<JointPtr> The vector of corresponding joints.
 
    */
-  std::vector<JointPtr> computeIK(Coordinate);
+  std::vector<JointPtr> computeIK(Coordinate, Eigen::Matrix3d);
 };

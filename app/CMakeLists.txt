@@ -7,8 +7,8 @@ add_executable(shell-app main.cpp
  message( ${CMAKE_SOURCE_DIR}/../../Eigen)
 include_directories(
     ${CMAKE_SOURCE_DIR}/include
-    ${CMAKE_SOURCE_DIR}/../ThirdParty/Eigen
-    ${CMAKE_SOURCE_DIR}/../ThirdPart/matplotlib-cpp
+    ${CMAKE_SOURCE_DIR}/../ThirdParty/eigen3
+    ${CMAKE_SOURCE_DIR}/../ThirdParty/matplotlib-cpp
 )
 
 find_package(PythonLibs 2.7)
