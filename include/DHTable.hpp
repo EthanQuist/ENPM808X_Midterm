@@ -131,4 +131,4 @@ class DHTable {
    */
   Eigen::Matrix4d getTransform(unsigned int);
 
-}
+};
