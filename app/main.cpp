@@ -34,14 +34,34 @@ int main() {
   std::vector < JointPtr > result;
 
   //Set the inputs to the IK Solver
-  Coordinate inputPoint(2.0, 0.0, 2.5);
-  Eigen::Matrix3d Rotation(3, 3);
-  Rotation(0, 0) = 1.0;
-  Rotation(1, 1) = 1.0;
-  Rotation(2, 2) = 1.0;
+  Eigen::Matrix4d T(4, 4);
+
+  std::cout << T << std::endl;
+
+  //Transform Matrix - Rotation
+  T(0, 0) = 1.0;
+  T(0, 1) = 0.0;
+  T(0, 2) = 0.0;
+  T(1, 0) = 0.0;
+  T(1, 1) = 1.0;
+  T(1, 2) = 0.0;
+  T(2, 0) = 0.0;
+  T(2, 1) = 0.0;
+  T(2, 2) = 1.0;
+  //Transform Matrix - bottom row
+  T(3, 0) = 0.0;
+  T(3, 1) = 0.0;
+  T(3, 2) = 0.0;
+  T(3, 3) = 1.0;
+  //Transform Matrix - Position
+  T(0, 3) = 2.0;
+  T(1, 3) = 0.0;
+  T(2, 3) = 2.5;
+
+  std::cout << T << std::endl;
 
   //Run the IK Solver
-  result = IKsolver.computeIK(inputPoint, Rotation);
+  result = IKsolver.computeIK(T);
 
   //Organize the results
   JointPtr result1 = result[0];
