@@ -30,8 +30,7 @@
 
 
 #include "DHTable.hpp"
-#include "Joint.hpp"
-
+#include "Joints.hpp"
 
 // Test that one can build forward Kinematics
 TEST(DHTable, FrameOutofBounds) {
@@ -92,7 +91,9 @@ TEST(DHTable, BuildFK_PositionTransform) {
   // Expected Transform is at position 2 0 2.5 with No rotation about the base
   // frame.
   Eigen::Vector3d position(2, 0, 2.5);
-  Eigen::Matrix4d expected = position.homogeneous();
+  Eigen::Matrix4d expected;
+  expected.setIdentity();
+  expected.block<3, 1>(0, 3) = position;
 
   ASSERT_EQ(result, expected);
 }
@@ -137,7 +138,7 @@ TEST(DHTable, BuildFK_OrientationTransform) {
 
   // Expected Transform is the Identity Matrix.
   Eigen::Matrix4d expected;
-  expected Eigen::Identity(4);
+  expected.setIdentity();
 
   ASSERT_EQ(result, expected);
 }

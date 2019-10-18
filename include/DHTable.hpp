@@ -40,14 +40,14 @@
 
 class DHTable {
 
+ public:
+
   struct Frame {
     PrismaticJoint d;
     RevoluteJoint theta;
     PrismaticJoint a;
     RevoluteJoint alpha;
   };
-
- public:
 
   /**
 

@@ -3,7 +3,9 @@ add_executable(shell-app main.cpp
  StraightLinePath.cpp
  Coordinate.cpp
  Joints.cpp
- Demo.cpp)
+ Demo.cpp
+ DHTable.cpp
+)
  message( ${CMAKE_SOURCE_DIR}/../../Eigen)
 include_directories(
     ${CMAKE_SOURCE_DIR}/include

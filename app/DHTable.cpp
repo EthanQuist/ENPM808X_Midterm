@@ -35,20 +35,21 @@ DHTable::~DHTable() {
 }
 
 DHTable::Frame& DHTable::modifyFrame(unsigned int aFrameIdx) {
-  DHTable::Frame &tReturn;
   // The Frame indices are 1 indexed to the user even though they are 0 indexed
   // when stored.
-  tReturn = frames(aFrameIdx - 1);
+  DHTable::Frame &tReturn = frames.at(aFrameIdx - 1);
 
   return tReturn;
 }
 
+#include<iostream>
+//fixme remvove io stream
 Eigen::Matrix4d DHTable::getTransform(unsigned int aStartFrame,
                                       unsigned int aEndFrame) {
   (void) aStartFrame;
   (void) aEndFrame;
 
-  Eigen::Matrix4d tReturn;
+  Eigen::Matrix4d tReturn = Eigen::Matrix4d::Zero();
 
   return tReturn;
 }
@@ -57,7 +58,7 @@ DHTable::DHTable() {
 }
 
 Eigen::Matrix4d DHTable::getTransform(unsigned int) {
-  Eigen::Matrix4d tReturn;
+  Eigen::Matrix4d tReturn = Eigen::Matrix4d::Zero();
 
   return tReturn;
 }
