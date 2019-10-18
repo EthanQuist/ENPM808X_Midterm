@@ -27,38 +27,61 @@
 
 #include "DHTable.hpp"
 
-DHTable::DHTable(unsigned int aNumFrames) {
-  frames = std::vector<Frame>(aNumFrames);
-}
-
 DHTable::~DHTable() {
 }
 
-DHTable::Frame& DHTable::modifyFrame(unsigned int aFrameIdx) {
+void DHTable::addFrame(const Frame &aFrame) {
   // The Frame indices are 1 indexed to the user even though they are 0 indexed
   // when stored.
-  DHTable::Frame &tReturn = frames.at(aFrameIdx - 1);
-
-  return tReturn;
+  // Need to push back a copy
+  frames.push_back(aFrame);
 }
 
-#include<iostream>
-//fixme remvove io stream
-Eigen::Matrix4d DHTable::getTransform(unsigned int aStartFrame,
-                                      unsigned int aEndFrame) {
-  (void) aStartFrame;
-  (void) aEndFrame;
+DHTable::Frame DHTable::getFrame(std::vector<Frame>::size_type aFrameIdx) {
+  return frames.at(aFrameIdx - 1);
+}
 
-  Eigen::Matrix4d tReturn = Eigen::Matrix4d::Zero();
+Eigen::Matrix4d DHTable::getTransform(std::vector<Frame>::size_type aStartFrame,
+                                      std::vector<Frame>::size_type aEndFrame) {
+  Eigen::Matrix4d tReturn;
+  tReturn.setIdentity();
+
+  if (aStartFrame > aEndFrame) {
+    // This should be flagged as an error.
+  }
+  if (aEndFrame > frames.size()) {
+    // This should be flagged as an error.
+  }
+
+  // Added 1 to because frames go from A to B
+  aStartFrame += 1;
+
+  for (auto idx = aStartFrame; idx < aEndFrame; idx++) {
+    tReturn *= getTransform(idx);
+  }
 
   return tReturn;
 }
 
 DHTable::DHTable() {
 }
+//fixme remove
+#include <iostream>
 
-Eigen::Matrix4d DHTable::getTransform(unsigned int) {
-  Eigen::Matrix4d tReturn = Eigen::Matrix4d::Zero();
+Eigen::Matrix4d DHTable::getTransform(std::vector<Frame>::size_type aFrameIdx) {
+
+  // Calls are 1 indexed though storage is 0 indexed.
+  Frame frame = frames.at(aFrameIdx - 1);
+  Eigen::Affine3d tTD(
+      Eigen::Translation3d(Eigen::Vector3d(0, 0, frame.d->getConfig())));
+  Eigen::Affine3d tTTheta(
+      Eigen::AngleAxisd(frame.theta->getConfig(), Eigen::Vector3d::UnitZ()));
+  Eigen::Affine3d tTA(
+      Eigen::Translation3d(Eigen::Vector3d(0, 0, frame.a->getConfig())));
+  Eigen::Affine3d tTAlpha(
+      Eigen::AngleAxisd(frame.alpha->getConfig(), Eigen::Vector3d::UnitZ()));
+
+  Eigen::Matrix4d tReturn = (tTD * tTTheta * tTA * tTAlpha).matrix();
 
   return tReturn;
 }

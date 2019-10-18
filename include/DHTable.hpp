@@ -33,6 +33,7 @@
  */
 #pragma once
 
+#include <memory>
 #include <vector>
 #include "Eigen/Dense"
 
@@ -41,25 +42,28 @@
 class DHTable {
 
  public:
-
+  // Default values prevent these pointers from being null.
   struct Frame {
-    PrismaticJoint d;
-    RevoluteJoint theta;
-    PrismaticJoint a;
-    RevoluteJoint alpha;
+    std::shared_ptr<PrismaticJoint> d = std::make_shared<PrismaticJoint>(
+        PrismaticJoint());
+    std::shared_ptr<RevoluteJoint> theta = std::make_shared<RevoluteJoint>(
+        RevoluteJoint());
+    std::shared_ptr<PrismaticJoint> a = std::make_shared<PrismaticJoint>(
+        PrismaticJoint());
+    std::shared_ptr<RevoluteJoint> alpha = std::make_shared<RevoluteJoint>(
+        RevoluteJoint());
   };
 
   /**
 
-   * @brief DH Table Constructor
+   * @brief DHTable Constructor with no Parameters.
 
-   * @param unsigned int The Number of frames required to describe the
-   * robot arm
+   * @param None.
 
    * @return None.
 
    */
-  DHTable(unsigned int);
+  DHTable();
 
   /**
 
@@ -74,17 +78,29 @@ class DHTable {
 
   /**
 
-   * @brief modifyFrame Method for the user to adjust the parameters
-   *  within each frame. The Frame access is 1 indexed. (Preserving 0 for the
-   *  base frame)
+   * @brief addFrame Method for the user to describe the Robot
+   * The Frame access is 1 indexed. (Preserving 0 for the
+   *  base frame) Frames must be added in the order of relation. i.e. frame 1
+   *  describes the relationship from frame 0 to frame 1 and frame 2 the
+   *  relationship from frame 1 to frame 2.
 
-   * @param unsigned int, The Frame index that the user would like to modify
+   * @param const Frame &, The Frame that will be added to the DH Table
 
-   * @return Frame &. The Frame that the use can edit and it will be modified
-   * within this class.
+   * @return None.
 
    */
-  Frame& modifyFrame(unsigned int);
+  void addFrame(const Frame&);
+
+  /**
+
+   * @brief getFrame returns a copy of the frame that was stored
+
+   * @param std::vector<Frame>::size_type 1 Indexed index of desired frame
+
+   * @return A copy of the frame.
+
+   */
+  Frame getFrame(std::vector<Frame>::size_type);
 
   /**
 
@@ -92,28 +108,18 @@ class DHTable {
    *  one frame to the another. Currently it is required that the first frame
    *  must precede the second frame.
 
-   * @param unsigned int,  The index of the frame being transformed from.
+   * @param size_type,  The index of the frame being transformed from.
 
-   * @param unsigned int,  The index of the frame being transformed to.
+   * @param size_type,  The index of the frame being transformed to.
 
    * @return Eigen::Matrix4d The Transformation Matrix to go from frame one to
    * frame two.
 
    */
-  Eigen::Matrix4d getTransform(unsigned int, unsigned int);
+  Eigen::Matrix4d getTransform(std::vector<Frame>::size_type,
+                               std::vector<Frame>::size_type);
  private:
   std::vector<Frame> frames;
-
-  /**
-
-   * @brief DHTable Constructor with no Parameters. Shouldn't be used.
-
-   * @param None.
-
-   * @return None.
-
-   */
-  DHTable();
 
   /**
 
@@ -121,7 +127,7 @@ class DHTable {
    * a frame, retrieving that frame and then using those parameters to build a
    * tranformation matrix.
 
-   * @param unsigned int,  The index of the frame being transformed to. This
+   * @param size_type,  The index of the frame being transformed to. This
    * function assumed that the tranform from is from the frame that preceded it.
 
 
@@ -129,6 +135,6 @@ class DHTable {
    * the previous frame.
 
    */
-  Eigen::Matrix4d getTransform(unsigned int);
+  Eigen::Matrix4d getTransform(std::vector<Frame>::size_type);
 
 };

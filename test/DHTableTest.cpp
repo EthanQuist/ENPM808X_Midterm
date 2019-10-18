@@ -25,6 +25,7 @@
 *
 */
 #include <math.h>
+#include<iostream>
 
 #include <gtest/gtest.h>
 
@@ -32,9 +33,71 @@
 #include "DHTable.hpp"
 #include "Joints.hpp"
 
-// Test that one can build forward Kinematics
+
+TEST(DHTable, ModifyFrames) {
+  DHTable myTable;
+  // Create Ptr to Configurable Params
+  JointPtr tQ4;
+  JointPtr tQ5;
+  JointPtr tQ6;
+
+  double d6 = 0.5;
+  double alpha4 = -M_PI / 2;
+  double alpha5 = M_PI / 2;
+
+
+  // Note all params are set to 0 unless otherwise specified.
+  DHTable::Frame tFrame4;
+
+  tFrame4.alpha->setConfig(alpha4);
+  tQ4 = tFrame4.theta;
+
+  // Frame 4 ( Is frame 1 for this test)
+  myTable.addFrame(tFrame4);
+
+  // Note all params are set to 0 unless otherwise specified.
+  DHTable::Frame tFrame5;
+
+  tFrame5.alpha->setConfig(alpha5);
+  tQ5 = tFrame5.theta;
+
+  // Frame 5 ( Is frame 2 for this test)
+  myTable.addFrame(tFrame5);
+
+  // Note all params are set to 0 unless otherwise specified.
+  DHTable::Frame tFrame6;
+
+  tFrame6.d->setConfig(d6);
+  tQ6 = tFrame6.theta;
+  // Frame 6 ( Is frame 3 for this test)
+  myTable.addFrame(tFrame6);
+
+  double theta4 = M_PI / 2;
+  double theta5 = M_PI / 2;
+  double theta6 = -M_PI / 2;
+
+  tQ4->setConfig(theta4);
+  tQ5->setConfig(theta5);
+  tQ6->setConfig(theta6);
+
+
+  DHTable::Frame tFrameTest = myTable.getFrame(1);
+
+  ASSERT_EQ(tFrameTest.alpha->getConfig(), alpha4);
+  ASSERT_EQ(tFrameTest.theta->getConfig(), tQ4->getConfig());
+
+  tFrameTest = myTable.getFrame(2);
+  ASSERT_EQ(tFrameTest.alpha->getConfig(), alpha5);
+  ASSERT_EQ(tFrameTest.theta->getConfig(), tQ5->getConfig());
+
+  tFrameTest = myTable.getFrame(3);
+  ASSERT_EQ(tFrameTest.d->getConfig(), d6);
+  ASSERT_EQ(tFrameTest.theta->getConfig(), tQ6->getConfig());
+
+}
+
 TEST(DHTable, FrameOutofBounds) {
-  DHTable myTable(6);
+  DHTable myTable;
 
   // This should be and error. Do we want to throw and catch exceptions?
   // FIXME: (Yhap) This would be a separate test if so
@@ -42,7 +105,7 @@ TEST(DHTable, FrameOutofBounds) {
 }
 
 TEST(DHTable, BuildFK_PositionTransform) {
-  DHTable myTable(3);
+  DHTable myTable;
 
   // Create Ptr to Configurable Params
   JointPtr tQ1;
@@ -55,31 +118,34 @@ TEST(DHTable, BuildFK_PositionTransform) {
   double a3 = 1;
   double alpha1 = M_PI / 2;
 
-  // Scope the modification so it can't be modified again once it goes out of
-  // scope
-  {
-    // Note all params are set to 0 unless otherwise specified.
-    DHTable::Frame tFrame;
 
-    // Frame 1
-    tFrame = myTable.modifyFrame(1);
+  // Note all params are set to 0 unless otherwise specified.
+  DHTable::Frame tFrame1;
 
-    tFrame.d = PrismaticJoint(d1);
-    tFrame.alpha = RevoluteJoint(alpha1);
-    tQ1 = std::make_shared<RevoluteJoint>(tFrame.theta);
+  tFrame1.d->setConfig(d1);
+  tFrame1.alpha->setConfig(alpha1);
+  tQ1 = tFrame1.theta;
 
-    // Frame 2
-    tFrame = myTable.modifyFrame(2);
+  // Frame 1
+  myTable.addFrame(tFrame1);
 
-    tFrame.a = PrismaticJoint(a2);
-    tQ2 = std::make_shared<RevoluteJoint>(tFrame.theta);
+  // Note all params are set to 0 unless otherwise specified.
+  DHTable::Frame tFrame2;
 
-    // Frame 3
-    tFrame = myTable.modifyFrame(3);
+  tFrame2.a->setConfig(a2);
+  tQ2 = tFrame2.theta;
 
-    tFrame.a = PrismaticJoint(a3);
-    tQ3 = std::make_shared<RevoluteJoint>(tFrame.theta);
-  }
+  // Frame 2
+  myTable.addFrame(tFrame2);
+
+  // Note all params are set to 0 unless otherwise specified.
+  DHTable::Frame tFrame3;
+
+  tFrame3.a->setConfig(a3);
+  tQ3 = tFrame3.theta;
+
+  // Frame 3
+  myTable.addFrame(tFrame3);
 
   // Set configuration values for expected output.
   tQ1->setConfig(0);
@@ -90,16 +156,20 @@ TEST(DHTable, BuildFK_PositionTransform) {
 
   // Expected Transform is at position 2 0 2.5 with No rotation about the base
   // frame.
-  Eigen::Vector3d position(2, 0, 2.5);
   Eigen::Matrix4d expected;
-  expected.setIdentity();
-  expected.block<3, 1>(0, 3) = position;
+  // Organized in the matrix form instead of in one line for clarity.
+  expected << 1, 0, 0, 2,
+  0, 0, -1, 0,
+  0, 1, 0, 2,
+  0, 0, 0, 1;
 
+  std::cout << "Result: \n" << result << std::endl;
+  std::cout << "Expected: \n" << expected << std::endl;
   ASSERT_EQ(result, expected);
 }
 
 TEST(DHTable, BuildFK_OrientationTransform) {
-  DHTable myTable(3);
+  DHTable myTable;
   // Create Ptr to Configurable Params
   JointPtr tQ4;
   JointPtr tQ5;
@@ -109,36 +179,154 @@ TEST(DHTable, BuildFK_OrientationTransform) {
   double alpha4 = -M_PI / 2;
   double alpha5 = M_PI / 2;
 
-  // Scope the modification so it can't be modified again once it goes out of
-  // scope
-  {
-    // Note all params are set to 0 unless otherwise specified.
-    DHTable::Frame tFrame;
 
-    // Frame 4 ( Is frame 1 for this test)
-    tFrame = myTable.modifyFrame(1);
+  // Note all params are set to 0 unless otherwise specified.
+  DHTable::Frame tFrame4;
 
-    tFrame.alpha = RevoluteJoint(alpha4);
-    tQ4 = std::make_shared<RevoluteJoint>(tFrame.theta);
+  tFrame4.alpha->setConfig(alpha4);
+  tQ4 = tFrame4.theta;
 
-    // Frame 5 ( Is frame 2 for this test)
-    tFrame = myTable.modifyFrame(2);
+  // Frame 4 ( Is frame 1 for this test)
+  myTable.addFrame(tFrame4);
 
-    tFrame.alpha = RevoluteJoint(alpha5);
-    tQ5 = std::make_shared<RevoluteJoint>(tFrame.theta);
+  // Note all params are set to 0 unless otherwise specified.
+  DHTable::Frame tFrame5;
 
-    // Frame 6 ( Is frame 3 for this test)
-    tFrame = myTable.modifyFrame(3);
+  tFrame5.alpha->setConfig(alpha5);
+  tQ5 = tFrame5.theta;
 
-    tFrame.d = PrismaticJoint(d6);
-    tQ6 = std::make_shared<RevoluteJoint>(tFrame.theta);
-  }
+  // Frame 5 ( Is frame 2 for this test)
+  myTable.addFrame(tFrame5);
+
+  // Note all params are set to 0 unless otherwise specified.
+  DHTable::Frame tFrame6;
+
+  tFrame6.d->setConfig(d6);
+  tQ6 = tFrame6.theta;
+  // Frame 6 ( Is frame 3 for this test)
+  myTable.addFrame(tFrame6);
+
+  double theta4 = M_PI / 2;
+  double theta5 = M_PI / 2;
+  double theta6 = -M_PI / 2;
+
+  tQ4->setConfig(theta4);
+  tQ5->setConfig(theta5);
+  tQ6->setConfig(theta6);
 
   Eigen::Matrix4d result = myTable.getTransform(0, 3);
 
-  // Expected Transform is the Identity Matrix.
+  // Expected Transform via Matlab Calculations
   Eigen::Matrix4d expected;
-  expected.setIdentity();
 
+  expected << 1, 0, 0, 0,
+  0, 0, 1, 0.5,
+  0, -1, 0, 0,
+  0, 0, 0, 1;
+
+  std::cout << "Result: \n" << result << std::endl;
+  std::cout << "Expected: \n" << expected << std::endl;
+  ASSERT_EQ(result, expected);
+}
+
+TEST(DHTable, Base2EndEffector) {
+  DHTable myTable;
+
+  // Create Ptr to Configurable Params
+  JointPtr tQ1;
+  JointPtr tQ2;
+  JointPtr tQ3;
+  JointPtr tQ4;
+  JointPtr tQ5;
+  JointPtr tQ6;
+
+  // Create Constants used in DH Parameters
+  double d1 = 2;
+  double a2 = 1;
+  double a3 = 1;
+  double alpha1 = M_PI / 2;
+  double d6 = 0.5;
+  double alpha4 = -M_PI / 2;
+  double alpha5 = M_PI / 2;
+
+
+  // Note all params are set to 0 unless otherwise specified.
+  DHTable::Frame tFrame1;
+
+  tFrame1.d->setConfig(d1);
+  tFrame1.alpha->setConfig(alpha1);
+  tQ1 = tFrame1.theta;
+
+  // Frame 1
+  myTable.addFrame(tFrame1);
+
+  // Note all params are set to 0 unless otherwise specified.
+  DHTable::Frame tFrame2;
+
+  tFrame2.a->setConfig(a2);
+  tQ2 = tFrame2.theta;
+
+  // Frame 2
+  myTable.addFrame(tFrame2);
+
+  // Note all params are set to 0 unless otherwise specified.
+  DHTable::Frame tFrame3;
+
+  tFrame3.a->setConfig(a3);
+  tQ3 = tFrame3.theta;
+
+  // Frame 3
+  myTable.addFrame(tFrame3);
+
+  // Note all params are set to 0 unless otherwise specified.
+  DHTable::Frame tFrame4;
+
+  tFrame4.alpha->setConfig(alpha4);
+  tQ4 = tFrame4.theta;
+
+  // Frame 4 ( Is frame 1 for this test)
+  myTable.addFrame(tFrame4);
+
+  // Note all params are set to 0 unless otherwise specified.
+  DHTable::Frame tFrame5;
+
+  tFrame5.alpha->setConfig(alpha5);
+  tQ5 = tFrame5.theta;
+
+  // Frame 5 ( Is frame 2 for this test)
+  myTable.addFrame(tFrame5);
+
+  // Note all params are set to 0 unless otherwise specified.
+  DHTable::Frame tFrame6;
+
+  tFrame6.d->setConfig(d6);
+  tQ6 = tFrame6.theta;
+  // Frame 6 ( Is frame 3 for this test)
+  myTable.addFrame(tFrame6);
+
+  double theta1 = 0;
+  double theta2 = 0;
+  double theta3 = 0;
+  double theta4 = M_PI / 2;
+  double theta5 = M_PI / 2;
+  double theta6 = -M_PI / 2;
+
+  // Set configuration values for expected output.
+  tQ1->setConfig(theta1);
+  tQ2->setConfig(theta2);
+  tQ3->setConfig(theta3);
+  tQ4->setConfig(theta4);
+  tQ5->setConfig(theta5);
+  tQ6->setConfig(theta6);
+
+  Eigen::Matrix4d result = myTable.getTransform(0, 6);
+
+  // Expected Transform via Matlab Calculations
+  Eigen::Matrix4d expected;
+
+  expected << 1, 0, 0, 2, 0, 1, 0, 0, 0, 0, 1, 2.5, 0, 0, 0, 1;
+
+  std::cout << "Result: \n" << result << std::endl;
+  std::cout << "Expected: \n" << expected << std::endl;
   ASSERT_EQ(result, expected);
 }
