@@ -40,28 +40,27 @@ InverseKinematicAcmeArm::~InverseKinematicAcmeArm() {
 }
 
 std::vector<JointPtr> InverseKinematicAcmeArm::computeIK(
-    Coordinate aPoint, Eigen::Matrix3d Rotation) {
+    Eigen::Matrix4d Transform) {
 
-  double r11 = Rotation(0, 0);  //r11
-  double r12 = Rotation(0, 1);  //r12
-  double r13 = Rotation(0, 2);  //r13
-  double r21 = Rotation(1, 0);  //r21
-  double r22 = Rotation(1, 1);  //r22
-  double r23 = Rotation(1, 2);  //r23
-  //double r31 = Rotation(2, 0);  //r31 unused
-  //double r32 = Rotation(2, 1);  //r32 unused
-  double r33 = Rotation(2, 2);  //r33
+  double r11 = Transform(0, 0);  //r11
+  double r12 = Transform(0, 1);  //r12
+  double r13 = Transform(0, 2);  //r13
+  double r21 = Transform(1, 0);  //r21
+  double r22 = Transform(1, 1);  //r22
+  double r23 = Transform(1, 2);  //r23
+  //double r31 = Transform(2, 0);  //r31 unused
+  //double r32 = Transform(2, 1);  //r32 unused
+  double r33 = Transform(2, 2);  //r33
+
+  double xo = Transform(0, 3);
+  double yo = Transform(1, 3);
+  double zo = Transform(2, 3);
 
   double xc, yc, zc;
-  double xo, yo, zo;
   double d1, d6, a2, a3;
   double q1, q2, q3, q4, q5, q6;
   double off;
   double G;
-
-  xo = aPoint.getX();
-  yo = aPoint.getY();
-  zo = aPoint.getZ();
 
   //Robot parameters
   d1 = 2;

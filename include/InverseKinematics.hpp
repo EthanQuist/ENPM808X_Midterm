@@ -65,7 +65,7 @@ class InverseKinematicsBase {
    * can be retrieved)
 
    */
-  virtual std::vector<JointPtr> computeIK(Coordinate, Eigen::Matrix3d) = 0;
+  virtual std::vector<JointPtr> computeIK(Eigen::Matrix4d) = 0;
 };
 
 class InverseKinematicAcmeArm : InverseKinematicsBase {
@@ -101,5 +101,5 @@ class InverseKinematicAcmeArm : InverseKinematicsBase {
    * @return std::vector<JointPtr> The vector of corresponding joints.
 
    */
-  std::vector<JointPtr> computeIK(Coordinate, Eigen::Matrix3d);
+  std::vector<JointPtr> computeIK(Eigen::Matrix4d);
 };
