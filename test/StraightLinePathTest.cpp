@@ -29,55 +29,162 @@
 
 #include "StraightLinePath.hpp"
 
-TEST(StraightLinePath, PathAlongXAxis) {
+bool AreSameMatrix4d(Eigen::Matrix4d A, Eigen::Matrix4d B) {
+  double epsilon = 0.00001;
+  bool equal = true;
+  for (int i = 0; i < 4; i++) {
+    for (int j = 0; j < 4; j++) {
+      double error = fabs(A(i, j) - B(i, j));
+      if (error > epsilon) {
+        equal = false;
+      }
+    }
+  }
+  return equal;
+}
+
+
+TEST(StraightLinePath, PathZero) {
   StraightLinePath PathMaker;
-  std::vector<Coordinate> result;
-  Coordinate start(0, 0, 0);
-  Coordinate end(5, 0, 0);
+  std::vector < Eigen::Matrix4d > result;
+  Eigen::Matrix4d start = Eigen::Matrix4d::Zero(4, 4);
+  Eigen::Matrix4d end = Eigen::Matrix4d::Zero(4, 4);
+  end(0, 3) = 0.0;
+
   result = PathMaker.computePath(start, end, 1);
-  std::vector<Coordinate> expected;
+  std::vector < Eigen::Matrix4d > expected;
   expected.push_back(start);
-  expected.push_back(Coordinate(1, 0, 0));
-  expected.push_back(Coordinate(2, 0, 0));
-  expected.push_back(Coordinate(3, 0, 0));
-  expected.push_back(Coordinate(4, 0, 0));
+
   expected.push_back(end);
-  // Test the X axis
   ASSERT_EQ(expected, result);
 }
 
+
+
+TEST(StraightLinePath, PathAlongXAxis) {
+  StraightLinePath PathMaker;
+  std::vector < Eigen::Matrix4d > result;
+  Eigen::Matrix4d start = Eigen::Matrix4d::Zero(4, 4);
+  Eigen::Matrix4d end = Eigen::Matrix4d::Zero(4, 4);
+  end(0, 3) = 5.0;
+
+  result = PathMaker.computePath(start, end, 0.2);
+  std::vector < Eigen::Matrix4d > expected;
+  expected.push_back(start);
+
+  Eigen::Matrix4d result1 = Eigen::Matrix4d::Zero(4, 4);
+  result1(0, 3) = 1.0;
+  expected.push_back(result1);
+
+  Eigen::Matrix4d result2 = Eigen::Matrix4d::Zero(4, 4);
+  result2(0, 3) = 2.0;
+  expected.push_back(result2);
+
+  Eigen::Matrix4d result3 = Eigen::Matrix4d::Zero(4, 4);
+  result3(0, 3) = 3.0;
+  expected.push_back(result3);
+
+  Eigen::Matrix4d result4 = Eigen::Matrix4d::Zero(4, 4);
+  result4(0, 3) = 4.0;
+  expected.push_back(result4);
+
+  expected.push_back(end);
+  // Test the X axis
+
+  std::cout << "expected[3] \n" << expected[3] << std::endl;
+  std::cout << "result[3] \n" << result[3] << std::endl;
+
+  ASSERT_EQ(AreSameMatrix4d(expected[0], result[0]), true);
+  ASSERT_EQ(AreSameMatrix4d(expected[1], result[1]), true);
+  ASSERT_EQ(AreSameMatrix4d(expected[2], result[2]), true);
+  ASSERT_EQ(AreSameMatrix4d(expected[3], result[3]), true);
+  ASSERT_EQ(AreSameMatrix4d(expected[4], result[4]), true);
+
+}
+
+
+
 TEST(StraightLinePath, PathAlongYAxis) {
   StraightLinePath PathMaker;
-  std::vector<Coordinate> result;
-  Coordinate start(0, 0, 0);
-  Coordinate end(0, 5, 0);
-  result = PathMaker.computePath(start, end, 1);
-  std::vector<Coordinate> expected;
+  std::vector < Eigen::Matrix4d > result;
+  Eigen::Matrix4d start = Eigen::Matrix4d::Zero(4, 4);
+  Eigen::Matrix4d end = Eigen::Matrix4d::Zero(4, 4);
+  end(1, 3) = 5.0;
+
+  result = PathMaker.computePath(start, end, 0.2);
+  std::vector < Eigen::Matrix4d > expected;
   expected.push_back(start);
-  expected.push_back(Coordinate(0, 1, 0));
-  expected.push_back(Coordinate(0, 2, 0));
-  expected.push_back(Coordinate(0, 3, 0));
-  expected.push_back(Coordinate(0, 4, 0));
+
+  Eigen::Matrix4d result1 = Eigen::Matrix4d::Zero(4, 4);
+  result1(1, 3) = 1.0;
+  expected.push_back(result1);
+
+  Eigen::Matrix4d result2 = Eigen::Matrix4d::Zero(4, 4);
+  result2(1, 3) = 2.0;
+  expected.push_back(result2);
+
+  Eigen::Matrix4d result3 = Eigen::Matrix4d::Zero(4, 4);
+  result3(1, 3) = 3.0;
+  expected.push_back(result3);
+
+  Eigen::Matrix4d result4 = Eigen::Matrix4d::Zero(4, 4);
+  result4(1, 3) = 4.0;
+  expected.push_back(result4);
+
   expected.push_back(end);
-  // Test the Y axis
-  ASSERT_EQ(expected, result);
+  // Test the X axis
+
+  std::cout << "expected[3] \n" << expected[3] << std::endl;
+  std::cout << "result[3] \n" << result[3] << std::endl;
+
+  ASSERT_EQ(AreSameMatrix4d(expected[0], result[0]), true);
+  ASSERT_EQ(AreSameMatrix4d(expected[1], result[1]), true);
+  ASSERT_EQ(AreSameMatrix4d(expected[2], result[2]), true);
+  ASSERT_EQ(AreSameMatrix4d(expected[3], result[3]), true);
+  ASSERT_EQ(AreSameMatrix4d(expected[4], result[4]), true);
+
 }
 
 TEST(StraightLinePath, PathAlongZAxis) {
   StraightLinePath PathMaker;
-  std::vector<Coordinate> result;
-  Coordinate start(0, 0, 0);
-  Coordinate end(0, 0, 5);
-  result = PathMaker.computePath(start, end, 1);
-  std::vector<Coordinate> expected;
+  std::vector < Eigen::Matrix4d > result;
+  Eigen::Matrix4d start = Eigen::Matrix4d::Zero(4, 4);
+  Eigen::Matrix4d end = Eigen::Matrix4d::Zero(4, 4);
+  end(2, 3) = 5.0;
+
+  result = PathMaker.computePath(start, end, 0.2);
+  std::vector < Eigen::Matrix4d > expected;
   expected.push_back(start);
-  expected.push_back(Coordinate(0, 0, 1));
-  expected.push_back(Coordinate(0, 0, 2));
-  expected.push_back(Coordinate(0, 0, 3));
-  expected.push_back(Coordinate(0, 0, 4));
+
+  Eigen::Matrix4d result1 = Eigen::Matrix4d::Zero(4, 4);
+  result1(2, 3) = 1.0;
+  expected.push_back(result1);
+
+  Eigen::Matrix4d result2 = Eigen::Matrix4d::Zero(4, 4);
+  result2(2, 3) = 2.0;
+  expected.push_back(result2);
+
+  Eigen::Matrix4d result3 = Eigen::Matrix4d::Zero(4, 4);
+  result3(2, 3) = 3.0;
+  expected.push_back(result3);
+
+  Eigen::Matrix4d result4 = Eigen::Matrix4d::Zero(4, 4);
+  result4(2, 3) = 4.0;
+  expected.push_back(result4);
+
   expected.push_back(end);
-  // Test the Z axis
-  ASSERT_EQ(expected, result);
+  // Test the X axis
+
+  std::cout << "expected[3] \n" << expected[3] << std::endl;
+  std::cout << "result[3] \n" << result[3] << std::endl;
+
+  ASSERT_EQ(AreSameMatrix4d(expected[0], result[0]), true);
+  ASSERT_EQ(AreSameMatrix4d(expected[1], result[1]), true);
+  ASSERT_EQ(AreSameMatrix4d(expected[2], result[2]), true);
+  ASSERT_EQ(AreSameMatrix4d(expected[3], result[3]), true);
+  ASSERT_EQ(AreSameMatrix4d(expected[4], result[4]), true);
+
 }
+
 
 // TODO(Yhap): Consider adding a Diagonal Straight line Path.
