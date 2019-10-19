@@ -35,9 +35,11 @@
 
 #include <memory>
 #include <vector>
-#include "Eigen/Dense"
+#include <Eigen/Dense>
 
-#include "Joints.hpp"
+#include "PrismaticJoint.hpp"
+#include "RevoluteJoint.hpp"
+
 
 class DHTable {
 

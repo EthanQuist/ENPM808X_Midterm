@@ -24,10 +24,11 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-
-#include "InverseKinematics.hpp"
 #include <cmath>
 #include <math.h>
+
+#include "InverseKinematics.hpp"
+#include "RevoluteJoint.hpp"
 
 
 InverseKinematicsBase::~InverseKinematicsBase() {

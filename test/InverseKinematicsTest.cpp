@@ -30,6 +30,7 @@
 #include <gtest/gtest.h>
 
 #include "InverseKinematics.hpp"
+#include "RevoluteJoint.hpp"
 
 bool AreSame(double a, double b) {
   double error = fabs(a - b);

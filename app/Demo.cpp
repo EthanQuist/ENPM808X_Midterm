@@ -27,9 +27,9 @@
 
 #include "matplotlibcpp.h"
 #include <Coordinate.hpp>
+#include <IJoint.hpp>
 #include <InverseKinematics.hpp>
 #include <IPathPlanner.hpp>
-#include <Joints.hpp>
 #include <StraightLinePath.hpp>
 
 #include "Demo.hpp"

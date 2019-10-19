@@ -28,10 +28,10 @@
 #include<iostream>
 
 #include <gtest/gtest.h>
+#include <IJoint.hpp>
 
 
 #include "DHTable.hpp"
-#include "Joints.hpp"
 
 
 TEST(DHTable, ModifyFrames) {

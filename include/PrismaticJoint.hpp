@@ -23,25 +23,75 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
-* @file lib.hpp
+ * @file Joints.hpp
 *
-* @brief header for file TO BE DELETED
+ * @brief Interface/Abstract Joint Class (Defines required functions)
 *
-* @author Corbyn Yhap (Driver)
+ * @author Corbyn Yhap (Driver)
 *
-* @copyright Acme Robotics, Ethan Quist, Corbyn Yhap
+ * @copyright Acme Robotics, Ethan Quist, Corbyn Yhap
 */
-
 #pragma once
 
-#include <iostream>
-#include <Demo.hpp>
-#include <Coordinate.hpp>
-#include <IJoint.hpp>
-#include <InverseKinematics.hpp>
-#include <IPathPlanner.hpp>
-#include <StraightLinePath.hpp>
+#include "IJoint.hpp"
 
-void dummy() {
-    std::cout << "HI" << std::endl;
-}
+class PrismaticJoint : public IJoint {
+ public:
+  /**
+
+   * @brief Prismatic Joint Constructor (Length Initialized to 0)
+
+   * @param None
+
+   * @return None.
+
+   */
+  PrismaticJoint();
+
+  /**
+
+   * @brief Alternate Prismatic Joint Constructor
+
+   * @param double Sets the length of the Prismatic joint
+
+   * @return None.
+
+   */
+  explicit PrismaticJoint(double);
+
+  /**
+
+   * @brief Prismatic Joint Destructor
+
+   * @param None
+
+   * @return None.
+
+   */
+  virtual ~PrismaticJoint();
+
+  /**
+
+   * @brief Method to retrieve Prismatic Joint Length (Meters)
+
+   * @param None.
+
+   * @return double Current Prismatic Joint length.
+
+   */
+  double getConfig();
+
+  /**
+
+   * @brief Method to set current joint configuration
+
+   * @param double The current length of the Prismatic joint. (Meters)
+
+   * @return None.
+
+   */
+  void setConfig(double);
+
+ private:
+  double length;
+};

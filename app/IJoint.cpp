@@ -23,83 +23,9 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @file InverseKinematics.hpp
- *
- * @brief The class header for our Inverse Kinematics Class
- *
- * @author Ethan Quist (driver) and Corbyn Yhap (Navigator)
- *
- * @copyright Acme Robotics, Ethan Quist, Corbyn Yhap
  */
-#pragma once
 
-#include <IJoint.hpp>
-#include <memory>
-#include <vector>
-#include "Coordinate.hpp"
-#include <Eigen/Dense>
+#include "IJoint.hpp"
 
-
-class InverseKinematicsBase {
- public:
-  /**
-
-   * @brief Virtual Destructor for the IK Base Class
-
-   * @param None.
-
-   * @return None.
-
-   */
-
-  virtual ~InverseKinematicsBase();
-
-  /**
-
-   * @brief Method to compute Inverse Kinematics. Required of all
-   *  Derived Classes
-
-   * @param Coordinate. A XYZ Coordinate (Meters)
-
-   * @return std::vector<JointPtr> A vector of joints (From which configurations
-   * can be retrieved)
-
-   */
-  virtual std::vector<JointPtr> computeIK(Eigen::Matrix4d) = 0;
-};
-
-class InverseKinematicAcmeArm : InverseKinematicsBase {
- public:
-  /**
-
-   * @brief Constructor for Inverse Kinematics Acme Arm
-
-   * @param None.
-
-   * @return None.
-
-   */
-  InverseKinematicAcmeArm();
-
-  /**
-
-   * @brief Destructor for Inverse Kinematics Acme Arm
-
-   * @param None.
-
-   * @return None.
-
-   */
-  virtual ~InverseKinematicAcmeArm();
-
-  /**
-
-   * @brief Method to compute Inverse Kinematics For the Acme Arm
-
-   * @param Coordinate. A XYZ Coordinate (Meters)
-
-   * @return std::vector<JointPtr> The vector of corresponding joints.
-
-   */
-  std::vector<JointPtr> computeIK(Eigen::Matrix4d);
-};
+IJoint::~IJoint() {
+}

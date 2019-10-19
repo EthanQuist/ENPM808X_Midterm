@@ -2,7 +2,9 @@ add_executable(shell-app main.cpp
  InverseKinematics.cpp
  StraightLinePath.cpp
  Coordinate.cpp
- Joints.cpp
+ IJoint.cpp
+ PrismaticJoint.cpp
+ RevoluteJoint.cpp
  Demo.cpp
  DHTable.cpp
 )

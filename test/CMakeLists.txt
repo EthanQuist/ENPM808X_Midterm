@@ -6,7 +6,9 @@ add_executable(
     test.cpp
     ${CMAKE_SOURCE_DIR}/app/InverseKinematics.cpp
     ${CMAKE_SOURCE_DIR}/app/Coordinate.cpp
-    ${CMAKE_SOURCE_DIR}/app/Joints.cpp
+    ${CMAKE_SOURCE_DIR}/app/IJoint.cpp
+    ${CMAKE_SOURCE_DIR}/app/PrismaticJoint.cpp
+    ${CMAKE_SOURCE_DIR}/app/RevoluteJoint.cpp
     InverseKinematicsTest.cpp
     ${CMAKE_SOURCE_DIR}/app/StraightLinePath.cpp
     StraightLinePathTest.cpp

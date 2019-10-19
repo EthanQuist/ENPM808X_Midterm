@@ -25,31 +25,7 @@
  *
  */
 
-#include "Joints.hpp"
-
-IJoint::~IJoint() {
-}
-
-PrismaticJoint::PrismaticJoint()
-    :
-    length(0) {
-}
-
-PrismaticJoint::PrismaticJoint(double aLength)
-    :
-    length(aLength) {
-}
-
-PrismaticJoint::~PrismaticJoint() {
-}
-
-double PrismaticJoint::getConfig() {
-  return length;
-}
-
-void PrismaticJoint::setConfig(double aLength) {
-  length = aLength;
-}
+#include "RevoluteJoint.hpp"
 
 RevoluteJoint::RevoluteJoint()
     :

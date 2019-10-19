@@ -23,25 +23,52 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
-* @file lib.hpp
+ * @file Joints.hpp
 *
-* @brief header for file TO BE DELETED
+ * @brief Interface/Abstract Joint Class (Defines required functions)
 *
-* @author Corbyn Yhap (Driver)
+ * @author Corbyn Yhap (Driver)
 *
-* @copyright Acme Robotics, Ethan Quist, Corbyn Yhap
+ * @copyright Acme Robotics, Ethan Quist, Corbyn Yhap
 */
-
 #pragma once
 
-#include <iostream>
-#include <Demo.hpp>
-#include <Coordinate.hpp>
-#include <IJoint.hpp>
-#include <InverseKinematics.hpp>
-#include <IPathPlanner.hpp>
-#include <StraightLinePath.hpp>
+#include <memory>
 
-void dummy() {
-    std::cout << "HI" << std::endl;
-}
+class IJoint {
+ public:
+  /**
+
+   * @brief Destructor for Joint Interface
+
+   * @param None.
+
+   * @return None
+
+   */
+  virtual ~IJoint();
+
+  /**
+
+   * @brief Method to retrieve current joint configuration
+
+   * @param None.
+
+   * @return double
+
+   */
+  virtual double getConfig() = 0;
+
+  /**
+
+   * @brief Method to set current joint configuration
+
+   * @param double the joint configuration value
+
+   * @return None.
+
+   */
+  virtual void setConfig(double) = 0;
+};
+// Typedef the pointer for easy external polymorphic use.
+typedef std::shared_ptr<IJoint> JointPtr;
