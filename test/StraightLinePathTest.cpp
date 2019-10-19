@@ -29,20 +29,15 @@
 
 #include "StraightLinePath.hpp"
 
-bool AreSameMatrix4d(Eigen::Matrix4d A, Eigen::Matrix4d B) {
-  double epsilon = 0.00001;
-  bool equal = true;
-  for (int i = 0; i < 4; i++) {
-    for (int j = 0; j < 4; j++) {
-      double error = fabs(A(i, j) - B(i, j));
-      if (error > epsilon) {
-        equal = false;
-      }
-    }
+void compareVecMat(std::vector<Eigen::Matrix4d> &result,
+                   std::vector<Eigen::Matrix4d> &expected) {
+  std::vector<Eigen::Matrix4d>::iterator resultIter = result.begin();
+  for (auto expect : expected) {
+    bool closeEnough = expect.isApprox(*resultIter);
+    resultIter++;
+    ASSERT_TRUE(closeEnough);
   }
-  return equal;
 }
-
 
 TEST(StraightLinePath, PathZero) {
   StraightLinePath PathMaker;
@@ -94,12 +89,7 @@ TEST(StraightLinePath, PathAlongXAxis) {
   std::cout << "expected[3] \n" << expected[3] << std::endl;
   std::cout << "result[3] \n" << result[3] << std::endl;
 
-  ASSERT_EQ(AreSameMatrix4d(expected[0], result[0]), true);
-  ASSERT_EQ(AreSameMatrix4d(expected[1], result[1]), true);
-  ASSERT_EQ(AreSameMatrix4d(expected[2], result[2]), true);
-  ASSERT_EQ(AreSameMatrix4d(expected[3], result[3]), true);
-  ASSERT_EQ(AreSameMatrix4d(expected[4], result[4]), true);
-
+  compareVecMat(result, expected);
 }
 
 
@@ -137,11 +127,7 @@ TEST(StraightLinePath, PathAlongYAxis) {
   std::cout << "expected[3] \n" << expected[3] << std::endl;
   std::cout << "result[3] \n" << result[3] << std::endl;
 
-  ASSERT_EQ(AreSameMatrix4d(expected[0], result[0]), true);
-  ASSERT_EQ(AreSameMatrix4d(expected[1], result[1]), true);
-  ASSERT_EQ(AreSameMatrix4d(expected[2], result[2]), true);
-  ASSERT_EQ(AreSameMatrix4d(expected[3], result[3]), true);
-  ASSERT_EQ(AreSameMatrix4d(expected[4], result[4]), true);
+  compareVecMat(result, expected);
 
 }
 
@@ -178,11 +164,7 @@ TEST(StraightLinePath, PathAlongZAxis) {
   std::cout << "expected[3] \n" << expected[3] << std::endl;
   std::cout << "result[3] \n" << result[3] << std::endl;
 
-  ASSERT_EQ(AreSameMatrix4d(expected[0], result[0]), true);
-  ASSERT_EQ(AreSameMatrix4d(expected[1], result[1]), true);
-  ASSERT_EQ(AreSameMatrix4d(expected[2], result[2]), true);
-  ASSERT_EQ(AreSameMatrix4d(expected[3], result[3]), true);
-  ASSERT_EQ(AreSameMatrix4d(expected[4], result[4]), true);
+  compareVecMat(result, expected);
 
 }
 
