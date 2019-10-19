@@ -27,8 +27,12 @@
 #include <iostream>
 #include <lib.hpp>
 
+
 int main() {
 
+
+
+  /*
   //build the IK Solver Class and result
   InverseKinematicAcmeArm IKsolver;
   std::vector < JointPtr > result;
@@ -84,8 +88,10 @@ int main() {
   std::cout << angle4 << std::endl;
   std::cout << angle5 << std::endl;
   std::cout << angle6 << std::endl;
-
-  //Demo demonstration;
-  //demonstration.runDemo();
+   *
+   */
+  Demo demonstration;
+  demonstration.runDemo();
+  dummy();
   return 0;
 }

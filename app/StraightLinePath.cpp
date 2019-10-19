@@ -35,49 +35,51 @@ StraightLinePath::StraightLinePath() {
 
 StraightLinePath::~StraightLinePath() {
 }
-//fixme remove after done coding
+
 #include <iostream>
-std::vector<Coordinate> StraightLinePath::computePath(
-    const Coordinate &aStart, const Coordinate &aEnd,
+std::vector<Eigen::Matrix4d> StraightLinePath::computePath(
+    Eigen::Matrix4d &aStart, Eigen::Matrix4d &aEnd,
     const double &aIncrement) {
-  // Store end vector value as it will be used frequently.
-  Eigen::Vector3d tEndVec = aEnd.getAsVec();
 
-  // Initialize Points with Start Point
-  std::vector<Coordinate> points;
-  points.push_back(aStart);
-  // Compute the distance to the goal from our last point
-  double tDistance = (tEndVec - points.back().getAsVec()).norm();
+  double startX = aStart(0, 3);
+  double startY = aStart(1, 3);
+  double startZ = aStart(2, 3);
+  double endX = aEnd(0, 3);
+  double endY = aEnd(1, 3);
+  double endZ = aEnd(2, 3);
+  double dirX = endX - startX;
+  double dirY = endY - startY;
+  double dirZ = endZ - startZ;
 
-  // Note: Because this is a straight line path the unit vector only needs to be
-  // computed once.
+  std::vector < Eigen::Matrix4d > points;
 
-  // Determine the direction to the goal
-  Eigen::Vector3d unitVec = determineDirection(aStart, aEnd, aIncrement);
+  for (double i = 0.0; i < 1; i = i + aIncrement) {
+    std::cout << i << std::endl;
+    double pointX = startX + i * dirX;
+    double pointY = startY + i * dirY;
+    double pointZ = startZ + i * dirZ;
 
-  while (tDistance > aIncrement) {
+    Eigen::Matrix4d newMatrix = Eigen::Matrix4d::Zero(4, 4);
+    newMatrix(0, 3) = pointX;
+    newMatrix(1, 3) = pointY;
+    newMatrix(2, 3) = pointZ;
 
-    double tNewX = unitVec(0) + points.back().getX();
-    double tNewY = unitVec(1) + points.back().getY();
-    double tNewZ = unitVec(2) + points.back().getZ();
-    Coordinate tNewPoint(tNewX, tNewY, tNewZ);
-    // Put the newly calculated point on the list
-    points.push_back(tNewPoint);
-    // Recompute the new distance
-    tDistance = (tEndVec - points.back().getAsVec()).norm();
+    points.push_back(newMatrix);
   }
-  // Finally add the end point
+
   points.push_back(aEnd);
 
   return points;
+
+
 }
 
-Eigen::Vector3d StraightLinePath::determineDirection(const Coordinate &aStart,
-                                                const Coordinate &aEnd,
+Eigen::Vector3d StraightLinePath::determineDirection(Eigen::Vector3d &aStart,
+                                                     Eigen::Vector3d &aEnd,
                                                 const double &aIncrement) {
   Eigen::Vector3d tPnt;
   // Compute the pointing vector
-  tPnt = aEnd.getAsVec() - aStart.getAsVec();
+  tPnt = aEnd - aStart;
 
   // Normalize the pointing vector for a unit vector
   tPnt.normalize();
@@ -88,3 +90,5 @@ Eigen::Vector3d StraightLinePath::determineDirection(const Coordinate &aStart,
 
   return tPnt;
 }
+
+
