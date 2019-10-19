@@ -165,7 +165,8 @@ TEST(DHTable, BuildFK_PositionTransform) {
 
   std::cout << "Result: \n" << result << std::endl;
   std::cout << "Expected: \n" << expected << std::endl;
-  ASSERT_EQ(result, expected);
+  bool closeEnough = result.isApprox(expected);
+  ASSERT_TRUE(closeEnough);
 }
 
 TEST(DHTable, BuildFK_OrientationTransform) {
@@ -226,7 +227,8 @@ TEST(DHTable, BuildFK_OrientationTransform) {
 
   std::cout << "Result: \n" << result << std::endl;
   std::cout << "Expected: \n" << expected << std::endl;
-  ASSERT_EQ(result, expected);
+  bool closeEnough = result.isApprox(expected);
+  ASSERT_TRUE(closeEnough);
 }
 
 TEST(DHTable, Base2EndEffector) {
@@ -328,5 +330,7 @@ TEST(DHTable, Base2EndEffector) {
 
   std::cout << "Result: \n" << result << std::endl;
   std::cout << "Expected: \n" << expected << std::endl;
-  ASSERT_EQ(result, expected);
+
+  bool closeEnough = result.isApprox(expected);
+  ASSERT_TRUE(closeEnough);
 }

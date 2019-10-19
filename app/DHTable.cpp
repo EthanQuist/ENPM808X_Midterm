@@ -55,7 +55,7 @@ Eigen::Matrix4d DHTable::getTransform(std::vector<Frame>::size_type aStartFrame,
 
   // Added 1 to because frames go from A to B
   aStartFrame += 1;
-
+  aEndFrame += 1;
   for (auto idx = aStartFrame; idx < aEndFrame; idx++) {
     tReturn *= getTransform(idx);
   }
@@ -65,8 +65,6 @@ Eigen::Matrix4d DHTable::getTransform(std::vector<Frame>::size_type aStartFrame,
 
 DHTable::DHTable() {
 }
-//fixme remove
-#include <iostream>
 
 Eigen::Matrix4d DHTable::getTransform(std::vector<Frame>::size_type aFrameIdx) {
 
@@ -77,11 +75,11 @@ Eigen::Matrix4d DHTable::getTransform(std::vector<Frame>::size_type aFrameIdx) {
   Eigen::Affine3d tTTheta(
       Eigen::AngleAxisd(frame.theta->getConfig(), Eigen::Vector3d::UnitZ()));
   Eigen::Affine3d tTA(
-      Eigen::Translation3d(Eigen::Vector3d(0, 0, frame.a->getConfig())));
+      Eigen::Translation3d(Eigen::Vector3d(frame.a->getConfig(), 0, 0)));
   Eigen::Affine3d tTAlpha(
-      Eigen::AngleAxisd(frame.alpha->getConfig(), Eigen::Vector3d::UnitZ()));
+      Eigen::AngleAxisd(frame.alpha->getConfig(), Eigen::Vector3d::UnitX()));
 
-  Eigen::Matrix4d tReturn = (tTD * tTTheta * tTA * tTAlpha).matrix();
+  Eigen::Matrix4d tReturn = (tTTheta * tTD * tTA * tTAlpha).matrix();
 
   return tReturn;
 }
