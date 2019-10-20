@@ -31,29 +31,11 @@
 #include <InverseKinematics.hpp>
 #include <IPathPlanner.hpp>
 #include <StraightLinePath.hpp>
+#include <iostream>
 
 #include "Demo.hpp"
 
-// namespace plt = matplotlibcpp;
-
 void Demo::runDemo() {
-  /*
-  int t = 1000;
-  int i = 0;
-  std::vector<double> x;
-  std::vector<double> y;
-  std::vector<double> z;
-  for (i = 0; i < t; i++) {
-    x.push_back(i);
-    y.push_back(sin(3.14 * i / 180));
-    if (i % 10 == 0) {
-      matplotlibcpp::clf();
-      matplotlibcpp::plot(x, y);
-      matplotlibcpp::title("Trajectory Demo");
-      matplotlibcpp::pause(0.01);
-    }
-  }
-   */
 
   StraightLinePath pathMaker;
   InverseKinematicAcmeArm IKsolver;
@@ -116,84 +98,156 @@ void Demo::runDemo() {
     pathY.push_back(m(1, 3));
     pathZ.push_back(m(2, 3));
 
-    //inverse kinematics
-    std::vector<JointPtr> result;
-    result = IKsolver.computeIK(m);
-    JointPtr result1 = result[0];
-    JointPtr result2 = result[1];
-    JointPtr result3 = result[2];
-    JointPtr result4 = result[3];
-    JointPtr result5 = result[4];
-    JointPtr result6 = result[5];
-    double angle1 = result1->getConfig();
-    double angle2 = result2->getConfig();
-    double angle3 = result3->getConfig();
-    double angle4 = result4->getConfig();
-    double angle5 = result5->getConfig();
-    double angle6 = result6->getConfig();
-    q1Vec.push_back(angle1);
-    q2Vec.push_back(angle2);
-    q3Vec.push_back(angle3);
-    q4Vec.push_back(angle4);
-    q5Vec.push_back(angle5);
-    q6Vec.push_back(angle6);
-
-    //active plot
-    //matplotlibcpp::clf();
-    //matplotlibcpp::plot(pathX, pathY);
-    //matplotlibcpp::title("Plotting Trajectory");
-    //matplotlibcpp::pause(0.01);
+    //Trajectory Plot Animation
+    matplotlibcpp::clf();
+    matplotlibcpp::plot(pathX, pathY);
+    matplotlibcpp::title("Plotting Trajectory [X-Y Plane]");
+    matplotlibcpp::xlabel("X [m]");
+    matplotlibcpp::ylabel("Y [m]");
+    matplotlibcpp::pause(0.01);
 
   }
 
+  //Holding Trajectory Plot
   matplotlibcpp::plot(pathX, pathY);
-  matplotlibcpp::title("Plotting Trajectory");
+  matplotlibcpp::title("Plotting Trajectory [X-Y Plane]");
+  matplotlibcpp::xlabel("X [m]");
+  matplotlibcpp::ylabel("Y [m]");
   matplotlibcpp::show();
 
-  std::cout << q1Vec.size() << std::endl;
-
+  //create x-axis for time domain
   std::vector<double> qx;
-  qx.push_back(1);
-  qx.push_back(2);
-  qx.push_back(3);
-  qx.push_back(4);
-  qx.push_back(5);
-  qx.push_back(6);
-  qx.push_back(7);
-  qx.push_back(8);
-  qx.push_back(9);
-  qx.push_back(10);
-  qx.push_back(11);
-  qx.push_back(12);
+  int i;
+  for (i = 0; i < (int) q1Vec.size(); i++) {
+    //std::cout << i << std::endl;
+    qx.push_back(i);
+}
 
-  matplotlibcpp::named_plot("Joint 1", qx, q1Vec);
-  matplotlibcpp::named_plot("Joint 2", qx, q2Vec);
-  matplotlibcpp::named_plot("Joint 3", qx, q3Vec);
-  matplotlibcpp::named_plot("Joint 4", qx, q4Vec);
-  matplotlibcpp::named_plot("Joint 5", qx, q5Vec);
-  matplotlibcpp::named_plot("Joint 6", qx, q6Vec);
-  matplotlibcpp::title("Plotting Trajectory");
-  matplotlibcpp::legend();
+
+  std::vector<double> pX;
+  std::vector<double> pY;
+  std::vector<double> pZ;
+  std::vector<double> q1V;
+  std::vector<double> q2V;
+  std::vector<double> q3V;
+  std::vector<double> q4V;
+  std::vector<double> q5V;
+  std::vector<double> q6V;
+
+  std::vector<double> xi;
+  int j = 0;
+  for (auto& mat : matrixVec) {
+
+    //path trajectory
+    pX.push_back(mat(0, 3));
+    pY.push_back(mat(1, 3));
+    pZ.push_back(mat(2, 3));
+
+    //inverse kinematics
+    std::vector<JointPtr> res;
+    res = IKsolver.computeIK(mat);
+    JointPtr res1 = res[0];
+    JointPtr res2 = res[1];
+    JointPtr res3 = res[2];
+    JointPtr res4 = res[3];
+    JointPtr res5 = res[4];
+    JointPtr res6 = res[5];
+    double a1 = res1->getConfig();
+    double a2 = res2->getConfig();
+    double a3 = res3->getConfig();
+    double a4 = res4->getConfig();
+    double a5 = res5->getConfig();
+    double a6 = res6->getConfig();
+    q1V.push_back(a1);
+    q2V.push_back(a2);
+    q3V.push_back(a3);
+    q4V.push_back(a4);
+    q5V.push_back(a5);
+    q6V.push_back(a6);
+
+    xi.push_back(j);
+    j++;
+
+    //Joint Angle Plot Animation
+    matplotlibcpp::clf();
+    matplotlibcpp::subplot(3, 2, 1);
+    matplotlibcpp::plot(xi, q1V);
+    matplotlibcpp::title("Joint Angle Q1");
+    matplotlibcpp::xlabel("time");
+    matplotlibcpp::ylabel("Q1 [rad]");
+    matplotlibcpp::subplot(3, 2, 2);
+    matplotlibcpp::plot(xi, q2V);
+    matplotlibcpp::title("Joint Angle Q2");
+    matplotlibcpp::xlabel("time");
+    matplotlibcpp::ylabel("Q2 [rad]");
+    matplotlibcpp::subplot(3, 2, 3);
+    matplotlibcpp::plot(xi, q3V);
+    matplotlibcpp::title("Joint Angle Q3");
+    matplotlibcpp::xlabel("time");
+    matplotlibcpp::ylabel("Q3 [rad]");
+    matplotlibcpp::subplot(3, 2, 4);
+    matplotlibcpp::plot(xi, q4V);
+    matplotlibcpp::title("Joint Angle Q4");
+    matplotlibcpp::xlabel("time");
+    matplotlibcpp::ylabel("Q4 [rad]");
+    matplotlibcpp::subplot(3, 2, 5);
+    matplotlibcpp::plot(xi, q5V);
+    matplotlibcpp::title("Joint Angle Q5");
+    matplotlibcpp::xlabel("time");
+    matplotlibcpp::ylabel("Q5 [rad]");
+    matplotlibcpp::subplot(3, 2, 6);
+    matplotlibcpp::plot(xi, q6V);
+    matplotlibcpp::title("Joint Angle Q6");
+    matplotlibcpp::xlabel("time");
+    matplotlibcpp::ylabel("Q6 [rad]");
+
+    std::map<std::string, double> keywords;
+    keywords.insert(std::make_pair("hspace", 0.75));
+    keywords.insert(std::make_pair("wspace", 0.75));
+    matplotlibcpp::subplots_adjust(keywords);
+
+    matplotlibcpp::pause(0.01);
+
+
+  }
+
+  //Hold Joint Angle plot in final position
+  matplotlibcpp::subplot(3, 2, 1);
+  matplotlibcpp::plot(xi, q1V);
+  matplotlibcpp::title("Joint Angle Q1");
+  matplotlibcpp::xlabel("time");
+  matplotlibcpp::ylabel("Q1 [rad]");
+  matplotlibcpp::subplot(3, 2, 2);
+  matplotlibcpp::plot(xi, q2V);
+  matplotlibcpp::title("Joint Angle Q2");
+  matplotlibcpp::xlabel("time");
+  matplotlibcpp::ylabel("Q2 [rad]");
+  matplotlibcpp::subplot(3, 2, 3);
+  matplotlibcpp::plot(xi, q3V);
+  matplotlibcpp::title("Joint Angle Q3");
+  matplotlibcpp::xlabel("time");
+  matplotlibcpp::ylabel("Q3 [rad]");
+  matplotlibcpp::subplot(3, 2, 4);
+  matplotlibcpp::plot(xi, q4V);
+  matplotlibcpp::title("Joint Angle Q4");
+  matplotlibcpp::xlabel("time");
+  matplotlibcpp::ylabel("Q4 [rad]");
+  matplotlibcpp::subplot(3, 2, 5);
+  matplotlibcpp::plot(xi, q5V);
+  matplotlibcpp::title("Joint Angle Q5");
+  matplotlibcpp::xlabel("time");
+  matplotlibcpp::ylabel("Q5 [rad]");
+  matplotlibcpp::subplot(3, 2, 6);
+  matplotlibcpp::plot(xi, q6V);
+  matplotlibcpp::title("Joint Angle Q6");
+  matplotlibcpp::xlabel("time");
+  matplotlibcpp::ylabel("Q6 [rad]");
+
+  std::map<std::string, double> keywords;
+  keywords.insert(std::make_pair("hspace", 0.75));
+  keywords.insert(std::make_pair("wspace", 0.75));
+  matplotlibcpp::subplots_adjust(keywords);
   matplotlibcpp::show();
-
-
-
-  /*
-   //plotting joint angles vs time
-   for (int i = 0; i < q1Vec.size(); i++) {
-   matplotlibcpp::clf();
-   matplotlibcpp::named_plot("Q1", i, q1Vec[i]);
-   matplotlibcpp::named_plot("Q2", i, q1Vec[i]);
-   matplotlibcpp::named_plot("Q3", i, q1Vec[i]);
-   matplotlibcpp::named_plot("Q4", i, q1Vec[i]);
-   matplotlibcpp::named_plot("Q5", i, q1Vec[i]);
-   matplotlibcpp::named_plot("Q6", i, q1Vec[i]);
-   matplotlibcpp::title("Joint Angles");
-   matplotlibcpp::pause(0.01);
-
-   }
-   */
-
 
 
 }

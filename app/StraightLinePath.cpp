@@ -35,7 +35,7 @@ StraightLinePath::StraightLinePath() {
 
 StraightLinePath::~StraightLinePath() {
 }
-#include <iostream>
+
 std::vector<Eigen::Matrix4d> StraightLinePath::computePath(
     const Eigen::Matrix4d &aStartMat, const Eigen::Matrix4d &aEndMat,
     const double &aIncrement) {
@@ -71,9 +71,9 @@ std::vector<Eigen::Matrix4d> StraightLinePath::computePath(
 
     points.push_back(tNewPoint);
 
-    std::cout << "New Point Being added: " << std::endl;
-    std::cout << tNewPoint << std::endl;
-    getchar();
+    //std::cout << "New Point Being added: " << std::endl;
+    //std::cout << tNewPoint << std::endl;
+    //getchar();
 
     // Recompute the new distance
     tDistance = (tEndVec - points.back().block<3, 1>(0, 3)).norm();
