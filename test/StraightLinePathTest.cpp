@@ -29,9 +29,9 @@
 
 #include "StraightLinePath.hpp"
 
-void compareVecMat(std::vector<Eigen::Matrix4d> &result,
-                   std::vector<Eigen::Matrix4d> &expected) {
-  std::vector<Eigen::Matrix4d>::iterator resultIter = result.begin();
+void compareVecMat(const std::vector<Eigen::Matrix4d> &result,
+                   const std::vector<Eigen::Matrix4d> &expected) {
+  std::vector<Eigen::Matrix4d>::const_iterator resultIter = result.begin();
 
   ASSERT_TRUE(result.size() == expected.size());
 
@@ -116,7 +116,6 @@ TEST(StraightLinePath, PathAlongYAxis) {
   std::cout << "last result \n" << result.back() << std::endl;
 
   compareVecMat(result, expected);
-
 }
 
 TEST(StraightLinePath, PathAlongZAxis) {
@@ -146,7 +145,6 @@ TEST(StraightLinePath, PathAlongZAxis) {
 
 
   compareVecMat(result, expected);
-
 }
 
 TEST(StraightLinePath, NonUnitIncrement) {
@@ -176,5 +174,4 @@ TEST(StraightLinePath, NonUnitIncrement) {
   std::cout << "last result \n" << result.back() << std::endl;
 
   compareVecMat(result, expected);
-
 }

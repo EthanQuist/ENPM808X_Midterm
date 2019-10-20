@@ -33,16 +33,18 @@
  */
 #pragma once
 
+#include <Eigen/Dense>
+
 #include <memory>
 #include <vector>
-#include <Eigen/Dense>
 
 #include "PrismaticJoint.hpp"
 #include "RevoluteJoint.hpp"
 
 
-class DHTable {
 
+
+class DHTable {
  public:
   // Default values prevent these pointers from being null.
   struct Frame {
@@ -120,9 +122,9 @@ class DHTable {
    */
   Eigen::Matrix4d getTransform(std::vector<Frame>::size_type,
                                std::vector<Frame>::size_type);
+
  private:
   std::vector<Frame> frames;
-
   /**
 
    * @brief getTransform This function acts as a helper by taking the index of
@@ -138,5 +140,4 @@ class DHTable {
 
    */
   Eigen::Matrix4d getTransform(std::vector<Frame>::size_type);
-
 };

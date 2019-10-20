@@ -23,9 +23,14 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
+ * @ file InverseKinematics.cpp
+ *
+ * @ brief This File Defines the Inverse Kinematics equations specific to the
+ * Acme Arm. The interface virtual destructor is also located here for now.
  */
-#include <cmath>
 #include <math.h>
+
+#include <cmath>
 
 #include "InverseKinematics.hpp"
 #include "RevoluteJoint.hpp"
@@ -43,15 +48,13 @@ InverseKinematicAcmeArm::~InverseKinematicAcmeArm() {
 std::vector<JointPtr> InverseKinematicAcmeArm::computeIK(
     Eigen::Matrix4d Transform) {
 
-  double r11 = Transform(0, 0);  //r11
-  double r12 = Transform(0, 1);  //r12
-  double r13 = Transform(0, 2);  //r13
-  double r21 = Transform(1, 0);  //r21
-  double r22 = Transform(1, 1);  //r22
-  double r23 = Transform(1, 2);  //r23
-  //double r31 = Transform(2, 0);  //r31 unused
-  //double r32 = Transform(2, 1);  //r32 unused
-  double r33 = Transform(2, 2);  //r33
+  double r11 = Transform(0, 0);
+  double r12 = Transform(0, 1);
+  double r13 = Transform(0, 2);
+  double r21 = Transform(1, 0);
+  double r22 = Transform(1, 1);
+  double r23 = Transform(1, 2);
+  double r33 = Transform(2, 2);
 
   double xo = Transform(0, 3);
   double yo = Transform(1, 3);
@@ -60,10 +63,10 @@ std::vector<JointPtr> InverseKinematicAcmeArm::computeIK(
   double xc, yc, zc;
   double d1, d6, a2, a3;
   double q1, q2, q3, q4, q5, q6;
-  double off;
+  double of;
   double G;
 
-  //Robot parameters
+  // Robot parameters
   d1 = 2;
   d6 = 0.5;
   a2 = 1;
@@ -75,14 +78,14 @@ std::vector<JointPtr> InverseKinematicAcmeArm::computeIK(
 
   q1 = atan2(yc, xc);
 
-  off = 0;
+  of = 0;
   G =
-      (xc * xc + yc * yc - off * off + (zc - d1) * (zc - d1) - a2 * a2 - a3 * a3)
+      (xc * xc + yc * yc - of * of + (zc - d1) * (zc - d1) - a2 * a2 - a3 * a3)
           / (2 * a2 * a3);
 
   q3 = atan2(sqrt(1 - G * G), G);
 
-  q2 = atan2(zc - d1, sqrt(xc * xc + yc * yc - off * off))
+  q2 = atan2(zc - d1, sqrt(xc * xc + yc * yc - of * of))
       - atan2(a3 * sin(q3), a2 + a3 * cos(q3));
 
   q4 = atan2(

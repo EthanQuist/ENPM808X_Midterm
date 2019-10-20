@@ -23,6 +23,12 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
+ * @ file DHTable.cpp
+ *
+ * @ brief This Defines the DHTable Class. This class is used to define a robots
+ * forward kinematic equations using parameters that are built up for each frame
+ * representing the individual joints. Upon request the Table will provide a
+ * transformation matrix from one joint to a later joint, relating the two.
  */
 
 #include "DHTable.hpp"
@@ -67,7 +73,6 @@ DHTable::DHTable() {
 }
 
 Eigen::Matrix4d DHTable::getTransform(std::vector<Frame>::size_type aFrameIdx) {
-
   // Calls are 1 indexed though storage is 0 indexed.
   Frame frame = frames.at(aFrameIdx - 1);
   Eigen::Affine3d tTD(

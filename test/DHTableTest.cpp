@@ -25,14 +25,12 @@
 *
 */
 #include <math.h>
+#include <gtest/gtest.h>
+
 #include<iostream>
 
-#include <gtest/gtest.h>
-#include <IJoint.hpp>
-
-
 #include "DHTable.hpp"
-
+#include "IJoint.hpp"
 
 TEST(DHTable, ModifyFrames) {
   DHTable myTable;
@@ -93,7 +91,6 @@ TEST(DHTable, ModifyFrames) {
   tFrameTest = myTable.getFrame(3);
   ASSERT_EQ(tFrameTest.d->getConfig(), d6);
   ASSERT_EQ(tFrameTest.theta->getConfig(), tQ6->getConfig());
-
 }
 
 TEST(DHTable, FrameOutofBounds) {

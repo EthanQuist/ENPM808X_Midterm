@@ -72,10 +72,6 @@ std::vector<Eigen::Matrix4d> StraightLinePath::computePath(
 
     points.push_back(tNewPoint);
 
-    //std::cout << "New Point Being added: " << std::endl;
-    //std::cout << tNewPoint << std::endl;
-    //getchar();
-
     // Recompute the new distance
     tDistance = (tEndVec - points.back().block<3, 1>(0, 3)).norm();
   }
