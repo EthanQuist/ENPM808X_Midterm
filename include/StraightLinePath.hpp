@@ -64,13 +64,13 @@ class StraightLinePath : public IPathPlanner {
    * @brief Method to Compute the 3 Dimensional path from start point to end
    * point by desired increments (or less).
 
-   * @param aStart Coordinate of the Starting Point.
+   * @param aStart 4x4 Matrix from Eigen.
 
-   * @param aEnd Coordinate of the Ending Point.
+   * @param aEnd 4x4 Matrix from Eigen.
 
    * @param aIncrement double. The max distance between path points.
 
-   * @return std::vector<Coordinate> The points corresponding to the path from
+   * @return std::vector<Eigen::Matrix4d> The transformation matrices corresponding to the path from
    * start to end.
 
    */
