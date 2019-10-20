@@ -23,6 +23,11 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
+ * @file PrismaticJoint.cpp
+ *
+ * @brief This is the source code for Prismatic Joints.
+ * The class has a method getConfig to return the configuration.
+ * The class also has method setConfig to set the configuration.
  */
 
 #include <PrismaticJoint.hpp>

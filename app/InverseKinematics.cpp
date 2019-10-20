@@ -23,9 +23,9 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @ file InverseKinematics.cpp
+ * @file InverseKinematics.cpp
  *
- * @ brief This File Defines the Inverse Kinematics equations specific to the
+ * @brief This File Defines the Inverse Kinematics equations specific to the
  * Acme Arm. The interface virtual destructor is also located here for now.
  */
 #include <math.h>

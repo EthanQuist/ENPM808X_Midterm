@@ -23,6 +23,13 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
+ * @file StraightLinePath.cpp
+ *
+ * @brief This is the source code for the straight line path generator.
+ * The class can take in start point and end point transformations
+ * and return a vector of the points along that path. The path between
+ * the start point and end point will be a linear path that is broken
+ * up by the increment amount given as an input.
  */
 
 #include <Eigen/Dense>

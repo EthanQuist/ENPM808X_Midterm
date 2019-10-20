@@ -23,9 +23,9 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @ file Demo.cpp
+ * @file Demo.cpp
  *
- * @ brief This File Ties together the functionality provided for the Acme
+ * @brief This File Ties together the functionality provided for the Acme
  * Robot Arm. A straight line path planner is used in conjunction with the
  * robots inverse kinematics solver to determine the corresponding joint
  * configurations along the path.

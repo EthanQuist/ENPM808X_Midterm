@@ -23,6 +23,12 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
+ * @file main.cpp
+ *
+ * @brief This is our main source code file.
+ *  It calls Demo.cpp which runs our demonstration
+ *  code to simulate our Inverse Kinematics and
+ *  Path Planning.
  */
 #include <iostream>
 #include "Demo.hpp"
