@@ -42,8 +42,8 @@ void compareVecMat(std::vector<Eigen::Matrix4d> &result,
 TEST(StraightLinePath, PathZero) {
   StraightLinePath PathMaker;
   std::vector < Eigen::Matrix4d > result;
-  Eigen::Matrix4d start = Eigen::Matrix4d::Zero(4, 4);
-  Eigen::Matrix4d end = Eigen::Matrix4d::Zero(4, 4);
+  Eigen::Matrix4d start = Eigen::Matrix4d::Identity();
+  Eigen::Matrix4d end = Eigen::Matrix4d::Identity();
   end(0, 3) = 0.0;
 
   result = PathMaker.computePath(start, end, 1);
@@ -58,36 +58,27 @@ TEST(StraightLinePath, PathZero) {
 
 TEST(StraightLinePath, PathAlongXAxis) {
   StraightLinePath PathMaker;
+  double endDist = 5.0;
   std::vector < Eigen::Matrix4d > result;
-  Eigen::Matrix4d start = Eigen::Matrix4d::Zero(4, 4);
-  Eigen::Matrix4d end = Eigen::Matrix4d::Zero(4, 4);
-  end(0, 3) = 5.0;
+  Eigen::Matrix4d start = Eigen::Matrix4d::Identity();
+  Eigen::Matrix4d end = Eigen::Matrix4d::Identity();
+  end(0, 3) = endDist;
+  double increment = 1;
 
-  result = PathMaker.computePath(start, end, 0.2);
-  std::vector < Eigen::Matrix4d > expected;
-  expected.push_back(start);
+  result = PathMaker.computePath(start, end, increment);
+  std::vector<Eigen::Matrix4d> expected;
 
-  Eigen::Matrix4d result1 = Eigen::Matrix4d::Zero(4, 4);
-  result1(0, 3) = 1.0;
-  expected.push_back(result1);
+  std::vector<Eigen::Matrix4d>::size_type numIterations = endDist / increment;
+  std::vector<Eigen::Matrix4d>::size_type idx;
 
-  Eigen::Matrix4d result2 = Eigen::Matrix4d::Zero(4, 4);
-  result2(0, 3) = 2.0;
-  expected.push_back(result2);
+  for (idx = 0; idx < numIterations; idx++) {
+    Eigen::Matrix4d tResult = Eigen::Matrix4d::Identity();
+    tResult(0, 3) += increment * idx;
+    expected.push_back(tResult);
+  }
+  std::cout << "last expected[3] \n" << expected.back() << std::endl;
+  std::cout << "last result \n" << result.back() << std::endl;
 
-  Eigen::Matrix4d result3 = Eigen::Matrix4d::Zero(4, 4);
-  result3(0, 3) = 3.0;
-  expected.push_back(result3);
-
-  Eigen::Matrix4d result4 = Eigen::Matrix4d::Zero(4, 4);
-  result4(0, 3) = 4.0;
-  expected.push_back(result4);
-
-  expected.push_back(end);
-  // Test the X axis
-
-  std::cout << "expected[3] \n" << expected[3] << std::endl;
-  std::cout << "result[3] \n" << result[3] << std::endl;
 
   compareVecMat(result, expected);
 }
@@ -96,36 +87,26 @@ TEST(StraightLinePath, PathAlongXAxis) {
 
 TEST(StraightLinePath, PathAlongYAxis) {
   StraightLinePath PathMaker;
+  double endDist = 5.0;
   std::vector < Eigen::Matrix4d > result;
-  Eigen::Matrix4d start = Eigen::Matrix4d::Zero(4, 4);
-  Eigen::Matrix4d end = Eigen::Matrix4d::Zero(4, 4);
-  end(1, 3) = 5.0;
+  Eigen::Matrix4d start = Eigen::Matrix4d::Identity();
+  Eigen::Matrix4d end = Eigen::Matrix4d::Identity();
+  end(1, 3) = endDist;
+  double increment = 1;
 
-  result = PathMaker.computePath(start, end, 0.2);
-  std::vector < Eigen::Matrix4d > expected;
-  expected.push_back(start);
+  result = PathMaker.computePath(start, end, increment);
+  std::vector<Eigen::Matrix4d> expected;
 
-  Eigen::Matrix4d result1 = Eigen::Matrix4d::Zero(4, 4);
-  result1(1, 3) = 1.0;
-  expected.push_back(result1);
+  std::vector<Eigen::Matrix4d>::size_type numIterations = endDist / increment;
+  std::vector<Eigen::Matrix4d>::size_type idx;
 
-  Eigen::Matrix4d result2 = Eigen::Matrix4d::Zero(4, 4);
-  result2(1, 3) = 2.0;
-  expected.push_back(result2);
-
-  Eigen::Matrix4d result3 = Eigen::Matrix4d::Zero(4, 4);
-  result3(1, 3) = 3.0;
-  expected.push_back(result3);
-
-  Eigen::Matrix4d result4 = Eigen::Matrix4d::Zero(4, 4);
-  result4(1, 3) = 4.0;
-  expected.push_back(result4);
-
-  expected.push_back(end);
-  // Test the X axis
-
-  std::cout << "expected[3] \n" << expected[3] << std::endl;
-  std::cout << "result[3] \n" << result[3] << std::endl;
+  for (idx = 0; idx < numIterations; idx++) {
+    Eigen::Matrix4d tResult = Eigen::Matrix4d::Identity();
+    tResult(1, 3) += increment * idx;
+    expected.push_back(tResult);
+  }
+  std::cout << "last expected[3] \n" << expected.back() << std::endl;
+  std::cout << "last result \n" << result.back() << std::endl;
 
   compareVecMat(result, expected);
 
@@ -133,40 +114,56 @@ TEST(StraightLinePath, PathAlongYAxis) {
 
 TEST(StraightLinePath, PathAlongZAxis) {
   StraightLinePath PathMaker;
+  double endDist = 5.0;
   std::vector < Eigen::Matrix4d > result;
-  Eigen::Matrix4d start = Eigen::Matrix4d::Zero(4, 4);
-  Eigen::Matrix4d end = Eigen::Matrix4d::Zero(4, 4);
-  end(2, 3) = 5.0;
+  Eigen::Matrix4d start = Eigen::Matrix4d::Identity();
+  Eigen::Matrix4d end = Eigen::Matrix4d::Identity();
+  end(2, 3) = endDist;
 
-  result = PathMaker.computePath(start, end, 0.2);
-  std::vector < Eigen::Matrix4d > expected;
-  expected.push_back(start);
+  double increment = 1;
+  result = PathMaker.computePath(start, end, increment);
+  std::vector<Eigen::Matrix4d> expected;
 
-  Eigen::Matrix4d result1 = Eigen::Matrix4d::Zero(4, 4);
-  result1(2, 3) = 1.0;
-  expected.push_back(result1);
+  std::vector<Eigen::Matrix4d>::size_type numIterations = endDist / increment;
+  std::vector<Eigen::Matrix4d>::size_type idx;
 
-  Eigen::Matrix4d result2 = Eigen::Matrix4d::Zero(4, 4);
-  result2(2, 3) = 2.0;
-  expected.push_back(result2);
+  for (idx = 0; idx < numIterations; idx++) {
+    Eigen::Matrix4d tResult = Eigen::Matrix4d::Identity();
+    tResult(2, 3) += increment * idx;
+    expected.push_back(tResult);
+  }
+  std::cout << "last expected[3] \n" << expected.back() << std::endl;
+  std::cout << "last result \n" << result.back() << std::endl;
 
-  Eigen::Matrix4d result3 = Eigen::Matrix4d::Zero(4, 4);
-  result3(2, 3) = 3.0;
-  expected.push_back(result3);
-
-  Eigen::Matrix4d result4 = Eigen::Matrix4d::Zero(4, 4);
-  result4(2, 3) = 4.0;
-  expected.push_back(result4);
-
-  expected.push_back(end);
-  // Test the X axis
-
-  std::cout << "expected[3] \n" << expected[3] << std::endl;
-  std::cout << "result[3] \n" << result[3] << std::endl;
 
   compareVecMat(result, expected);
 
 }
 
+TEST(StraightLinePath, NonUnitIncrement) {
+  StraightLinePath PathMaker;
+  double endDist = 5.0;
+  std::vector<Eigen::Matrix4d> result;
+  Eigen::Matrix4d start = Eigen::Matrix4d::Identity();
+  Eigen::Matrix4d end = Eigen::Matrix4d::Identity();
+  end(2, 3) = endDist;
 
-// TODO(Yhap): Consider adding a Diagonal Straight line Path.
+  double increment = 0.2;
+  result = PathMaker.computePath(start, end, increment);
+
+  std::vector<Eigen::Matrix4d> expected;
+
+  std::vector<Eigen::Matrix4d>::size_type numIterations = endDist / increment;
+  std::vector<Eigen::Matrix4d>::size_type idx;
+
+  for (idx = 0; idx < numIterations; idx++) {
+    Eigen::Matrix4d tResult = Eigen::Matrix4d::Identity();
+    tResult(2, 3) += increment * idx;
+    expected.push_back(tResult);
+  }
+  std::cout << "last expected[3] \n" << expected.back() << std::endl;
+  std::cout << "last result \n" << result.back() << std::endl;
+
+  compareVecMat(result, expected);
+
+}

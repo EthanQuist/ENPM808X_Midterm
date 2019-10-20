@@ -74,9 +74,9 @@ class StraightLinePath : public IPathPlanner {
    * start to end.
 
    */
-  std::vector<Eigen::Matrix4d> computePath(Eigen::Matrix4d &aStart,
-                                      Eigen::Matrix4d &aEnd,
-                                      const double &aIncrement);
+  std::vector<Eigen::Matrix4d> computePath(const Eigen::Matrix4d &aStart,
+                                           const Eigen::Matrix4d &aEnd,
+                                           const double &aIncrement);
 
  protected:
   /**
@@ -93,7 +93,7 @@ class StraightLinePath : public IPathPlanner {
    * point along the path.
 
    */
-  Eigen::Vector3d determineDirection(Eigen::Vector3d &aStart,
-                                     Eigen::Vector3d &aEnd,
-                                const double &aIncrement);
+  Eigen::Vector3d determineDirection(const Coordinate &aStart,
+                                     const Coordinate &aEnd,
+                                     const double &aIncrement);
 };

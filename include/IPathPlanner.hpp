@@ -57,7 +57,7 @@ class IPathPlanner {
    */
 
   virtual std::vector<Eigen::Matrix4d> computePath(
-      Eigen::Matrix4d &aStart, Eigen::Matrix4d &aEnd,
+      const Eigen::Matrix4d &aStart, const Eigen::Matrix4d &aEnd,
       const double &aIncrement) = 0;
 
  protected:
@@ -75,8 +75,8 @@ class IPathPlanner {
    * point along the path.
 
    */
-  virtual Eigen::Vector3d determineDirection(Eigen::Vector3d &aStart,
-                                             Eigen::Vector3d &aEnd,
+  virtual Eigen::Vector3d determineDirection(const Coordinate &aStart,
+                                             const Coordinate &aEnd,
                                 const double &aIncrement) = 0;
 };
 // Typedef the pointer for easy external polymorphic use.
