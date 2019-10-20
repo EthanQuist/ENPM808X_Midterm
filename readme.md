@@ -5,7 +5,7 @@
 
 ## Overview
 
-This repository serves as the Inverse Kinematic solver for the Acme Robotics mobile robot manipulator arm. The five degree of freedom manipulator arm requires this software to calculate the inverse kinematics, specifically the required joint angles for a desired coordinate position. The input to the system will be a desired [X Y Z] coordinate position in the world frame of the mobile robot and the system will output a vector of 5 joint angles that can then be used by the manipulator arm's controller. The software will compute the vector of 5 joint angles for a series of small movements along a trajectory. The trajectory is built by generating a discretized linear path from the current coordinate position to the goal position. These discretized points along the path are used to find the exact joint angles for each smaller movement along the trajectory. 
+This repository serves as the Inverse Kinematic solver for the Acme Robotics mobile robot manipulator arm. The six degree of freedom manipulator arm requires this software to calculate the inverse kinematics, specifically the required joint angles for a desired coordinate position. The input to the system will be a desired [X Y Z] coordinate position in the world frame of the mobile robot and the system will output a vector of 6 joint angles that can then be used by the manipulator arm's controller. The software will compute the vector of 6 joint angles for a series of small movements along a trajectory. The trajectory is built by generating a discretized linear path from the current coordinate position to the goal position. These discretized points along the path are used to find the exact joint angles for each smaller movement along the trajectory. 
 
 The IK solver integrates the software with the other components of the robot. As the robot moves it constantly scans the environment using an array of optical sensors. When the cameras detect an object that requires intervention from the manipulator arm it calculates the position of the object calibrated to the base frame of the manipulator arm. This provides easier calculations for the inverse kinematics as the inputs to the IK solver software are the cartesian coordinates [X,Y,Z]T of the grasping location. Our software then computes the necessary joint angles and output them to the PCB controlling the motors of the manipulator arm. 
 
@@ -39,16 +39,17 @@ https://docs.google.com/spreadsheets/d/14NH808N-Kye4lGJhj0COwV8fRF2zoUQIuAs4Zp_p
 
 ## Sprint Planning Notes
 
-The google document for our Sprint Iteration Review is linked below:
+The google document for our Sprint Iteration Review is linked below This document contains our four main team meeting notes, planning for iteration 1, review of iteration 1, planning of iteration 2, and review of iteration 2:
 
 https://docs.google.com/document/d/1Dd6p2RdcRbDvNMnmmexAMOpVTrpyoYmNtbwyHA9CDzw/edit?usp=sharing
+
 
 ## Operation
 
 In order to clone and run this software follow the below steps:
 
 ```
-git clone --recursive https://github.com/dpiet/cpp-boilerplate
+git clone --recursive https://github.com/EthanQuist/ENPM808X_Midterm.git
 cd <path to repository>
 mkdir build
 cd build
@@ -58,9 +59,13 @@ Run tests: ./test/cpp-test
 Run program: ./app/shell-app
 ```
 
-These steps will allow for the repository to be cloned remotely. The steps include building the project as well as running the unit tests and main program. 
+These steps will allow for the repository to be cloned remotely. The steps include building the project as well as running the unit tests and main program which will run our demonstration. 
 
-Running ./app/shell-app in the build folder will run out demonstration. We are using matplotlib (with a c++ wrapper) to display the trajectory of our desired path as well as the path the robot takes along that trajectory to go from initial point to end point. In Phase 1 this is a simple demonstration of our Trajectory Window displaying a sample trajectory. In Phase 2 the full functionality of the simulation will be in place.
+Running ./app/shell-app in the build folder will run out demonstration. We are using matplotlib (with a c++ wrapper) to display the trajectory of our desired path as well as the changes in all 6 joints as the robot traverses the trajectory to go from initial point to end point. 
+
+## Demo
+
+The demo is ran from main.cpp source code where a window will display the trajectory of the end-effector. This window is an animation from the start position to the end position. Once the animation finishes please click the x on the window to allow the code to run the second part of the demonstration. Part 2 of the demo will display all 6 joint angles and their changes as the robot moves along the path planning trajectory. When the animation ends click on the x of the window and the demo will finish. 
 
 
 ## Dependencies
@@ -71,9 +76,26 @@ The demonstration requires the use of matplotlibcpp which is a c++ wrapper for a
 sudo apt-get install python-matplotlib python-numpy python2.7-dev
 ```
 
+Our code depends on code from two different third party locations. The first is Eigen a linear algebra math library. The second is a c++ wrapper for matplotlib to display plots in windows. The necessary libraries from Eigen and matplotlib can be downloaded using the script below. This script will also place all necessary dependency code in the correct folder locations dictated by our Cmakelist. 
+
+```
+cd ../
+mkdir ThirdParty
+mkdir ThirdParty/eigen3
+cd -
+
+wget  http://bitbucket.org/eigen/eigen/get/3.3.7.tar.bz2
+tar -xjf 3.3.7.tar.bz2
+mv eigen-eigen-323c052e1731/Eigen ../ThirdParty/eigen3/.
+
+git clone https://github.com/lava/matplotlib-cpp.git
+mv matplotlib-cpp ../ThirdParty
+```
+
+
 ## Known Issues and Bugs
 
-Our current version of CMake was not cooperating with the download of Doxygen. Therefore we had to generate all of our Doxygen files in a Windows environment instead of a Linux environment. The documents are linked in the docs subfolder. 
+The only known issues that could arise while running our code will come incorrectly downloading the dependancies. The code above will provide every step necessary to download the third party software as well as place each dependancy in the correct location. 
 
 ## How to build and run
 
@@ -135,3 +157,31 @@ With Doxywizard installed you can generate the documents through the following s
 - Git
 
     It is possible to manage version control through Eclipse and the git plugin, but it typically requires creating another project. If you're interested in this, try it out yourself and contact me on Canvas.
+    
+    
+## License
+
+Copyright (c) 2019, Ethan Quist, Corbyn Yhap, Acme Robotics
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+    * Neither the name of the <organization> nor the
+      names of its contributors may be used to endorse or promote products
+      derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> BE LIABLE FOR ANY
+DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
