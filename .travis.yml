@@ -23,7 +23,7 @@ matrix:
 before_install:
   - pip install --user cpp-coveralls
   - ./install-ThirdParty.sh
-  - python numpyInc.py
+  - pip install numpy
 install:
   - sudo apt-get install -y -qq lcov
 script:
