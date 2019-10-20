@@ -59,7 +59,7 @@ class InverseKinematicsBase {
    * @brief Method to compute Inverse Kinematics. Required of all
    *  Derived Classes
 
-   * @param Coordinate. A XYZ Coordinate (Meters)
+   * @param Coordinate. A 4x4 Matrix from Eigen
 
    * @return std::vector<JointPtr> A vector of joints (From which configurations
    * can be retrieved)
@@ -96,7 +96,7 @@ class InverseKinematicAcmeArm : InverseKinematicsBase {
 
    * @brief Method to compute Inverse Kinematics For the Acme Arm
 
-   * @param Coordinate. A XYZ Coordinate (Meters)
+   * @param Coordinate. A 4x4 Matrix from Eigen
 
    * @return std::vector<JointPtr> The vector of corresponding joints.
 
