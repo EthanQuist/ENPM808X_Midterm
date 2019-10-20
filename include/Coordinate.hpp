@@ -34,9 +34,9 @@
 #pragma once
 
 
+#include <Eigen/Dense>
 
 #include <ostream>
-#include <Eigen/Dense>
 
 class Coordinate {
  public:

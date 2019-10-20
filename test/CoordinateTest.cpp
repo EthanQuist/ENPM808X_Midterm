@@ -37,7 +37,6 @@ TEST(Coordinate, NonEmptyConstructor) {
 }
 
 TEST(Coordinate, EqualOperator) {
-
   Coordinate tCoord(4, 5, 6);
 
   Coordinate tCoord2(1, 2, 3);

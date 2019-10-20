@@ -24,8 +24,9 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-#include <cmath>
 #include <math.h>
+
+#include <cmath>
 
 #include "InverseKinematics.hpp"
 #include "RevoluteJoint.hpp"
@@ -58,7 +59,7 @@ std::vector<JointPtr> InverseKinematicAcmeArm::computeIK(
   double xc, yc, zc;
   double d1, d6, a2, a3;
   double q1, q2, q3, q4, q5, q6;
-  double off;
+  double of;
   double G;
 
   // Robot parameters
@@ -73,14 +74,14 @@ std::vector<JointPtr> InverseKinematicAcmeArm::computeIK(
 
   q1 = atan2(yc, xc);
 
-  off = 0;
+  of = 0;
   G =
-      (xc * xc + yc * yc - off * off + (zc - d1) * (zc - d1) - a2 * a2 - a3 * a3)
+      (xc * xc + yc * yc - of * of + (zc - d1) * (zc - d1) - a2 * a2 - a3 * a3)
           / (2 * a2 * a3);
 
   q3 = atan2(sqrt(1 - G * G), G);
 
-  q2 = atan2(zc - d1, sqrt(xc * xc + yc * yc - off * off))
+  q2 = atan2(zc - d1, sqrt(xc * xc + yc * yc - of * of))
       - atan2(a3 * sin(q3), a2 + a3 * cos(q3));
 
   q4 = atan2(

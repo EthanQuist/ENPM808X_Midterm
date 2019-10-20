@@ -27,9 +27,7 @@
 #include <iostream>
 #include "Demo.hpp"
 
-
 int main() {
-
   Demo demonstration;
   demonstration.runDemo();
   return 0;

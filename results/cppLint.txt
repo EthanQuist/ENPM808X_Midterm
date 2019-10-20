@@ -1,91 +1,25 @@
-cpplint Coordinate.cpp
-Coordinate.cpp:35:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
-Coordinate.cpp:35:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]
-Coordinate.cpp:39:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
-Coordinate.cpp:39:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]
-Coordinate.cpp:88:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
-Coordinate.cpp:88:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]
-Done processing Coordinate.cpp
-Total errors found: 6
-
-cpplint InverseKinematics.cpp
-InverseKinematics.cpp:31:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
-InverseKinematics.cpp:31:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]
-InverseKinematics.cpp:35:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
-InverseKinematics.cpp:35:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]
-InverseKinematics.cpp:39:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
-InverseKinematics.cpp:39:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]
-InverseKinematics.cpp:42:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
-InverseKinematics.cpp:48:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]
-Done processing InverseKinematics.cpp
-Total errors found: 8
-
-cpplint Joints.cpp
-Joints.cpp:31:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
-Joints.cpp:31:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]
-Joints.cpp:37:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
-Joints.cpp:37:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]
-Joints.cpp:43:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
-Joints.cpp:43:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]
-Joints.cpp:47:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
-Joints.cpp:47:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]
-Joints.cpp:61:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
-Joints.cpp:61:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]
-Joints.cpp:67:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
-Joints.cpp:67:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]
-Joints.cpp:71:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
-Joints.cpp:71:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]
-Done processing Joints.cpp
-Total errors found: 14
-
-Done processing main.cpp
-
-cpplint StraightLinePath.cpp
-StraightLinePath.cpp:31:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
-StraightLinePath.cpp:31:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]
-StraightLinePath.cpp:35:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
-StraightLinePath.cpp:35:  Redundant blank line at the end of a code block should be deleted.  [whitespace/blank_line] [3]
-Done processing StraightLinePath.cpp
-Total errors found: 4
-
-cpplint Coordinate.hpp
-Coordinate.hpp:37:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
-Done processing Coordinate.hpp
-Total errors found: 1
-
-cpplint InverseKinematics.hpp
-InverseKinematics.hpp:42:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
-InverseKinematics.hpp:71:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
-InverseKinematics.hpp:73:  Do not leave a blank line after "public:"  [whitespace/blank_line] [3]
-Done processing InverseKinematics.hpp
-Total errors found: 3
-
-cpplint IPathPlanner.hpp
-IPathPlanner.hpp:43:  Do not leave a blank line after "public:"  [whitespace/blank_line] [3]
-IPathPlanner.hpp:64:  Do not leave a blank line after "protected:"  [whitespace/blank_line] [3]
-Done processing IPathPlanner.hpp
-Total errors found: 2
-
-cpplint Joints.hpp
-Joints.hpp:40:  Do not leave a blank line after "public:"  [whitespace/blank_line] [3]
-Joints.hpp:79:  Do not leave a blank line after "public:"  [whitespace/blank_line] [3]
-Joints.hpp:134:  "private:" should be preceded by a blank line  [whitespace/blank_line] [3]
-Joints.hpp:140:  Do not leave a blank line after "public:"  [whitespace/blank_line] [3]
-Joints.hpp:195:  "private:" should be preceded by a blank line  [whitespace/blank_line] [3]
-Done processing Joints.hpp
-Total errors found: 5
-
-Done processing lib.hpp
-
-cpplint StraightLinePath.hpp
-StraightLinePath.hpp:39:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
-StraightLinePath.hpp:41:  Do not leave a blank line after "public:"  [whitespace/blank_line] [3]
-StraightLinePath.hpp:84:  Do not leave a blank line after "protected:"  [whitespace/blank_line] [3]
-Done processing StraightLinePath.hpp
-Total errors found: 3
-
-
-
-
-
-
+Done processing ./include/IPathPlanner.hpp
+Done processing ./include/Demo.hpp
+Done processing ./include/PrismaticJoint.hpp
+Done processing ./include/DHTable.hpp
+Done processing ./include/StraightLinePath.hpp
+Done processing ./include/RevoluteJoint.hpp
+Done processing ./include/IJoint.hpp
+Done processing ./include/InverseKinematics.hpp
+Done processing ./include/Coordinate.hpp
+Done processing ./app/InverseKinematics.cpp
+Done processing ./app/PrismaticJoint.cpp
+Done processing ./app/Coordinate.cpp
+Done processing ./app/main.cpp
+Done processing ./app/StraightLinePath.cpp
+Done processing ./app/RevoluteJoint.cpp
+Done processing ./app/IJoint.cpp
+Done processing ./app/Demo.cpp
+Done processing ./app/DHTable.cpp
+Done processing ./test/StraightLinePathTest.cpp
+Done processing ./test/mainTest.cpp
+Done processing ./test/InverseKinematicsTest.cpp
+Done processing ./test/DHTableTest.cpp
+Done processing ./test/CoordinateTest.cpp
+Done processing ./test/test.cpp
+Done processing ./test/PrismaticJointTest.cpp

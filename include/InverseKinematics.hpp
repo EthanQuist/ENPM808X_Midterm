@@ -33,9 +33,10 @@
  */
 #pragma once
 
+#include <Eigen/Dense>
+
 #include <memory>
 #include <vector>
-#include <Eigen/Dense>
 
 #include "Coordinate.hpp"
 #include "IJoint.hpp"

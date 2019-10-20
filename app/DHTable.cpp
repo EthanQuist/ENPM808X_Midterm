@@ -67,7 +67,6 @@ DHTable::DHTable() {
 }
 
 Eigen::Matrix4d DHTable::getTransform(std::vector<Frame>::size_type aFrameIdx) {
-
   // Calls are 1 indexed though storage is 0 indexed.
   Frame frame = frames.at(aFrameIdx - 1);
   Eigen::Affine3d tTD(

@@ -25,8 +25,8 @@
  *
  */
 
-#include <iostream>
-#include "matplotlibcpp.h"
+#include "./matplotlibcpp.h"
+
 #include "Coordinate.hpp"
 #include "IJoint.hpp"
 #include "InverseKinematics.hpp"

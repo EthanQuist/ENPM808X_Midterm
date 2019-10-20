@@ -29,8 +29,8 @@
 
 #include "StraightLinePath.hpp"
 
-void compareVecMat(std::vector<Eigen::Matrix4d> &result,
-                   std::vector<Eigen::Matrix4d> &expected) {
+void compareVecMat(const std::vector<Eigen::Matrix4d> &result,
+                   const std::vector<Eigen::Matrix4d> &expected) {
   std::vector<Eigen::Matrix4d>::iterator resultIter = result.begin();
 
   ASSERT_TRUE(result.size() == expected.size());

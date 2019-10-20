@@ -33,13 +33,15 @@
  */
 #pragma once
 
+#include <Eigen/Dense>
+
 #include <memory>
 #include <vector>
 
 #include "PrismaticJoint.hpp"
 #include "RevoluteJoint.hpp"
 
-#include <Eigen/Dense>
+
 
 
 class DHTable {
@@ -120,6 +122,7 @@ class DHTable {
    */
   Eigen::Matrix4d getTransform(std::vector<Frame>::size_type,
                                std::vector<Frame>::size_type);
+
  private:
   std::vector<Frame> frames;
   /**
@@ -137,5 +140,4 @@ class DHTable {
 
    */
   Eigen::Matrix4d getTransform(std::vector<Frame>::size_type);
-
 };
