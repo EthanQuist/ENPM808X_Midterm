@@ -35,3 +35,12 @@ TEST(Coordinate, NonEmptyConstructor) {
   ASSERT_EQ(tCoord.getY(), 5);
   ASSERT_EQ(tCoord.getZ(), 6);
 }
+
+TEST(Coordinate, EqualOperator) {
+
+  Coordinate tCoord(4, 5, 6);
+
+  Coordinate tCoord2(1, 2, 3);
+  tCoord2.setXYZ(4, 5, 6);
+  ASSERT_EQ(tCoord, tCoord2);
+}
