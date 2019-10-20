@@ -31,7 +31,7 @@
 
 void compareVecMat(const std::vector<Eigen::Matrix4d> &result,
                    const std::vector<Eigen::Matrix4d> &expected) {
-  std::vector<Eigen::Matrix4d>::iterator resultIter = result.begin();
+  std::vector<Eigen::Matrix4d>::const_iterator resultIter = result.begin();
 
   ASSERT_TRUE(result.size() == expected.size());
 
