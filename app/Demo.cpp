@@ -26,12 +26,15 @@
  */
 
 #include "matplotlibcpp.h"
-#include <Coordinate.hpp>
-#include <IJoint.hpp>
-#include <InverseKinematics.hpp>
-#include <IPathPlanner.hpp>
-#include <StraightLinePath.hpp>
+
 #include <iostream>
+
+#include "Coordinate.hpp"
+#include "IJoint.hpp"
+#include "InverseKinematics.hpp"
+#include "IPathPlanner.hpp"
+#include "StraightLinePath.hpp"
+
 
 #include "Demo.hpp"
 

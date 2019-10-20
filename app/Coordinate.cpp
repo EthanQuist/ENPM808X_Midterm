@@ -78,17 +78,6 @@ std::ostream& operator<<(std::ostream &os, const Coordinate &rhs) {
   return os << rhs.getAsVec();
 }
 
-
-double Coordinate::convertM2F(double aMeters) {
-  (void) aMeters;
-  return 0;
-}
-
-double Coordinate::convertF2M(double aFeet) {
-  (void) aFeet;
-  return 0;
-}
-
 Coordinate::Coordinate()
     :
     x(0),

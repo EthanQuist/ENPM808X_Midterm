@@ -23,25 +23,18 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
-* @file lib.hpp
-*
-* @brief header for file TO BE DELETED
-*
-* @author Corbyn Yhap (Driver)
-*
-* @copyright Acme Robotics, Ethan Quist, Corbyn Yhap
 */
 
-#pragma once
+#include <gtest/gtest.h>
 
-#include <iostream>
-#include <Demo.hpp>
-#include <Coordinate.hpp>
-#include <IJoint.hpp>
-#include <InverseKinematics.hpp>
-#include <IPathPlanner.hpp>
-#include <StraightLinePath.hpp>
+#include "PrismaticJoint.hpp"
 
-void dummy() {
-    std::cout << "HI" << std::endl;
+TEST(PrismaticJoint, EmptyConstructor) {
+  PrismaticJoint tPJoint;
+  ASSERT_EQ(tPJoint.getConfig(), 0);
+}
+
+TEST(PrismaticJoint, NonEmptyConstructor) {
+  PrismaticJoint tPJoint(123);
+  ASSERT_EQ(tPJoint.getConfig(), 123);
 }
