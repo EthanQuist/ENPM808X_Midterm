@@ -12,14 +12,25 @@ if (COVERAGE)
     set(LCOV_REMOVE_EXTRA "'vendor/*'")
     setup_target_for_coverage(code_coverage test/cpp-test coverage)
     set(COVERAGE_SRCS app/main.cpp
-                      include/lib.hpp 
-                      app/InverseKinematics.cpp 
-                      app/StraightLinePath.cpp 
+                      app/Coordinate.cpp
+                      app/DHTable.cpp
+                      app/Demo.cpp
+                      app/IJoint.cpp
+                      app/InverseKinematics.cpp
+                      app/PrismaticJoint.cpp
+                      app/RevoluteJoint.cpp
+                      app/StraightLinePath.cpp
+                      include/Coordinate.hpp
+                      include/Demo.hpp
+                      include/DHTable.hpp
+                      include/IJoint.hpp
+                      include/IPathPlanner.hpp
+                      include/PrismaticJoint.hpp
+                      include/RevoluteJoint.hpp
                       include/InverseKinematics.hpp 
                       include/StraightLinePath.hpp
                       include/Demo.hpp 
-                      app/Demo.cpp 
-                      include/matplotlibcpp.h)
+                      )
 
     SET(CMAKE_CXX_FLAGS "-g -O0 -fprofile-arcs -ftest-coverage")
     SET(CMAKE_C_FLAGS "-g -O0 -fprofile-arcs -ftest-coverage")
