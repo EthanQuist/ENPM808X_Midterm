@@ -25,73 +25,61 @@
  *
  */
 
-#include "Coordinate.hpp"
+#include "DHTable.hpp"
 
-Coordinate::Coordinate(double aX, double aY, double aZ)
-    :
-    x(aX),
-    y(aY),
-    z(aZ) {
+DHTable::~DHTable() {
 }
 
-Coordinate::~Coordinate() {
-}
-double Coordinate::getX() {
-  return x;
-}
-double Coordinate::getY() {
-  return y;
+void DHTable::addFrame(const Frame &aFrame) {
+  // The Frame indices are 1 indexed to the user even though they are 0 indexed
+  // when stored.
+  // Need to push back a copy
+  frames.push_back(aFrame);
 }
 
-double Coordinate::getZ() {
-  return z;
+DHTable::Frame DHTable::getFrame(std::vector<Frame>::size_type aFrameIdx) {
+  return frames.at(aFrameIdx - 1);
 }
 
-Eigen::Vector3d Coordinate::getAsVec() const {
-  Eigen::Vector3d tReturn(x, y, z);
+Eigen::Matrix4d DHTable::getTransform(std::vector<Frame>::size_type aStartFrame,
+                                      std::vector<Frame>::size_type aEndFrame) {
+  Eigen::Matrix4d tReturn;
+  tReturn.setIdentity();
+
+  if (aStartFrame > aEndFrame) {
+    // This should be flagged as an error.
+  }
+  if (aEndFrame > frames.size()) {
+    // This should be flagged as an error.
+  }
+
+  // Added 1 to because frames go from A to B
+  aStartFrame += 1;
+  aEndFrame += 1;
+  for (auto idx = aStartFrame; idx < aEndFrame; idx++) {
+    tReturn *= getTransform(idx);
+  }
+
   return tReturn;
 }
 
-
-void Coordinate::setX(const double &aX) {
-  x = aX;
+DHTable::DHTable() {
 }
 
-void Coordinate::setY(const double &aY) {
-  y = aY;
-}
+Eigen::Matrix4d DHTable::getTransform(std::vector<Frame>::size_type aFrameIdx) {
 
-void Coordinate::setZ(const double &aZ) {
-  z = aZ;
-}
+  // Calls are 1 indexed though storage is 0 indexed.
+  Frame frame = frames.at(aFrameIdx - 1);
+  Eigen::Affine3d tTD(
+      Eigen::Translation3d(Eigen::Vector3d(0, 0, frame.d->getConfig())));
+  Eigen::Affine3d tTTheta(
+      Eigen::AngleAxisd(frame.theta->getConfig(), Eigen::Vector3d::UnitZ()));
+  Eigen::Affine3d tTA(
+      Eigen::Translation3d(Eigen::Vector3d(frame.a->getConfig(), 0, 0)));
+  Eigen::Affine3d tTAlpha(
+      Eigen::AngleAxisd(frame.alpha->getConfig(), Eigen::Vector3d::UnitX()));
 
-void Coordinate::setXYZ(const double &aX, const double &aY, const double &aZ) {
-  x = aX;
-  y = aY;
-  z = aZ;
-}
-bool Coordinate::operator==(const Coordinate &rhs) const {
-  return (x == rhs.x && y == rhs.y && z == rhs.z);
-}
+  Eigen::Matrix4d tReturn = (tTTheta * tTD * tTA * tTAlpha).matrix();
 
-std::ostream& operator<<(std::ostream &os, const Coordinate &rhs) {
-  return os << rhs.getAsVec();
-}
-
-
-double Coordinate::convertM2F(double aMeters) {
-  (void) aMeters;
-  return 0;
-}
-
-double Coordinate::convertF2M(double aFeet) {
-  (void) aFeet;
-  return 0;
-}
-
-Coordinate::Coordinate()
-    :
-    x(0),
-    y(0),
-    z(0) {
+  return tReturn;
 }

@@ -36,9 +36,7 @@
 #include "IPathPlanner.hpp"
 
 class StraightLinePath : public IPathPlanner {
-
  public:
-
   /**
 
    * @brief Constructor for the Straight Line Path Class
@@ -76,12 +74,11 @@ class StraightLinePath : public IPathPlanner {
    * start to end.
 
    */
-  std::vector<Coordinate> computePath(const Coordinate &aStart,
-                                      const Coordinate &aEnd,
-                                      const double &aIncrement);
+  std::vector<Eigen::Matrix4d> computePath(const Eigen::Matrix4d &aStart,
+                                           const Eigen::Matrix4d &aEnd,
+                                           const double &aIncrement);
 
  protected:
-
   /**
 
    * @brief Method to Determine the direction the next point should be in
@@ -92,11 +89,11 @@ class StraightLinePath : public IPathPlanner {
 
    * @param aIncrement double. The max distance between path points.
 
-   * @return Coordinate The unit vector representing the direction of the next
+   * @return The unit vector representing the direction of the next
    * point along the path.
 
    */
-  Coordinate determineDirection(const Coordinate &aStart,
-                                const Coordinate &aEnd,
-                                const double &aIncrement);
+  Eigen::Vector3d determineDirection(const Coordinate &aStart,
+                                     const Coordinate &aEnd,
+                                     const double &aIncrement);
 };

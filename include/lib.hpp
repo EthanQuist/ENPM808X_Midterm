@@ -34,8 +34,13 @@
 
 #pragma once
 
-#include<iostream>
+#include <iostream>
 #include <Demo.hpp>
+#include <Coordinate.hpp>
+#include <IJoint.hpp>
+#include <InverseKinematics.hpp>
+#include <IPathPlanner.hpp>
+#include <StraightLinePath.hpp>
 
 void dummy() {
     std::cout << "HI" << std::endl;

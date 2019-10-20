@@ -23,9 +23,9 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
- * @file IPathPlanner.hpp
+ * @file Joints.hpp
 *
- * @brief Interface/Abstract Path Planning Class (Defines required functions)
+ * @brief Interface/Abstract Joint Class (Defines required functions)
 *
  * @author Corbyn Yhap (Driver)
 *
@@ -34,50 +34,41 @@
 #pragma once
 
 #include <memory>
-#include <vector>
 
-#include "Coordinate.hpp"
-
-class IPathPlanner {
+class IJoint {
  public:
   /**
 
-   * @brief Method to Compute the 3 Dimensional path from start point to end
-   * point by desired increments (or less).
+   * @brief Destructor for Joint Interface
 
-   * @param aStart Coordinate of the Starting Point.
+   * @param None.
 
-   * @param aEnd Coordinate of the Ending Point.
-
-   * @param aIncrement double. The max distance between path points.
-
-   * @return std::vector<Coordinate> The points corresponding to the path from
-   * start to end.
+   * @return None
 
    */
+  virtual ~IJoint();
 
-  virtual std::vector<Eigen::Matrix4d> computePath(
-      const Eigen::Matrix4d &aStart, const Eigen::Matrix4d &aEnd,
-      const double &aIncrement) = 0;
-
- protected:
   /**
 
-   * @brief Method to Determine the direction the next point should be in
+   * @brief Method to retrieve current joint configuration
 
-   * @param aStart Coordinate of the Starting Point.
+   * @param None.
 
-   * @param aEnd Coordinate of the Ending Point.
-
-   * @param aIncrement double. The max distance between path points.
-
-   * @return Coordinate The unit vector representing the direction of the next
-   * point along the path.
+   * @return double
 
    */
-  virtual Eigen::Vector3d determineDirection(const Coordinate &aStart,
-                                             const Coordinate &aEnd,
-                                const double &aIncrement) = 0;
+  virtual double getConfig() = 0;
+
+  /**
+
+   * @brief Method to set current joint configuration
+
+   * @param double the joint configuration value
+
+   * @return None.
+
+   */
+  virtual void setConfig(double) = 0;
 };
 // Typedef the pointer for easy external polymorphic use.
-typedef std::unique_ptr<IPathPlanner> PathPlanPtr;
+typedef std::shared_ptr<IJoint> JointPtr;

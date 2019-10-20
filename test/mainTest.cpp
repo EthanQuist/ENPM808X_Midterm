@@ -24,57 +24,9 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
+#include <gtest/gtest.h>
 
-#include "Joints.hpp"
-
-IJoint::~IJoint() {
-
-}
-
-PrismaticJoint::PrismaticJoint()
-    :
-    length(0) {
-
-}
-
-PrismaticJoint::PrismaticJoint(double aLength)
-    :
-    length(aLength) {
-
-}
-
-PrismaticJoint::~PrismaticJoint() {
-
-}
-
-double PrismaticJoint::getConfig() {
-  return length;
-}
-
-void PrismaticJoint::setConfig(double aLength) {
-  length = aLength;
-}
-
-RevoluteJoint::RevoluteJoint()
-    :
-    angle(0) {
-
-}
-
-RevoluteJoint::RevoluteJoint(double aAngle)
-    :
-    angle(aAngle) {
-
-}
-
-RevoluteJoint::~RevoluteJoint() {
-
-}
-
-double RevoluteJoint::getConfig() {
-  return angle;
-}
-
-void RevoluteJoint::setConfig(double aAngle) {
-  angle = aAngle;
+int main(int argc, char** argv) {
+  ::testing::InitGoogleTest(&argc, argv);
+  return RUN_ALL_TESTS();
 }

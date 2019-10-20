@@ -27,8 +27,71 @@
 #include <iostream>
 #include <lib.hpp>
 
+
 int main() {
-    Demo demonstration;
-    demonstration.runDemo();
-    return 0;
+
+
+
+  /*
+  //build the IK Solver Class and result
+  InverseKinematicAcmeArm IKsolver;
+  std::vector < JointPtr > result;
+
+  //Set the inputs to the IK Solver
+  Eigen::Matrix4d T(4, 4);
+
+  std::cout << T << std::endl;
+
+  //Transform Matrix - Rotation
+  T(0, 0) = 1.0;
+  T(0, 1) = 0.0;
+  T(0, 2) = 0.0;
+  T(1, 0) = 0.0;
+  T(1, 1) = 1.0;
+  T(1, 2) = 0.0;
+  T(2, 0) = 0.0;
+  T(2, 1) = 0.0;
+  T(2, 2) = 1.0;
+  //Transform Matrix - bottom row
+  T(3, 0) = 0.0;
+  T(3, 1) = 0.0;
+  T(3, 2) = 0.0;
+  T(3, 3) = 1.0;
+  //Transform Matrix - Position
+  T(0, 3) = 2.0;
+  T(1, 3) = 0.0;
+  T(2, 3) = 2.5;
+
+  std::cout << T << std::endl;
+
+  //Run the IK Solver
+  result = IKsolver.computeIK(T);
+
+  //Organize the results
+  JointPtr result1 = result[0];
+  JointPtr result2 = result[1];
+  JointPtr result3 = result[2];
+  JointPtr result4 = result[3];
+  JointPtr result5 = result[4];
+  JointPtr result6 = result[5];
+  double angle1 = result1->getConfig();
+  double angle2 = result2->getConfig();
+  double angle3 = result3->getConfig();
+  double angle4 = result4->getConfig();
+  double angle5 = result5->getConfig();
+  double angle6 = result6->getConfig();
+
+  //Print the results
+  std::cout << angle1 << std::endl;
+  std::cout << angle2 << std::endl;
+  std::cout << angle3 << std::endl;
+  std::cout << angle4 << std::endl;
+  std::cout << angle5 << std::endl;
+  std::cout << angle6 << std::endl;
+   *
+   */
+  Demo demonstration;
+  demonstration.runDemo();
+  dummy();
+  return 0;
 }
