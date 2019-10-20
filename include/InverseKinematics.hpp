@@ -33,11 +33,12 @@
  */
 #pragma once
 
-#include <IJoint.hpp>
 #include <memory>
 #include <vector>
-#include "Coordinate.hpp"
 #include <Eigen/Dense>
+
+#include "Coordinate.hpp"
+#include "IJoint.hpp"
 
 
 class InverseKinematicsBase {

@@ -35,14 +35,14 @@
 
 #include <memory>
 #include <vector>
-#include <Eigen/Dense>
 
 #include "PrismaticJoint.hpp"
 #include "RevoluteJoint.hpp"
 
+#include <Eigen/Dense>
+
 
 class DHTable {
-
  public:
   // Default values prevent these pointers from being null.
   struct Frame {
@@ -122,7 +122,6 @@ class DHTable {
                                std::vector<Frame>::size_type);
  private:
   std::vector<Frame> frames;
-
   /**
 
    * @brief getTransform This function acts as a helper by taking the index of

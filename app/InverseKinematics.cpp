@@ -43,15 +43,13 @@ InverseKinematicAcmeArm::~InverseKinematicAcmeArm() {
 std::vector<JointPtr> InverseKinematicAcmeArm::computeIK(
     Eigen::Matrix4d Transform) {
 
-  double r11 = Transform(0, 0);  //r11
-  double r12 = Transform(0, 1);  //r12
-  double r13 = Transform(0, 2);  //r13
-  double r21 = Transform(1, 0);  //r21
-  double r22 = Transform(1, 1);  //r22
-  double r23 = Transform(1, 2);  //r23
-  //double r31 = Transform(2, 0);  //r31 unused
-  //double r32 = Transform(2, 1);  //r32 unused
-  double r33 = Transform(2, 2);  //r33
+  double r11 = Transform(0, 0);
+  double r12 = Transform(0, 1);
+  double r13 = Transform(0, 2);
+  double r21 = Transform(1, 0);
+  double r22 = Transform(1, 1);
+  double r23 = Transform(1, 2);
+  double r33 = Transform(2, 2);
 
   double xo = Transform(0, 3);
   double yo = Transform(1, 3);
@@ -63,7 +61,7 @@ std::vector<JointPtr> InverseKinematicAcmeArm::computeIK(
   double off;
   double G;
 
-  //Robot parameters
+  // Robot parameters
   d1 = 2;
   d6 = 0.5;
   a2 = 1;

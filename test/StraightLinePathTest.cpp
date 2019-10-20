@@ -116,7 +116,6 @@ TEST(StraightLinePath, PathAlongYAxis) {
   std::cout << "last result \n" << result.back() << std::endl;
 
   compareVecMat(result, expected);
-
 }
 
 TEST(StraightLinePath, PathAlongZAxis) {
@@ -146,7 +145,6 @@ TEST(StraightLinePath, PathAlongZAxis) {
 
 
   compareVecMat(result, expected);
-
 }
 
 TEST(StraightLinePath, NonUnitIncrement) {
@@ -176,5 +174,4 @@ TEST(StraightLinePath, NonUnitIncrement) {
   std::cout << "last result \n" << result.back() << std::endl;
 
   compareVecMat(result, expected);
-
 }
