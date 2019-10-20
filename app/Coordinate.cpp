@@ -23,9 +23,9 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @ file Coordinate.cpp
+ * @file Coordinate.cpp
  *
- * @ brief This File Defines the coordinate class. Intended to be used as a
+ * @brief This File Defines the coordinate class. Intended to be used as a
  *  vector stand in where the user will eventually be able to specify the
  *  output units desired. (Unit functionality unavailable as of phase 2)
  */
