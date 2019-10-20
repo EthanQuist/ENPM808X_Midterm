@@ -61,12 +61,13 @@ std::vector<Eigen::Matrix4d> StraightLinePath::computePath(
   // This algorithm assumes that the orientation stays constant from
   // start to end. So we copy the start matrix and replace the positions.
   while (tDistance > aIncrement) {
-
-    double tNewX = unitVec(0) * aIncrement + points.back()(0, 3);
-    double tNewY = unitVec(1) * aIncrement + points.back()(1, 3);
-    double tNewZ = unitVec(2) * aIncrement + points.back()(2, 3);
+    Coordinate tNewLoc(0, 0, 0);
+    tNewLoc.setX(unitVec(0) * aIncrement + points.back()(0, 3));
+    tNewLoc.setY(unitVec(1) * aIncrement + points.back()(1, 3));
+    tNewLoc.setZ(unitVec(2) * aIncrement + points.back()(2, 3));
     Eigen::Matrix4d tNewPoint = aStartMat;
-    tNewPoint.block<3, 1>(0, 3) = Eigen::Vector3d(tNewX, tNewY, tNewZ);
+
+    tNewPoint.block<3, 1>(0, 3) = tNewLoc.getAsVec();
     // Put the newly calculated point on the list
 
     points.push_back(tNewPoint);

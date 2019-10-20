@@ -32,6 +32,9 @@
 void compareVecMat(std::vector<Eigen::Matrix4d> &result,
                    std::vector<Eigen::Matrix4d> &expected) {
   std::vector<Eigen::Matrix4d>::iterator resultIter = result.begin();
+
+  ASSERT_TRUE(result.size() == expected.size());
+
   for (auto expect : expected) {
     bool closeEnough = expect.isApprox(*resultIter);
     resultIter++;
@@ -76,7 +79,9 @@ TEST(StraightLinePath, PathAlongXAxis) {
     tResult(0, 3) += increment * idx;
     expected.push_back(tResult);
   }
-  std::cout << "last expected[3] \n" << expected.back() << std::endl;
+  expected.push_back(end);
+
+  std::cout << "last expected \n" << expected.back() << std::endl;
   std::cout << "last result \n" << result.back() << std::endl;
 
 
@@ -105,7 +110,9 @@ TEST(StraightLinePath, PathAlongYAxis) {
     tResult(1, 3) += increment * idx;
     expected.push_back(tResult);
   }
-  std::cout << "last expected[3] \n" << expected.back() << std::endl;
+  expected.push_back(end);
+
+  std::cout << "last expected \n" << expected.back() << std::endl;
   std::cout << "last result \n" << result.back() << std::endl;
 
   compareVecMat(result, expected);
@@ -132,7 +139,9 @@ TEST(StraightLinePath, PathAlongZAxis) {
     tResult(2, 3) += increment * idx;
     expected.push_back(tResult);
   }
-  std::cout << "last expected[3] \n" << expected.back() << std::endl;
+  expected.push_back(end);
+
+  std::cout << "last expected \n" << expected.back() << std::endl;
   std::cout << "last result \n" << result.back() << std::endl;
 
 
@@ -161,7 +170,9 @@ TEST(StraightLinePath, NonUnitIncrement) {
     tResult(2, 3) += increment * idx;
     expected.push_back(tResult);
   }
-  std::cout << "last expected[3] \n" << expected.back() << std::endl;
+  expected.push_back(end);
+
+  std::cout << "last expected \n" << expected.back() << std::endl;
   std::cout << "last result \n" << result.back() << std::endl;
 
   compareVecMat(result, expected);
