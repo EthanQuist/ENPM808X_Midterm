@@ -31,17 +31,27 @@
  * configurations along the path.
  */
 
+#include <algorithm>
+#include <fstream>
+#include <iostream>
+
 #include "./matplotlibcpp.h"
 
-#include <algorithm>
-
 #include "Coordinate.hpp"
+#include "Demo.hpp"
+#include "DHTable.hpp"
 #include "IJoint.hpp"
 #include "InverseKinematics.hpp"
 #include "IPathPlanner.hpp"
 #include "StraightLinePath.hpp"
-#include "Demo.hpp"
-#include <iostream>
+
+Demo::Demo() {
+  defineDH();
+}
+
+Demo::~Demo() {
+}
+
 void Demo::runDemo() {
   StraightLinePath pathMaker;
   InverseKinematicAcmeArm IKsolver;
@@ -92,7 +102,6 @@ void Demo::runDemo() {
   tTrajData.xlabel = "X [m]";
   tTrajData.ylabel = "Y [m]";
   tTrajData.timeInc = timeInc;
-  tTrajData.show = true;
   animatePlot(tTrajData);
 
   std::vector<double> q1V;
@@ -107,6 +116,8 @@ void Demo::runDemo() {
     std::vector<JointPtr> res;
     res = IKsolver.computeIK(mat);
 
+    plotRobot(getJointPos(res));
+
     q1V.push_back(res.at(0)->getConfig());
     q2V.push_back(res.at(1)->getConfig());
     q3V.push_back(res.at(2)->getConfig());
@@ -116,7 +127,7 @@ void Demo::runDemo() {
   }
   // create x-axis for time domain
   std::vector<double> qx(q1V.size(), 0);
-  int i;
+  int i = 0;
   for (auto &tQx : qx) {
     tQx = ++i;
   }
@@ -137,16 +148,16 @@ void Demo::runDemo() {
     plotData tQData;
     tQData.x = qx;
     tQData.y = tQ;
-
-    tQData.xlimMax = *std::max_element(qx.begin(), qx.end()) + minPlotBorder;
-    tQData.xlimMin = *std::min_element(qx.begin(), qx.end()) - minPlotBorder;
-    tQData.ylimMax = *std::max_element(tQ.begin(), tQ.end()) + minPlotBorder;
-    tQData.ylimMin = *std::min_element(tQ.begin(), tQ.end()) - minPlotBorder;
+    tQData.xlimMax = (*std::max_element(qx.begin(), qx.end())) + minPlotBorder;
+    tQData.xlimMin = (*std::min_element(qx.begin(), qx.end())) - minPlotBorder;
+    tQData.ylimMax = (*std::max_element(tQ.begin(), tQ.end())) + minPlotBorder;
+    tQData.ylimMin = (*std::min_element(tQ.begin(), tQ.end())) - minPlotBorder;
     std::stringstream ss;
     ss << "Joint Q" << cnt;
     tQData.title = ss.str();
     tQData.xlabel = "Time";
     tQData.ylabel = "Config [rad]";
+    tQData.timeInc = timeInc;
 
     subPlots.push_back(tQData);
   }
@@ -164,18 +175,13 @@ void Demo::animatePlot(const Demo::plotData &aDatum) {
     Demo::plotData tAniPlotData(aDatum);
     tAniPlotData.x = tAniX;
     tAniPlotData.y = tAniY;
-    tAniPlotData.show = false;
 
     plotDatum(tAniPlotData);
     matplotlibcpp::pause(aDatum.timeInc);
-
-    tEndXIter++;
-    tEndYIter++;
   }
 
   plotDatum(aDatum);
   matplotlibcpp::show();
-
 }
 
 void Demo::animateSubPlot(const std::vector<plotData> &aData, int rows,
@@ -183,9 +189,9 @@ void Demo::animateSubPlot(const std::vector<plotData> &aData, int rows,
   matplotlibcpp::clf();
 
   // Determine how many data points in the data (Assumes at least 1 item in
-  // the vector
+  // the vector)
   auto numElem = aData.begin()->x.size();
-  std::vector<double>::size_type tCount;
+  std::vector<double>::size_type tCount = 1;
   for (tCount = 1; tCount < numElem; tCount++) {
     for (auto aDatum = aData.begin(); aDatum != aData.end(); aDatum++) {
       std::vector<double> tAniX(aDatum->x.begin(), aDatum->x.begin() + tCount);
@@ -193,7 +199,6 @@ void Demo::animateSubPlot(const std::vector<plotData> &aData, int rows,
       Demo::plotData tAniPlotData(*aDatum);
       tAniPlotData.x = tAniX;
       tAniPlotData.y = tAniY;
-      tAniPlotData.show = false;
 
       matplotlibcpp::subplot(rows, cols, aDatum - aData.begin() + 1);
       plotDatum(tAniPlotData);
@@ -223,4 +228,102 @@ void Demo::plotDatum(const Demo::plotData &aDatum) {
   matplotlibcpp::title(aDatum.title);
   matplotlibcpp::xlabel(aDatum.xlabel);
   matplotlibcpp::ylabel(aDatum.ylabel);
+}
+
+void Demo::defineDH() {
+  // Create Constants used in DH Parameters
+  double d1 = 2;
+  double a2 = 1;
+  double a3 = 1;
+  double alpha1 = M_PI / 2;
+  double d6 = 0.5;
+  double alpha4 = -M_PI / 2;
+  double alpha5 = M_PI / 2;
+
+  // Note all params are set to 0 unless otherwise specified.
+  DHTable::Frame tFrame1;
+
+  tFrame1.d->setConfig(d1);
+  tFrame1.alpha->setConfig(alpha1);
+  jointQs.push_back(tFrame1.theta);
+
+  // Frame 1
+  AcmeArmFK.addFrame(tFrame1);
+
+  // Note all params are set to 0 unless otherwise specified.
+  DHTable::Frame tFrame2;
+
+  tFrame2.a->setConfig(a2);
+  jointQs.push_back(tFrame2.theta);
+
+  // Frame 2
+  AcmeArmFK.addFrame(tFrame2);
+
+  // Note all params are set to 0 unless otherwise specified.
+  DHTable::Frame tFrame3;
+
+  tFrame3.a->setConfig(a3);
+  jointQs.push_back(tFrame3.theta);
+
+  // Frame 3
+  AcmeArmFK.addFrame(tFrame3);
+
+  // Note all params are set to 0 unless otherwise specified.
+  DHTable::Frame tFrame4;
+
+  tFrame4.alpha->setConfig(alpha4);
+  jointQs.push_back(tFrame4.theta);
+
+  // Frame 4
+  AcmeArmFK.addFrame(tFrame4);
+
+  // Note all params are set to 0 unless otherwise specified.
+  DHTable::Frame tFrame5;
+
+  tFrame5.alpha->setConfig(alpha5);
+  jointQs.push_back(tFrame5.theta);
+
+  // Frame 5
+  AcmeArmFK.addFrame(tFrame5);
+
+  // Note all params are set to 0 unless otherwise specified.
+  DHTable::Frame tFrame6;
+
+  tFrame6.d->setConfig(d6);
+  jointQs.push_back(tFrame6.theta);
+  // Frame 6
+  AcmeArmFK.addFrame(tFrame6);
+}
+
+std::vector<Coordinate> Demo::getJointPos(
+    const std::vector<JointPtr> &aInpJointQs) {
+  auto tQComputed = aInpJointQs.begin();
+  auto tQtoSet = jointQs.begin();
+  // Update the values stored in teh DH Table
+  while (tQtoSet != jointQs.end() && tQComputed != aInpJointQs.end()) {
+    (*tQtoSet)->setConfig((*tQComputed)->getConfig());
+    tQtoSet++;
+    tQComputed++;
+  }
+  std::vector<Coordinate> tReturn(jointQs.size(), Coordinate(0, 0, 0));
+  unsigned int tCnt = 0;
+  for (auto &elem : tReturn) {
+    Eigen::Matrix4d transform = AcmeArmFK.getTransform(0, ++tCnt);
+    elem.setXYZ(transform(0, 3), transform(1, 3), transform(2, 3));
+  }
+
+  return tReturn;
+}
+
+void Demo::plotRobot(const std::vector<Coordinate> &aJointPos) {
+  // Because it cannot plot 3d plots with the c++ wrapper I will write the
+  // points to a file for viewing after completion of the demo via a python
+  // script.
+  std::ofstream myfile;
+  myfile.open("robotPos.py", std::ios_base::app);
+  for (const auto &pos : aJointPos) {
+    myfile << pos.getAsVec() << "\n!\n";
+  }
+  myfile << "!@#\n";
+  myfile.close();
 }
