@@ -1,0 +1,126 @@
+\href{https://travis-ci.org/EthanQuist/ENPM808X_Midterm}{\texttt{ }} \hypertarget{md__c_1__users_ethan__desktop__doxygen__environment__e_n_p_m808_x__midterm-master_readme_autotoc_md1}{}\doxysection{$<$a href=\char`\"{}https\+://coveralls.\+io/github/\+Ethan\+Quist/\+E\+N\+P\+M808\+X\+\_\+\+Midterm?branch=master\char`\"{}$>$$<$img src=\char`\"{}https\+://coveralls.\+io/repos/github/\+Ethan\+Quist/\+E\+N\+P\+M808\+X\+\_\+\+Midterm/badge.\+svg?branch=master\char`\"{} alt=\char`\"{}\+Coverage Status\char`\"{}/$>$$<$/a$>$}\label{md__c_1__users_ethan__desktop__doxygen__environment__e_n_p_m808_x__midterm-master_readme_autotoc_md1}
+\hypertarget{md__c_1__users_ethan__desktop__doxygen__environment__e_n_p_m808_x__midterm-master_readme_autotoc_md2}{}\doxysection{Overview}\label{md__c_1__users_ethan__desktop__doxygen__environment__e_n_p_m808_x__midterm-master_readme_autotoc_md2}
+This repository serves as the Inverse Kinematic solver for the Acme Robotics mobile robot manipulator arm. The six degree of freedom manipulator arm requires this software to calculate the inverse kinematics, specifically the required joint angles for a desired coordinate position. The input to the system will be a desired \mbox{[}X Y Z\mbox{]} coordinate position in the world frame of the mobile robot and the system will output a vector of 6 joint angles that can then be used by the manipulator arm\textquotesingle{}s controller. The software will compute the vector of 6 joint angles for a series of small movements along a trajectory. The trajectory is built by generating a discretized linear path from the current coordinate position to the goal position. These discretized points along the path are used to find the exact joint angles for each smaller movement along the trajectory.
+
+The IK solver integrates the software with the other components of the robot. As the robot moves it constantly scans the environment using an array of optical sensors. When the cameras detect an object that requires intervention from the manipulator arm it calculates the position of the object calibrated to the base frame of the manipulator arm. This provides easier calculations for the inverse kinematics as the inputs to the IK solver software are the cartesian coordinates \mbox{[}X,Y,Z\mbox{]}T of the grasping location. Our software then computes the necessary joint angles and output them to the P\+CB controlling the motors of the manipulator arm.
+
+In order to effectively store and modify the position of the end effector the software takes advantage of the Denavit-\/\+Hartenberg (DH) Convention to describe the system using DH parameters. These parameters are used to create a Transformation Matrix. The software implements classes to manage the responsibilities of a Transformation Matrix as well as a class that is responsible for taking DH parameters as input and producing a Transformation Matrix as output. These equations are used to transform the current joint configuration into a current end effector position. The software implements a class that takes the current and desired positions as input and outputs all of the interim end effector positions to accomplish that path. Finally, these end effector positions rely on an inverse kinematics class to compute the corresponding joint configurations.\hypertarget{md__c_1__users_ethan__desktop__doxygen__environment__e_n_p_m808_x__midterm-master_readme_autotoc_md3}{}\doxysection{Personnel}\label{md__c_1__users_ethan__desktop__doxygen__environment__e_n_p_m808_x__midterm-master_readme_autotoc_md3}
+The two programmers for this project are Ethan Quist and Corbyn Yhap. Currently both are aquiring their Masters in Engineering for Robotics at University of Maryland, College Park. Both Ethan and Corbyn worked as Engineers in Industry prior to returning to school for their Masters. While collaborating to produce this software the two worked as a team dividing up the work and taking turns operating as the driver or navigator for the section of code.\hypertarget{md__c_1__users_ethan__desktop__doxygen__environment__e_n_p_m808_x__midterm-master_readme_autotoc_md4}{}\doxysection{License}\label{md__c_1__users_ethan__desktop__doxygen__environment__e_n_p_m808_x__midterm-master_readme_autotoc_md4}
+This software operates with a 3 clause B\+SD 2.\+0 license and can be found inside the file L\+I\+C\+E\+N\+SE.\hypertarget{md__c_1__users_ethan__desktop__doxygen__environment__e_n_p_m808_x__midterm-master_readme_autotoc_md5}{}\doxysection{Travis and Coveralls}\label{md__c_1__users_ethan__desktop__doxygen__environment__e_n_p_m808_x__midterm-master_readme_autotoc_md5}
+Badges for Travis and Coveralls are located at the top of the readme file. Additional information on building the software to test for coverage is shown below.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{sudo apt-\/get install lcov}
+\DoxyCodeLine{cmake -\/D COVERAGE=ON -\/D CMAKE\_BUILD\_TYPE=Debug ../}
+\DoxyCodeLine{make}
+\DoxyCodeLine{make code\_coverage}
+\end{DoxyCode}
+ This generates a index.\+html page in the build/coverage sub-\/directory that can be viewed locally in a web browser.\hypertarget{md__c_1__users_ethan__desktop__doxygen__environment__e_n_p_m808_x__midterm-master_readme_autotoc_md6}{}\doxysection{A\+I\+P Backlog}\label{md__c_1__users_ethan__desktop__doxygen__environment__e_n_p_m808_x__midterm-master_readme_autotoc_md6}
+The google sheet for our A\+IP backlog is linked below\+:
+
+\href{https://docs.google.com/spreadsheets/d/14NH808N-Kye4lGJhj0COwV8fRF2zoUQIuAs4Zp_pyWk/edit?usp=sharing}{\texttt{ https\+://docs.\+google.\+com/spreadsheets/d/14\+N\+H808\+N-\/\+Kye4l\+G\+Jhj0\+C\+Ow\+V8f\+R\+F2zo\+U\+Q\+Iu\+As4\+Zp\+\_\+py\+Wk/edit?usp=sharing}}\hypertarget{md__c_1__users_ethan__desktop__doxygen__environment__e_n_p_m808_x__midterm-master_readme_autotoc_md7}{}\doxysection{Sprint Planning Notes}\label{md__c_1__users_ethan__desktop__doxygen__environment__e_n_p_m808_x__midterm-master_readme_autotoc_md7}
+The google document for our Sprint Iteration Review is linked below This document contains our four main team meeting notes, planning for iteration 1, review of iteration 1, planning of iteration 2, and review of iteration 2\+:
+
+\href{https://docs.google.com/document/d/1Dd6p2RdcRbDvNMnmmexAMOpVTrpyoYmNtbwyHA9CDzw/edit?usp=sharing}{\texttt{ https\+://docs.\+google.\+com/document/d/1\+Dd6p2\+Rdc\+Rb\+Dv\+N\+Mnmmex\+A\+M\+Op\+V\+Trpyo\+Ym\+Ntbwy\+H\+A9\+C\+Dzw/edit?usp=sharing}}\hypertarget{md__c_1__users_ethan__desktop__doxygen__environment__e_n_p_m808_x__midterm-master_readme_autotoc_md8}{}\doxysection{Operation}\label{md__c_1__users_ethan__desktop__doxygen__environment__e_n_p_m808_x__midterm-master_readme_autotoc_md8}
+In order to clone and run this software follow the below steps\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{git clone -\/-\/recursive https://github.com/EthanQuist/ENPM808X\_Midterm.git}
+\DoxyCodeLine{cd <path to repository>}
+\DoxyCodeLine{mkdir build}
+\DoxyCodeLine{cd build}
+\DoxyCodeLine{cmake ..}
+\DoxyCodeLine{make}
+\DoxyCodeLine{Run tests: ./test/cpp-\/test}
+\DoxyCodeLine{Run program: ./app/shell-\/app}
+\end{DoxyCode}
+
+
+These steps will allow for the repository to be cloned remotely. The steps include building the project as well as running the unit tests and main program which will run our demonstration.
+
+Running ./app/shell-\/app in the build folder will run out demonstration. We are using matplotlib (with a c++ wrapper) to display the trajectory of our desired path as well as the changes in all 6 joints as the robot traverses the trajectory to go from initial point to end point.\hypertarget{md__c_1__users_ethan__desktop__doxygen__environment__e_n_p_m808_x__midterm-master_readme_autotoc_md9}{}\doxysection{Demo}\label{md__c_1__users_ethan__desktop__doxygen__environment__e_n_p_m808_x__midterm-master_readme_autotoc_md9}
+The demo is ran from main.\+cpp source code where a window will display the trajectory of the end-\/effector. This window is an animation from the start position to the end position. Once the animation finishes please click the x on the window to allow the code to run the second part of the demonstration. Part 2 of the demo will display all 6 joint angles and their changes as the robot moves along the path planning trajectory. When the animation ends click on the x of the window and the demo will finish.\hypertarget{md__c_1__users_ethan__desktop__doxygen__environment__e_n_p_m808_x__midterm-master_readme_autotoc_md10}{}\doxysection{Dependencies}\label{md__c_1__users_ethan__desktop__doxygen__environment__e_n_p_m808_x__midterm-master_readme_autotoc_md10}
+The demonstration requires the use of matplotlibcpp which is a c++ wrapper for a python library commonly used for plotting graphs and generating graphical windows. Because the demonstration uses a python library it is required to have python on any machine running the software. The simple command line shown below will ensure the correct version of python libraries are installed\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{sudo apt-\/get install python-\/matplotlib python-\/numpy python2.7-\/dev}
+\end{DoxyCode}
+
+
+Our code depends on code from two different third party locations. The first is Eigen a linear algebra math library. The second is a c++ wrapper for matplotlib to display plots in windows. The necessary libraries from Eigen and matplotlib can be downloaded using the script below. This script will also place all necessary dependency code in the correct folder locations dictated by our Cmakelist.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cd ../}
+\DoxyCodeLine{mkdir ThirdParty}
+\DoxyCodeLine{mkdir ThirdParty/eigen3}
+\DoxyCodeLine{cd -\/}
+\DoxyCodeLine{}
+\DoxyCodeLine{wget  http://bitbucket.org/eigen/eigen/get/3.3.7.tar.bz2}
+\DoxyCodeLine{tar -\/xjf 3.3.7.tar.bz2}
+\DoxyCodeLine{mv eigen-\/eigen-\/323c052e1731/Eigen ../ThirdParty/eigen3/.}
+\DoxyCodeLine{}
+\DoxyCodeLine{git clone https://github.com/lava/matplotlib-\/cpp.git}
+\DoxyCodeLine{mv matplotlib-\/cpp ../ThirdParty}
+\end{DoxyCode}
+\hypertarget{md__c_1__users_ethan__desktop__doxygen__environment__e_n_p_m808_x__midterm-master_readme_autotoc_md11}{}\doxysection{Known Issues and Bugs}\label{md__c_1__users_ethan__desktop__doxygen__environment__e_n_p_m808_x__midterm-master_readme_autotoc_md11}
+The only known issues that could arise while running our code will come incorrectly downloading the dependancies. The code above will provide every step necessary to download the third party software as well as place each dependancy in the correct location.\hypertarget{md__c_1__users_ethan__desktop__doxygen__environment__e_n_p_m808_x__midterm-master_readme_autotoc_md12}{}\doxysection{How to build and run}\label{md__c_1__users_ethan__desktop__doxygen__environment__e_n_p_m808_x__midterm-master_readme_autotoc_md12}
+The steps to build and run from the command prompt are listed above in the \char`\"{}\+Operation\char`\"{} section. If you choose to build and run from Eclipse the instructions are below\+:
+
+To build the project, in Eclipse, unfold boilerplate-\/eclipse project in Project Explorer, unfold Build Targets, double click on \char`\"{}all\char`\"{} to build all projects.
+
+To run\+:
+
+
+\begin{DoxyEnumerate}
+\item In Eclipse, right click on the boilerplate-\/eclipse in Project Explorer, select Run As -\/$>$ Local C/\+C++ Application
+\item Choose the binaries to run (e.\+g. shell-\/app, cpp-\/test for unit testing)
+\end{DoxyEnumerate}\hypertarget{md__c_1__users_ethan__desktop__doxygen__environment__e_n_p_m808_x__midterm-master_readme_autotoc_md13}{}\doxysection{How to generate doxygen documentation}\label{md__c_1__users_ethan__desktop__doxygen__environment__e_n_p_m808_x__midterm-master_readme_autotoc_md13}
+Doxygen documenation has been generated and included in the \char`\"{}docs\char`\"{} subfolder. These doxygen files were generated through the Doxywizard software.
+
+Follow the steps on the Doxygen Downloads page to download the correct doxygen files for your system\+: \href{http://www.doxygen.nl/download.html}{\texttt{ http\+://www.\+doxygen.\+nl/download.\+html}}
+
+With Doxywizard installed you can generate the documents through the following steps\+:
+
+
+\begin{DoxyEnumerate}
+\item Specify the working directory from which doxygen will run
+\item Name the Porject
+\item Specify the directory to scan for source code
+\item Specify the directory where doxygen should put the generated documentation
+\item Under Expert/\+Build adjust settings for types of files to generate documenation on
+\item Under Run click \char`\"{}\+Run Doxygen\char`\"{} -\/ the documentation will generate in specified location
+\end{DoxyEnumerate}\hypertarget{md__c_1__users_ethan__desktop__doxygen__environment__e_n_p_m808_x__midterm-master_readme_autotoc_md14}{}\doxysection{Plugins}\label{md__c_1__users_ethan__desktop__doxygen__environment__e_n_p_m808_x__midterm-master_readme_autotoc_md14}
+
+\begin{DoxyItemize}
+\item Cpp\+Ch\+Eclipse
+
+To install and run cppcheck in Eclipse
+\begin{DoxyEnumerate}
+\item In Eclipse, go to Window -\/$>$ Preferences -\/$>$ C/\+C++ -\/$>$ cppcheclipse. Set cppcheck binary path to \char`\"{}/usr/bin/cppcheck\char`\"{}.
+\item To run C\+P\+P\+Check on a project, right click on the project name in the Project Explorer and choose cppcheck -\/$>$ Run cppcheck.
+\end{DoxyEnumerate}
+\item Google C++ Sytle
+
+To include and use Google C++ Style formatter in Eclipse
+\begin{DoxyEnumerate}
+\item In Eclipse, go to Window -\/$>$ Preferences -\/$>$ C/\+C++ -\/$>$ Code Style -\/$>$ Formatter. Import \href{https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-cpp-google-style.xml}{\texttt{ eclipse-\/cpp-\/google-\/style}} and apply.
+\item To use Google C++ style formatter, right click on the source code or folder in Project Explorer and choose Source -\/$>$ Format
+\end{DoxyEnumerate}
+\item Git
+
+It is possible to manage version control through Eclipse and the git plugin, but it typically requires creating another project. If you\textquotesingle{}re interested in this, try it out yourself and contact me on Canvas.
+\end{DoxyItemize}\hypertarget{md__c_1__users_ethan__desktop__doxygen__environment__e_n_p_m808_x__midterm-master_readme_autotoc_md15}{}\doxysection{License}\label{md__c_1__users_ethan__desktop__doxygen__environment__e_n_p_m808_x__midterm-master_readme_autotoc_md15}
+Copyright (c) 2019, Ethan Quist, Corbyn Yhap, Acme Robotics All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met\+:
+\begin{DoxyItemize}
+\item Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+\item Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+\item Neither the name of the $<$organization$>$ nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+\end{DoxyItemize}
+
+T\+H\+IS S\+O\+F\+T\+W\+A\+RE IS P\+R\+O\+V\+I\+D\+ED BY T\+HE C\+O\+P\+Y\+R\+I\+G\+HT H\+O\+L\+D\+E\+RS A\+ND C\+O\+N\+T\+R\+I\+B\+U\+T\+O\+RS \char`\"{}\+A\+S I\+S\char`\"{} A\+ND A\+NY E\+X\+P\+R\+E\+SS OR I\+M\+P\+L\+I\+ED W\+A\+R\+R\+A\+N\+T\+I\+ES, I\+N\+C\+L\+U\+D\+I\+NG, B\+UT N\+OT L\+I\+M\+I\+T\+ED TO, T\+HE I\+M\+P\+L\+I\+ED W\+A\+R\+R\+A\+N\+T\+I\+ES OF M\+E\+R\+C\+H\+A\+N\+T\+A\+B\+I\+L\+I\+TY A\+ND F\+I\+T\+N\+E\+SS F\+OR A P\+A\+R\+T\+I\+C\+U\+L\+AR P\+U\+R\+P\+O\+SE A\+RE D\+I\+S\+C\+L\+A\+I\+M\+ED. IN NO E\+V\+E\+NT S\+H\+A\+LL $<$\+C\+O\+P\+Y\+R\+I\+G\+H\+T holder$>$=\char`\"{}\char`\"{}$>$ BE L\+I\+A\+B\+LE F\+OR A\+NY D\+I\+R\+E\+CT, I\+N\+D\+I\+R\+E\+CT, I\+N\+C\+I\+D\+E\+N\+T\+AL, S\+P\+E\+C\+I\+AL, E\+X\+E\+M\+P\+L\+A\+RY, OR C\+O\+N\+S\+E\+Q\+U\+E\+N\+T\+I\+AL D\+A\+M\+A\+G\+ES (I\+N\+C\+L\+U\+D\+I\+NG, B\+UT N\+OT L\+I\+M\+I\+T\+ED TO, P\+R\+O\+C\+U\+R\+E\+M\+E\+NT OF S\+U\+B\+S\+T\+I\+T\+U\+TE G\+O\+O\+DS OR S\+E\+R\+V\+I\+C\+ES; L\+O\+SS OF U\+SE, D\+A\+TA, OR P\+R\+O\+F\+I\+TS; OR B\+U\+S\+I\+N\+E\+SS I\+N\+T\+E\+R\+R\+U\+P\+T\+I\+ON) H\+O\+W\+E\+V\+ER C\+A\+U\+S\+ED A\+ND ON A\+NY T\+H\+E\+O\+RY OF L\+I\+A\+B\+I\+L\+I\+TY, W\+H\+E\+T\+H\+ER IN C\+O\+N\+T\+R\+A\+CT, S\+T\+R\+I\+CT L\+I\+A\+B\+I\+L\+I\+TY, OR T\+O\+RT (I\+N\+C\+L\+U\+D\+I\+NG N\+E\+G\+L\+I\+G\+E\+N\+CE OR O\+T\+H\+E\+R\+W\+I\+SE) A\+R\+I\+S\+I\+NG IN A\+NY W\+AY O\+UT OF T\+HE U\+SE OF T\+H\+IS S\+O\+F\+T\+W\+A\+RE, E\+V\+EN IF A\+D\+V\+I\+S\+ED OF T\+HE P\+O\+S\+S\+I\+B\+I\+L\+I\+TY OF S\+U\+CH D\+A\+M\+A\+GE. 

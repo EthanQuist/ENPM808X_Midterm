@@ -1,0 +1,88 @@
+\hypertarget{class_inverse_kinematic_acme_arm}{}\doxysection{Inverse\+Kinematic\+Acme\+Arm Class Reference}
+\label{class_inverse_kinematic_acme_arm}\index{InverseKinematicAcmeArm@{InverseKinematicAcmeArm}}
+Inheritance diagram for Inverse\+Kinematic\+Acme\+Arm\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_inverse_kinematic_acme_arm}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_inverse_kinematic_acme_arm_a1441f25f10a54ec0acc3b4761e695788}{Inverse\+Kinematic\+Acme\+Arm}} ()
+\begin{DoxyCompactList}\small\item\em Constructor for Inverse Kinematics Acme Arm. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{class_inverse_kinematic_acme_arm_a46fe90b875e7d241a7d9ad4fc930e53e}{$\sim$\+Inverse\+Kinematic\+Acme\+Arm}} ()
+\begin{DoxyCompactList}\small\item\em Destructor for Inverse Kinematics Acme Arm. \end{DoxyCompactList}\item 
+std\+::vector$<$ Joint\+Ptr $>$ \mbox{\hyperlink{class_inverse_kinematic_acme_arm_aa4eab65a338058c4e3debc7cbe584acb}{compute\+IK}} (Eigen\+::\+Matrix4d)
+\begin{DoxyCompactList}\small\item\em Method to compute Inverse Kinematics For the Acme Arm. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_inverse_kinematic_acme_arm_a1441f25f10a54ec0acc3b4761e695788}\label{class_inverse_kinematic_acme_arm_a1441f25f10a54ec0acc3b4761e695788}} 
+\index{InverseKinematicAcmeArm@{InverseKinematicAcmeArm}!InverseKinematicAcmeArm@{InverseKinematicAcmeArm}}
+\index{InverseKinematicAcmeArm@{InverseKinematicAcmeArm}!InverseKinematicAcmeArm@{InverseKinematicAcmeArm}}
+\doxysubsubsection{\texorpdfstring{InverseKinematicAcmeArm()}{InverseKinematicAcmeArm()}}
+{\footnotesize\ttfamily Inverse\+Kinematic\+Acme\+Arm\+::\+Inverse\+Kinematic\+Acme\+Arm (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Constructor for Inverse Kinematics Acme Arm. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em None.} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+None. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_inverse_kinematic_acme_arm_a46fe90b875e7d241a7d9ad4fc930e53e}\label{class_inverse_kinematic_acme_arm_a46fe90b875e7d241a7d9ad4fc930e53e}} 
+\index{InverseKinematicAcmeArm@{InverseKinematicAcmeArm}!````~InverseKinematicAcmeArm@{$\sim$InverseKinematicAcmeArm}}
+\index{````~InverseKinematicAcmeArm@{$\sim$InverseKinematicAcmeArm}!InverseKinematicAcmeArm@{InverseKinematicAcmeArm}}
+\doxysubsubsection{\texorpdfstring{$\sim$InverseKinematicAcmeArm()}{~InverseKinematicAcmeArm()}}
+{\footnotesize\ttfamily Inverse\+Kinematic\+Acme\+Arm\+::$\sim$\+Inverse\+Kinematic\+Acme\+Arm (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Destructor for Inverse Kinematics Acme Arm. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em None.} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+None. 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_inverse_kinematic_acme_arm_aa4eab65a338058c4e3debc7cbe584acb}\label{class_inverse_kinematic_acme_arm_aa4eab65a338058c4e3debc7cbe584acb}} 
+\index{InverseKinematicAcmeArm@{InverseKinematicAcmeArm}!computeIK@{computeIK}}
+\index{computeIK@{computeIK}!InverseKinematicAcmeArm@{InverseKinematicAcmeArm}}
+\doxysubsubsection{\texorpdfstring{computeIK()}{computeIK()}}
+{\footnotesize\ttfamily std\+::vector$<$ Joint\+Ptr $>$ Inverse\+Kinematic\+Acme\+Arm\+::compute\+IK (\begin{DoxyParamCaption}\item[{Eigen\+::\+Matrix4d}]{Transform }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Method to compute Inverse Kinematics For the Acme Arm. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Coordinate.} & A 4x4 Matrix from Eigen\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::vector$<$\+Joint\+Ptr$>$ The vector of corresponding joints. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_inverse_kinematics_base_ade51b8a3135407074689f0dc41145d42}{Inverse\+Kinematics\+Base}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/ethan/\+Desktop/\+Doxygen Environment/\+E\+N\+P\+M808\+X\+\_\+\+Midterm-\/master/include/Inverse\+Kinematics.\+hpp\item 
+C\+:/\+Users/ethan/\+Desktop/\+Doxygen Environment/\+E\+N\+P\+M808\+X\+\_\+\+Midterm-\/master/app/Inverse\+Kinematics.\+cpp\end{DoxyCompactItemize}

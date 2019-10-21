@@ -1,0 +1,78 @@
+\hypertarget{class_i_path_planner}{}\doxysection{I\+Path\+Planner Class Reference}
+\label{class_i_path_planner}\index{IPathPlanner@{IPathPlanner}}
+Inheritance diagram for I\+Path\+Planner\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_i_path_planner}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual std\+::vector$<$ Eigen\+::\+Matrix4d $>$ \mbox{\hyperlink{class_i_path_planner_a550141db927b7395fdf5706121fcaf18}{compute\+Path}} (const Eigen\+::\+Matrix4d \&a\+Start, const Eigen\+::\+Matrix4d \&a\+End, const double \&a\+Increment)=0
+\begin{DoxyCompactList}\small\item\em Method to Compute the 3 Dimensional path from start point to end point by desired increments (or less). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual Eigen\+::\+Vector3d \mbox{\hyperlink{class_i_path_planner_a69cf4de7047bfa682212b4cf8436d02c}{determine\+Direction}} (const \mbox{\hyperlink{class_coordinate}{Coordinate}} \&a\+Start, const \mbox{\hyperlink{class_coordinate}{Coordinate}} \&a\+End, const double \&a\+Increment)=0
+\begin{DoxyCompactList}\small\item\em Method to Determine the direction the next point should be in. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_i_path_planner_a550141db927b7395fdf5706121fcaf18}\label{class_i_path_planner_a550141db927b7395fdf5706121fcaf18}} 
+\index{IPathPlanner@{IPathPlanner}!computePath@{computePath}}
+\index{computePath@{computePath}!IPathPlanner@{IPathPlanner}}
+\doxysubsubsection{\texorpdfstring{computePath()}{computePath()}}
+{\footnotesize\ttfamily virtual std\+::vector$<$Eigen\+::\+Matrix4d$>$ I\+Path\+Planner\+::compute\+Path (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Matrix4d \&}]{a\+Start,  }\item[{const Eigen\+::\+Matrix4d \&}]{a\+End,  }\item[{const double \&}]{a\+Increment }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Method to Compute the 3 Dimensional path from start point to end point by desired increments (or less). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+Start} & \mbox{\hyperlink{class_coordinate}{Coordinate}} of the Starting Point.\\
+\hline
+{\em a\+End} & \mbox{\hyperlink{class_coordinate}{Coordinate}} of the Ending Point.\\
+\hline
+{\em a\+Increment} & double. The max distance between path points.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::vector$<$\+Coordinate$>$ The points corresponding to the path from start to end. 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_straight_line_path_a9e444a45f2dd67123518cf795482e00e}{Straight\+Line\+Path}}.
+
+\mbox{\Hypertarget{class_i_path_planner_a69cf4de7047bfa682212b4cf8436d02c}\label{class_i_path_planner_a69cf4de7047bfa682212b4cf8436d02c}} 
+\index{IPathPlanner@{IPathPlanner}!determineDirection@{determineDirection}}
+\index{determineDirection@{determineDirection}!IPathPlanner@{IPathPlanner}}
+\doxysubsubsection{\texorpdfstring{determineDirection()}{determineDirection()}}
+{\footnotesize\ttfamily virtual Eigen\+::\+Vector3d I\+Path\+Planner\+::determine\+Direction (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_coordinate}{Coordinate}} \&}]{a\+Start,  }\item[{const \mbox{\hyperlink{class_coordinate}{Coordinate}} \&}]{a\+End,  }\item[{const double \&}]{a\+Increment }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+Method to Determine the direction the next point should be in. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+Start} & \mbox{\hyperlink{class_coordinate}{Coordinate}} of the Starting Point.\\
+\hline
+{\em a\+End} & \mbox{\hyperlink{class_coordinate}{Coordinate}} of the Ending Point.\\
+\hline
+{\em a\+Increment} & double. The max distance between path points.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{class_coordinate}{Coordinate}} The unit vector representing the direction of the next point along the path. 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_straight_line_path_a7d999b1a72fe18c489a92799fc4bef77}{Straight\+Line\+Path}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/ethan/\+Desktop/\+Doxygen Environment/\+E\+N\+P\+M808\+X\+\_\+\+Midterm-\/master/include/I\+Path\+Planner.\+hpp\end{DoxyCompactItemize}

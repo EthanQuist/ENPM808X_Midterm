@@ -1,0 +1,122 @@
+\hypertarget{class_straight_line_path}{}\doxysection{Straight\+Line\+Path Class Reference}
+\label{class_straight_line_path}\index{StraightLinePath@{StraightLinePath}}
+Inheritance diagram for Straight\+Line\+Path\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_straight_line_path}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_straight_line_path_ad22c38b21e35ca7342d518abdd5ca044}{Straight\+Line\+Path}} ()
+\begin{DoxyCompactList}\small\item\em Constructor for the Straight Line Path Class. \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{class_straight_line_path_a737aa36210f95129ad19671cebdf0f1b}{$\sim$\+Straight\+Line\+Path}} ()
+\begin{DoxyCompactList}\small\item\em Destructor for the Straight Line Path Class. \end{DoxyCompactList}\item 
+std\+::vector$<$ Eigen\+::\+Matrix4d $>$ \mbox{\hyperlink{class_straight_line_path_a9e444a45f2dd67123518cf795482e00e}{compute\+Path}} (const Eigen\+::\+Matrix4d \&a\+Start, const Eigen\+::\+Matrix4d \&a\+End, const double \&a\+Increment)
+\begin{DoxyCompactList}\small\item\em Method to Compute the 3 Dimensional path from start point to end point by desired increments (or less). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+Eigen\+::\+Vector3d \mbox{\hyperlink{class_straight_line_path_a7d999b1a72fe18c489a92799fc4bef77}{determine\+Direction}} (const \mbox{\hyperlink{class_coordinate}{Coordinate}} \&a\+Start, const \mbox{\hyperlink{class_coordinate}{Coordinate}} \&a\+End, const double \&a\+Increment)
+\begin{DoxyCompactList}\small\item\em Method to Determine the direction the next point should be in. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_straight_line_path_ad22c38b21e35ca7342d518abdd5ca044}\label{class_straight_line_path_ad22c38b21e35ca7342d518abdd5ca044}} 
+\index{StraightLinePath@{StraightLinePath}!StraightLinePath@{StraightLinePath}}
+\index{StraightLinePath@{StraightLinePath}!StraightLinePath@{StraightLinePath}}
+\doxysubsubsection{\texorpdfstring{StraightLinePath()}{StraightLinePath()}}
+{\footnotesize\ttfamily Straight\+Line\+Path\+::\+Straight\+Line\+Path (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Constructor for the Straight Line Path Class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em None.} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+None. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_straight_line_path_a737aa36210f95129ad19671cebdf0f1b}\label{class_straight_line_path_a737aa36210f95129ad19671cebdf0f1b}} 
+\index{StraightLinePath@{StraightLinePath}!````~StraightLinePath@{$\sim$StraightLinePath}}
+\index{````~StraightLinePath@{$\sim$StraightLinePath}!StraightLinePath@{StraightLinePath}}
+\doxysubsubsection{\texorpdfstring{$\sim$StraightLinePath()}{~StraightLinePath()}}
+{\footnotesize\ttfamily Straight\+Line\+Path\+::$\sim$\+Straight\+Line\+Path (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Destructor for the Straight Line Path Class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em None.} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+None. 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_straight_line_path_a9e444a45f2dd67123518cf795482e00e}\label{class_straight_line_path_a9e444a45f2dd67123518cf795482e00e}} 
+\index{StraightLinePath@{StraightLinePath}!computePath@{computePath}}
+\index{computePath@{computePath}!StraightLinePath@{StraightLinePath}}
+\doxysubsubsection{\texorpdfstring{computePath()}{computePath()}}
+{\footnotesize\ttfamily std\+::vector$<$ Eigen\+::\+Matrix4d $>$ Straight\+Line\+Path\+::compute\+Path (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Matrix4d \&}]{a\+Start,  }\item[{const Eigen\+::\+Matrix4d \&}]{a\+End,  }\item[{const double \&}]{a\+Increment }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Method to Compute the 3 Dimensional path from start point to end point by desired increments (or less). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+Start} & 4x4 Matrix from Eigen.\\
+\hline
+{\em a\+End} & 4x4 Matrix from Eigen.\\
+\hline
+{\em a\+Increment} & double. The max distance between path points.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::vector$<$\+Eigen\+::\+Matrix4d$>$ The transformation matrices corresponding to the path from start to end. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_i_path_planner_a550141db927b7395fdf5706121fcaf18}{I\+Path\+Planner}}.
+
+\mbox{\Hypertarget{class_straight_line_path_a7d999b1a72fe18c489a92799fc4bef77}\label{class_straight_line_path_a7d999b1a72fe18c489a92799fc4bef77}} 
+\index{StraightLinePath@{StraightLinePath}!determineDirection@{determineDirection}}
+\index{determineDirection@{determineDirection}!StraightLinePath@{StraightLinePath}}
+\doxysubsubsection{\texorpdfstring{determineDirection()}{determineDirection()}}
+{\footnotesize\ttfamily Eigen\+::\+Vector3d Straight\+Line\+Path\+::determine\+Direction (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_coordinate}{Coordinate}} \&}]{a\+Start,  }\item[{const \mbox{\hyperlink{class_coordinate}{Coordinate}} \&}]{a\+End,  }\item[{const double \&}]{a\+Increment }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Method to Determine the direction the next point should be in. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+Start} & \mbox{\hyperlink{class_coordinate}{Coordinate}} of the Starting Point.\\
+\hline
+{\em a\+End} & \mbox{\hyperlink{class_coordinate}{Coordinate}} of the Ending Point.\\
+\hline
+{\em a\+Increment} & double. The max distance between path points.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The unit vector representing the direction of the next point along the path. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_i_path_planner_a69cf4de7047bfa682212b4cf8436d02c}{I\+Path\+Planner}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/ethan/\+Desktop/\+Doxygen Environment/\+E\+N\+P\+M808\+X\+\_\+\+Midterm-\/master/include/Straight\+Line\+Path.\+hpp\item 
+C\+:/\+Users/ethan/\+Desktop/\+Doxygen Environment/\+E\+N\+P\+M808\+X\+\_\+\+Midterm-\/master/app/Straight\+Line\+Path.\+cpp\end{DoxyCompactItemize}

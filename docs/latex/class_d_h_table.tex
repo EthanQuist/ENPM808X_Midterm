@@ -1,0 +1,153 @@
+\hypertarget{class_d_h_table}{}\doxysection{D\+H\+Table Class Reference}
+\label{class_d_h_table}\index{DHTable@{DHTable}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_d_h_table_1_1_frame}{Frame}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_d_h_table_a8abbab21fbc060a0b3556d1905ee19cc}{D\+H\+Table}} ()
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_d_h_table}{D\+H\+Table}} Constructor with no Parameters. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_d_h_table_ae8982f56140023eb05afd892dbdcd884}{$\sim$\+D\+H\+Table}} ()
+\begin{DoxyCompactList}\small\item\em Destructor for the \mbox{\hyperlink{class_d_h_table}{D\+H\+Table}} Class. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_d_h_table_acc228e18b4d62f551dbd8daaa2a1e1f3}{add\+Frame}} (const \mbox{\hyperlink{struct_d_h_table_1_1_frame}{Frame}} \&)
+\begin{DoxyCompactList}\small\item\em add\+Frame Method for the user to describe the Robot The \mbox{\hyperlink{struct_d_h_table_1_1_frame}{Frame}} access is 1 indexed. (Preserving 0 for the base frame) Frames must be added in the order of relation. i.\+e. frame 1 describes the relationship from frame 0 to frame 1 and frame 2 the relationship from frame 1 to frame 2. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_d_h_table_1_1_frame}{Frame}} \mbox{\hyperlink{class_d_h_table_a804128ef242c9ac42578aa8c38cb7115}{get\+Frame}} (std\+::vector$<$ \mbox{\hyperlink{struct_d_h_table_1_1_frame}{Frame}} $>$\+::size\+\_\+type)
+\begin{DoxyCompactList}\small\item\em get\+Frame returns a copy of the frame that was stored \end{DoxyCompactList}\item 
+Eigen\+::\+Matrix4d \mbox{\hyperlink{class_d_h_table_a79826c8947e43bf7068a0eaf8689fc7a}{get\+Transform}} (std\+::vector$<$ \mbox{\hyperlink{struct_d_h_table_1_1_frame}{Frame}} $>$\+::size\+\_\+type, std\+::vector$<$ \mbox{\hyperlink{struct_d_h_table_1_1_frame}{Frame}} $>$\+::size\+\_\+type)
+\begin{DoxyCompactList}\small\item\em get\+Transform This function returns the Transformation Matrix from one frame to the another. Currently it is required that the first frame must precede the second frame. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+Eigen\+::\+Matrix4d \mbox{\hyperlink{class_d_h_table_a6836d41f097edfd7a489aebee1ac5823}{get\+Transform}} (std\+::vector$<$ \mbox{\hyperlink{struct_d_h_table_1_1_frame}{Frame}} $>$\+::size\+\_\+type)
+\begin{DoxyCompactList}\small\item\em get\+Transform This function acts as a helper by taking the index of a frame, retrieving that frame and then using those parameters to build a tranformation matrix. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_d_h_table_ad5e931619761b7c110a04876db061f3b}\label{class_d_h_table_ad5e931619761b7c110a04876db061f3b}} 
+std\+::vector$<$ \mbox{\hyperlink{struct_d_h_table_1_1_frame}{Frame}} $>$ {\bfseries frames}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_d_h_table_a8abbab21fbc060a0b3556d1905ee19cc}\label{class_d_h_table_a8abbab21fbc060a0b3556d1905ee19cc}} 
+\index{DHTable@{DHTable}!DHTable@{DHTable}}
+\index{DHTable@{DHTable}!DHTable@{DHTable}}
+\doxysubsubsection{\texorpdfstring{DHTable()}{DHTable()}}
+{\footnotesize\ttfamily D\+H\+Table\+::\+D\+H\+Table (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{class_d_h_table}{D\+H\+Table}} Constructor with no Parameters. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em None.} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+None. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_d_h_table_ae8982f56140023eb05afd892dbdcd884}\label{class_d_h_table_ae8982f56140023eb05afd892dbdcd884}} 
+\index{DHTable@{DHTable}!````~DHTable@{$\sim$DHTable}}
+\index{````~DHTable@{$\sim$DHTable}!DHTable@{DHTable}}
+\doxysubsubsection{\texorpdfstring{$\sim$DHTable()}{~DHTable()}}
+{\footnotesize\ttfamily D\+H\+Table\+::$\sim$\+D\+H\+Table (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Destructor for the \mbox{\hyperlink{class_d_h_table}{D\+H\+Table}} Class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em None.} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+None. 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_d_h_table_acc228e18b4d62f551dbd8daaa2a1e1f3}\label{class_d_h_table_acc228e18b4d62f551dbd8daaa2a1e1f3}} 
+\index{DHTable@{DHTable}!addFrame@{addFrame}}
+\index{addFrame@{addFrame}!DHTable@{DHTable}}
+\doxysubsubsection{\texorpdfstring{addFrame()}{addFrame()}}
+{\footnotesize\ttfamily void D\+H\+Table\+::add\+Frame (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_d_h_table_1_1_frame}{Frame}} \&}]{a\+Frame }\end{DoxyParamCaption})}
+
+
+
+add\+Frame Method for the user to describe the Robot The \mbox{\hyperlink{struct_d_h_table_1_1_frame}{Frame}} access is 1 indexed. (Preserving 0 for the base frame) Frames must be added in the order of relation. i.\+e. frame 1 describes the relationship from frame 0 to frame 1 and frame 2 the relationship from frame 1 to frame 2. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em const} & \mbox{\hyperlink{struct_d_h_table_1_1_frame}{Frame}} \&, The \mbox{\hyperlink{struct_d_h_table_1_1_frame}{Frame}} that will be added to the DH Table\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+None. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_d_h_table_a804128ef242c9ac42578aa8c38cb7115}\label{class_d_h_table_a804128ef242c9ac42578aa8c38cb7115}} 
+\index{DHTable@{DHTable}!getFrame@{getFrame}}
+\index{getFrame@{getFrame}!DHTable@{DHTable}}
+\doxysubsubsection{\texorpdfstring{getFrame()}{getFrame()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_d_h_table_1_1_frame}{D\+H\+Table\+::\+Frame}} D\+H\+Table\+::get\+Frame (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{struct_d_h_table_1_1_frame}{Frame}} $>$\+::size\+\_\+type}]{a\+Frame\+Idx }\end{DoxyParamCaption})}
+
+
+
+get\+Frame returns a copy of the frame that was stored 
+
+
+\begin{DoxyParams}{Parameters}
+{\em std\+::vector$<$\+Frame$>$\+::size\+\_\+type} & 1 Indexed index of desired frame\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A copy of the frame. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_d_h_table_a6836d41f097edfd7a489aebee1ac5823}\label{class_d_h_table_a6836d41f097edfd7a489aebee1ac5823}} 
+\index{DHTable@{DHTable}!getTransform@{getTransform}}
+\index{getTransform@{getTransform}!DHTable@{DHTable}}
+\doxysubsubsection{\texorpdfstring{getTransform()}{getTransform()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Eigen\+::\+Matrix4d D\+H\+Table\+::get\+Transform (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{struct_d_h_table_1_1_frame}{Frame}} $>$\+::size\+\_\+type}]{a\+Frame\+Idx }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+get\+Transform This function acts as a helper by taking the index of a frame, retrieving that frame and then using those parameters to build a tranformation matrix. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em size\+\_\+type,The} & index of the frame being transformed to. This function assumed that the tranform from is from the frame that preceded it.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Eigen\+::\+Matrix4d The Transformation Matrix to go to frame index from the previous frame. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_d_h_table_a79826c8947e43bf7068a0eaf8689fc7a}\label{class_d_h_table_a79826c8947e43bf7068a0eaf8689fc7a}} 
+\index{DHTable@{DHTable}!getTransform@{getTransform}}
+\index{getTransform@{getTransform}!DHTable@{DHTable}}
+\doxysubsubsection{\texorpdfstring{getTransform()}{getTransform()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Eigen\+::\+Matrix4d D\+H\+Table\+::get\+Transform (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{struct_d_h_table_1_1_frame}{Frame}} $>$\+::size\+\_\+type}]{a\+Start\+Frame,  }\item[{std\+::vector$<$ \mbox{\hyperlink{struct_d_h_table_1_1_frame}{Frame}} $>$\+::size\+\_\+type}]{a\+End\+Frame }\end{DoxyParamCaption})}
+
+
+
+get\+Transform This function returns the Transformation Matrix from one frame to the another. Currently it is required that the first frame must precede the second frame. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em size\+\_\+type,The} & index of the frame being transformed from.\\
+\hline
+{\em size\+\_\+type,The} & index of the frame being transformed to.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Eigen\+::\+Matrix4d The Transformation Matrix to go from frame one to frame two. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/ethan/\+Desktop/\+Doxygen Environment/\+E\+N\+P\+M808\+X\+\_\+\+Midterm-\/master/include/D\+H\+Table.\+hpp\item 
+C\+:/\+Users/ethan/\+Desktop/\+Doxygen Environment/\+E\+N\+P\+M808\+X\+\_\+\+Midterm-\/master/app/D\+H\+Table.\+cpp\end{DoxyCompactItemize}
