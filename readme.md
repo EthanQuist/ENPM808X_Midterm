@@ -1,6 +1,7 @@
-# C++ Boilerplate
+# ENPM808X Midterm
 [![Build Status](https://travis-ci.org/EthanQuist/ENPM808X_Midterm.svg?branch=master)](https://travis-ci.org/EthanQuist/ENPM808X_Midterm)
 [![Coverage Status](https://coveralls.io/repos/github/EthanQuist/ENPM808X_Midterm/badge.svg?branch=master)](https://coveralls.io/github/EthanQuist/ENPM808X_Midterm?branch=master)
+
 ---
 
 ## Overview
