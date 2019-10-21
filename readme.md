@@ -76,7 +76,7 @@ The demonstration requires the use of matplotlibcpp which is a c++ wrapper for a
 sudo apt-get install python-matplotlib python-numpy python2.7-dev
 ```
 
-Our code depends on code from two different third party locations. The first is Eigen a linear algebra math library. The second is a c++ wrapper for matplotlib to display plots in windows. The necessary libraries from Eigen and matplotlib can be downloaded using the script below. This script will also place all necessary dependency code in the correct folder locations dictated by our Cmakelist. 
+Our code depends on code from two different third party locations. The first is Eigen a linear algebra math library. The second is a c++ wrapper for matplotlib to display plots in windows. The necessary libraries from Eigen and matplotlib can be downloaded using the script below. This script will also place all necessary dependency code in the correct folder locations dictated by our Cmakelist. The folder "ThirdParty" lies just outside the repository folder. 
 
 ```
 cd ../
