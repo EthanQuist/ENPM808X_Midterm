@@ -75,7 +75,7 @@ class Coordinate {
    * @return The X Coordinate.
 
    */
-  double getX();
+  double getX() const;
 
   /**
 
@@ -86,7 +86,7 @@ class Coordinate {
    * @return The Y Coordinate.
 
    */
-  double getY();
+  double getY() const;
 
   /**
 
@@ -97,7 +97,7 @@ class Coordinate {
    * @return The Z Coordinate.
 
    */
-  double getZ();
+  double getZ() const;
 
   /**
 

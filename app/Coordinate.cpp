@@ -41,14 +41,14 @@ Coordinate::Coordinate(double aX, double aY, double aZ)
 
 Coordinate::~Coordinate() {
 }
-double Coordinate::getX() {
+double Coordinate::getX() const {
   return x;
 }
-double Coordinate::getY() {
+double Coordinate::getY() const {
   return y;
 }
 
-double Coordinate::getZ() {
+double Coordinate::getZ() const {
   return z;
 }
 
