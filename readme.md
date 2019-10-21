@@ -57,15 +57,16 @@ cmake ..
 make
 Run tests: ./test/cpp-test
 Run program: ./app/shell-app
+Run "Bonus Animation": cd .. && python plotRobotTraj.py
 ```
 
 These steps will allow for the repository to be cloned remotely. The steps include building the project as well as running the unit tests and main program which will run our demonstration. 
 
-Running ./app/shell-app in the build folder will run out demonstration. We are using matplotlib (with a c++ wrapper) to display the trajectory of our desired path as well as the changes in all 6 joints as the robot traverses the trajectory to go from initial point to end point. 
+Running ./app/shell-app in the build folder will run out demonstration. We are using matplotlib (with a c++ wrapper) to display the trajectory of our desired path as well as the changes in all 6 joints as the robot traverses the trajectory to go from initial point to end point. The demo will first display a 2D animation of the desired path.
 
 ## Demo
 
-The demo is ran from main.cpp source code where a window will display the trajectory of the end-effector. This window is an animation from the start position to the end position. Once the animation finishes please click the x on the window to allow the code to run the second part of the demonstration. Part 2 of the demo will display all 6 joint angles and their changes as the robot moves along the path planning trajectory. When the animation ends click on the x of the window and the demo will finish. 
+The demo is ran from main.cpp source code where a window will display the trajectory of the end-effector. This window is an animation from the start position to the end position. Once the animation finishes please click the x on the window to allow the code to run the second part of the demonstration. Part 2 of the demo will display all 6 joint angles and their changes as the robot moves along the path planning trajectory. When the animation ends click on the x of the window and the demo will finish. Upon that demo's completion, if one would like to observe a 3D demonstration of the path. Change directories to the source directoy and run the pyton script. Note the robotPos.py is generated in the build directory after the shell-app is run. This file should be deleted to wipe all previous animation data between runs to get accurate animation data each time. 
 
 
 ## Dependencies
@@ -76,7 +77,7 @@ The demonstration requires the use of matplotlibcpp which is a c++ wrapper for a
 sudo apt-get install python-matplotlib python-numpy python2.7-dev
 ```
 
-Our code depends on code from two different third party locations. The first is Eigen a linear algebra math library. The second is a c++ wrapper for matplotlib to display plots in windows. The necessary libraries from Eigen and matplotlib can be downloaded using the script below. This script will also place all necessary dependency code in the correct folder locations dictated by our Cmakelist. The folder "ThirdParty" lies just outside the repository folder. 
+Our code depends on code from two different third party locations. The first is Eigen a linear algebra math library. The second is a c++ wrapper for matplotlib to display plots in windows. The necessary libraries from Eigen and matplotlib can be downloaded using the script below. This script will also place all necessary dependency code in the correct folder locations dictated by our Cmakelist. The folder "ThirdParty" lies just outside the repository folder. The script is located in the repository as install-ThirdParty.sh
 
 ```
 cd ../
@@ -127,36 +128,6 @@ With Doxywizard installed you can generate the documents through the following s
 4. Specify the directory where doxygen should put the generated documentation
 5. Under Expert/Build adjust settings for types of files to generate documenation on
 6. Under Run click "Run Doxygen" - the documentation will generate in specified location
-
-
-## Plugins
-
-- CppChEclipse
-
-    To install and run cppcheck in Eclipse
-
-    1. In Eclipse, go to Window -> Preferences -> C/C++ -> cppcheclipse.
-    Set cppcheck binary path to "/usr/bin/cppcheck".
-
-    2. To run CPPCheck on a project, right click on the project name in the Project Explorer 
-    and choose cppcheck -> Run cppcheck.
-
-
-- Google C++ Sytle
-
-    To include and use Google C++ Style formatter in Eclipse
-
-    1. In Eclipse, go to Window -> Preferences -> C/C++ -> Code Style -> Formatter. 
-    Import [eclipse-cpp-google-style][reference-id-for-eclipse-cpp-google-style] and apply.
-
-    2. To use Google C++ style formatter, right click on the source code or folder in 
-    Project Explorer and choose Source -> Format
-
-[reference-id-for-eclipse-cpp-google-style]: https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-cpp-google-style.xml
-
-- Git
-
-    It is possible to manage version control through Eclipse and the git plugin, but it typically requires creating another project. If you're interested in this, try it out yourself and contact me on Canvas.
     
     
 ## License
