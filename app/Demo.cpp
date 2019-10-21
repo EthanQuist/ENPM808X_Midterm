@@ -33,100 +33,68 @@
 
 #include "./matplotlibcpp.h"
 
+#include <algorithm>
+
 #include "Coordinate.hpp"
 #include "IJoint.hpp"
 #include "InverseKinematics.hpp"
 #include "IPathPlanner.hpp"
 #include "StraightLinePath.hpp"
 #include "Demo.hpp"
-
+#include <iostream>
 void Demo::runDemo() {
   StraightLinePath pathMaker;
   InverseKinematicAcmeArm IKsolver;
 
-  Eigen::Matrix4d startMatrix(4, 4);
-  Eigen::Matrix4d endMatrix(4, 4);
-  startMatrix(0, 0) = 1.0;
-  startMatrix(0, 1) = 0.0;
-  startMatrix(0, 2) = 0.0;
-  startMatrix(1, 0) = 0.0;
-  startMatrix(1, 1) = 1.0;
-  startMatrix(1, 2) = 0.0;
-  startMatrix(2, 0) = 0.0;
-  startMatrix(2, 1) = 0.0;
-  startMatrix(2, 2) = 1.0;
-  // Transform Matrix - bottom row
-  startMatrix(3, 0) = 0.0;
-  startMatrix(3, 1) = 0.0;
-  startMatrix(3, 2) = 0.0;
-  startMatrix(3, 3) = 1.0;
-  // Transform Matrix - Position
-  startMatrix(0, 3) = 2.0;
-  startMatrix(1, 3) = 0.0;
-  startMatrix(2, 3) = 2.5;
-  // end matrix
-  endMatrix(0, 0) = 1.0;
-  endMatrix(0, 1) = 0.0;
-  endMatrix(0, 2) = 0.0;
-  endMatrix(1, 0) = 0.0;
-  endMatrix(1, 1) = 1.0;
-  endMatrix(1, 2) = 0.0;
-  endMatrix(2, 0) = 0.0;
-  endMatrix(2, 1) = 0.0;
-  endMatrix(2, 2) = 1.0;
-  // Transform Matrix - bottom row
-  endMatrix(3, 0) = 0.0;
-  endMatrix(3, 1) = 0.0;
-  endMatrix(3, 2) = 0.0;
-  endMatrix(3, 3) = 1.0;
-  // Transform Matrix - Position
-  endMatrix(0, 3) = 0.0;
-  endMatrix(1, 3) = 2.0;
-  endMatrix(2, 3) = 2.5;
+  Eigen::Matrix4d startMatrix = Eigen::Matrix4d::Identity();
+  Eigen::Matrix4d endMatrix = Eigen::Matrix4d::Identity();
 
-  std::vector < Eigen::Matrix4d > matrixVec;
+  // Define Relevant Parameters.
+  double minPlotBorder = 0.01;
+  double timeInc = 0.01;
+
+  Coordinate startPos(2.0, 0, 2.5);
+  startMatrix.block<3, 1>(0, 3) = startPos.getAsVec();
+
+  Coordinate endPos(0, 2.0, 2.5);
+  endMatrix.block<3, 1>(0, 3) = endPos.getAsVec();
+
+  // Note Due the Trajectory being plotted in 2D min and max Z are currently
+  // unused.
+  double maxX = std::max(startPos.getX(), endPos.getX());
+  double maxY = std::max(startPos.getY(), endPos.getY());
+  // double maxZ = std::max(startPos.getZ(), endPos.getZ());
+  double minX = std::min(startPos.getX(), endPos.getX());
+  double minY = std::min(startPos.getY(), endPos.getY());
+  // double minZ = std::min(startPos.getZ(), endPos.getZ());
+
+  std::vector<Eigen::Matrix4d> matrixVec;
   matrixVec = pathMaker.computePath(startMatrix, endMatrix, 0.1);
   std::vector<double> pathX;
   std::vector<double> pathY;
   std::vector<double> pathZ;
-  std::vector<double> q1Vec;
-  std::vector<double> q2Vec;
-  std::vector<double> q3Vec;
-  std::vector<double> q4Vec;
-  std::vector<double> q5Vec;
-  std::vector<double> q6Vec;
 
-  for (auto& m : matrixVec) {
+  for (auto &m : matrixVec) {
     // path trajectory
     pathX.push_back(m(0, 3));
     pathY.push_back(m(1, 3));
     pathZ.push_back(m(2, 3));
-    // Trajectory Plot Animation
-    matplotlibcpp::clf();
-    matplotlibcpp::plot(pathX, pathY);
-    matplotlibcpp::xlim(0, 2);
-    matplotlibcpp::ylim(0, 2);
-    matplotlibcpp::title("Plotting Trajectory [X-Y Plane]");
-    matplotlibcpp::xlabel("X [m]");
-    matplotlibcpp::ylabel("Y [m]");
-    matplotlibcpp::pause(0.01);
   }
-  // Holding Trajectory Plot
-  matplotlibcpp::plot(pathX, pathY);
-  matplotlibcpp::title("Plotting Trajectory [X-Y Plane]");
-  matplotlibcpp::xlabel("X [m]");
-  matplotlibcpp::ylabel("Y [m]");
-  matplotlibcpp::show();
-  // create x-axis for time domain
-  std::vector<double> qx;
-  int i;
-  for (i = 0; i < static_cast<int>(q1Vec.size()); i++
-      ) {
-    qx.push_back(i);
-}
-  std::vector<double> pX;
-  std::vector<double> pY;
-  std::vector<double> pZ;
+
+  plotData tTrajData;
+  tTrajData.x = pathX;
+  tTrajData.y = pathY;
+  tTrajData.xlimMax = maxX;
+  tTrajData.xlimMin = minX;
+  tTrajData.ylimMax = maxY;
+  tTrajData.ylimMin = minY;
+  tTrajData.title = "Plotting Trajectory [X-Y Plane]";
+  tTrajData.xlabel = "X [m]";
+  tTrajData.ylabel = "Y [m]";
+  tTrajData.timeInc = timeInc;
+  tTrajData.show = true;
+  animatePlot(tTrajData);
+
   std::vector<double> q1V;
   std::vector<double> q2V;
   std::vector<double> q3V;
@@ -134,120 +102,113 @@ void Demo::runDemo() {
   std::vector<double> q5V;
   std::vector<double> q6V;
 
-  std::vector<double> xi;
-  int j = 0;
-  for (auto& mat : matrixVec) {
-    // path trajectory
-    pX.push_back(mat(0, 3));
-    pY.push_back(mat(1, 3));
-    pZ.push_back(mat(2, 3));
-
+  for (auto &mat : matrixVec) {
     // inverse kinematics
     std::vector<JointPtr> res;
     res = IKsolver.computeIK(mat);
-    JointPtr res1 = res[0];
-    JointPtr res2 = res[1];
-    JointPtr res3 = res[2];
-    JointPtr res4 = res[3];
-    JointPtr res5 = res[4];
-    JointPtr res6 = res[5];
-    double a1 = res1->getConfig();
-    double a2 = res2->getConfig();
-    double a3 = res3->getConfig();
-    double a4 = res4->getConfig();
-    double a5 = res5->getConfig();
-    double a6 = res6->getConfig();
-    q1V.push_back(a1);
-    q2V.push_back(a2);
-    q3V.push_back(a3);
-    q4V.push_back(a4);
-    q5V.push_back(a5);
-    q6V.push_back(a6);
 
-    xi.push_back(j);
-    j++;
+    q1V.push_back(res.at(0)->getConfig());
+    q2V.push_back(res.at(1)->getConfig());
+    q3V.push_back(res.at(2)->getConfig());
+    q4V.push_back(res.at(3)->getConfig());
+    q5V.push_back(res.at(4)->getConfig());
+    q6V.push_back(res.at(5)->getConfig());
+  }
+  // create x-axis for time domain
+  std::vector<double> qx(q1V.size(), 0);
+  int i;
+  for (auto &tQx : qx) {
+    tQx = ++i;
+  }
 
-    // Joint Angle Plot Animation
-    matplotlibcpp::clf();
-    matplotlibcpp::subplot(3, 2, 1);
-    matplotlibcpp::plot(xi, q1V);
-    matplotlibcpp::xlim(0, 30);
-    matplotlibcpp::ylim(0.0, 1.6);
-    matplotlibcpp::title("Joint Angle Q1");
-    matplotlibcpp::xlabel("time");
-    matplotlibcpp::ylabel("Q1 [rad]");
-    matplotlibcpp::subplot(3, 2, 2);
-    matplotlibcpp::plot(xi, q2V);
-    matplotlibcpp::xlim(0, 30);
-    matplotlibcpp::ylim(-0.8, 0.0);
-    matplotlibcpp::title("Joint Angle Q2");
-    matplotlibcpp::xlabel("time");
-    matplotlibcpp::ylabel("Q2 [rad]");
-    matplotlibcpp::subplot(3, 2, 3);
-    matplotlibcpp::plot(xi, q3V);
-    matplotlibcpp::xlim(0, 30);
-    matplotlibcpp::ylim(0.0, 1.6);
-    matplotlibcpp::title("Joint Angle Q3");
-    matplotlibcpp::xlabel("time");
-    matplotlibcpp::ylabel("Q3 [rad]");
-    matplotlibcpp::subplot(3, 2, 4);
-    matplotlibcpp::plot(xi, q4V);
-    matplotlibcpp::xlim(0, 30);
-    matplotlibcpp::ylim(0.7, 1.6);
-    matplotlibcpp::title("Joint Angle Q4");
-    matplotlibcpp::xlabel("time");
-    matplotlibcpp::ylabel("Q4 [rad]");
-    matplotlibcpp::subplot(3, 2, 5);
-    matplotlibcpp::plot(xi, q5V);
-    matplotlibcpp::xlim(0, 30);
-    matplotlibcpp::ylim(1.5, 1.65);
-    matplotlibcpp::title("Joint Angle Q5");
-    matplotlibcpp::xlabel("time");
-    matplotlibcpp::ylabel("Q5 [rad]");
-    matplotlibcpp::subplot(3, 2, 6);
-    matplotlibcpp::plot(xi, q6V);
-    matplotlibcpp::xlim(0, 30);
-    matplotlibcpp::ylim(-3.2, -1.4);
-    matplotlibcpp::title("Joint Angle Q6");
-    matplotlibcpp::xlabel("time");
-    matplotlibcpp::ylabel("Q6 [rad]");
+  std::vector<std::vector<double> > allQs;
+  allQs.push_back(q1V);
+  allQs.push_back(q2V);
+  allQs.push_back(q3V);
+  allQs.push_back(q4V);
+  allQs.push_back(q5V);
+  allQs.push_back(q6V);
+
+  std::vector<plotData> subPlots;
+
+  int cnt = 0;
+  for (auto &tQ : allQs) {
+    cnt++;
+    plotData tQData;
+    tQData.x = qx;
+    tQData.y = tQ;
+
+    tQData.xlimMax = *std::max_element(qx.begin(), qx.end()) + minPlotBorder;
+    tQData.xlimMin = *std::min_element(qx.begin(), qx.end()) - minPlotBorder;
+    tQData.ylimMax = *std::max_element(tQ.begin(), tQ.end()) + minPlotBorder;
+    tQData.ylimMin = *std::min_element(tQ.begin(), tQ.end()) - minPlotBorder;
+    std::stringstream ss;
+    ss << "Joint Q" << cnt;
+    tQData.title = ss.str();
+    tQData.xlabel = "Time";
+    tQData.ylabel = "Config [rad]";
+
+    subPlots.push_back(tQData);
+  }
+  animateSubPlot(subPlots, 3, 2);
+}
+
+void Demo::animatePlot(const Demo::plotData &aDatum) {
+  matplotlibcpp::clf();
+
+  auto tEndXIter = aDatum.x.begin();
+  auto tEndYIter = aDatum.y.begin();
+  while (tEndXIter != aDatum.x.end() && tEndYIter != aDatum.y.end()) {
+    std::vector<double> tAniX(aDatum.x.begin(), ++tEndXIter);
+    std::vector<double> tAniY(aDatum.y.begin(), ++tEndYIter);
+    Demo::plotData tAniPlotData(aDatum);
+    tAniPlotData.x = tAniX;
+    tAniPlotData.y = tAniY;
+    tAniPlotData.show = false;
+
+    plotDatum(tAniPlotData);
+    matplotlibcpp::pause(aDatum.timeInc);
+
+    tEndXIter++;
+    tEndYIter++;
+  }
+
+  plotDatum(aDatum);
+  matplotlibcpp::show();
+
+}
+
+void Demo::animateSubPlot(const std::vector<plotData> &aData, int rows,
+                          int cols) {
+  matplotlibcpp::clf();
+
+  // Determine how many data points in the data (Assumes at least 1 item in
+  // the vector
+  auto numElem = aData.begin()->x.size();
+  std::vector<double>::size_type tCount;
+  for (tCount = 1; tCount < numElem; tCount++) {
+    for (auto aDatum = aData.begin(); aDatum != aData.end(); aDatum++) {
+      std::vector<double> tAniX(aDatum->x.begin(), aDatum->x.begin() + tCount);
+      std::vector<double> tAniY(aDatum->y.begin(), aDatum->y.begin() + tCount);
+      Demo::plotData tAniPlotData(*aDatum);
+      tAniPlotData.x = tAniX;
+      tAniPlotData.y = tAniY;
+      tAniPlotData.show = false;
+
+      matplotlibcpp::subplot(rows, cols, aDatum - aData.begin() + 1);
+      plotDatum(tAniPlotData);
+    }
     std::map<std::string, double> keywords;
     keywords.insert(std::make_pair("hspace", 0.75));
     keywords.insert(std::make_pair("wspace", 0.75));
     matplotlibcpp::subplots_adjust(keywords);
-    matplotlibcpp::pause(0.01);
+    matplotlibcpp::pause(aData.begin()->timeInc);
   }
-  // Hold Joint Angle plot in final position
-  matplotlibcpp::subplot(3, 2, 1);
-  matplotlibcpp::plot(xi, q1V);
-  matplotlibcpp::title("Joint Angle Q1");
-  matplotlibcpp::xlabel("time");
-  matplotlibcpp::ylabel("Q1 [rad]");
-  matplotlibcpp::subplot(3, 2, 2);
-  matplotlibcpp::plot(xi, q2V);
-  matplotlibcpp::title("Joint Angle Q2");
-  matplotlibcpp::xlabel("time");
-  matplotlibcpp::ylabel("Q2 [rad]");
-  matplotlibcpp::subplot(3, 2, 3);
-  matplotlibcpp::plot(xi, q3V);
-  matplotlibcpp::title("Joint Angle Q3");
-  matplotlibcpp::xlabel("time");
-  matplotlibcpp::ylabel("Q3 [rad]");
-  matplotlibcpp::subplot(3, 2, 4);
-  matplotlibcpp::plot(xi, q4V);
-  matplotlibcpp::title("Joint Angle Q4");
-  matplotlibcpp::xlabel("time");
-  matplotlibcpp::ylabel("Q4 [rad]");
-  matplotlibcpp::subplot(3, 2, 5);
-  matplotlibcpp::plot(xi, q5V);
-  matplotlibcpp::title("Joint Angle Q5");
-  matplotlibcpp::xlabel("time");
-  matplotlibcpp::ylabel("Q5 [rad]");
-  matplotlibcpp::subplot(3, 2, 6);
-  matplotlibcpp::plot(xi, q6V);
-  matplotlibcpp::title("Joint Angle Q6");
-  matplotlibcpp::xlabel("time");
-  matplotlibcpp::ylabel("Q6 [rad]");
+
+  for (auto aDatum = aData.begin(); aDatum != aData.end(); aDatum++) {
+    matplotlibcpp::subplot(rows, cols, aDatum - aData.begin() + 1);
+    plotDatum(*aDatum);
+  }
   std::map<std::string, double> keywords;
   keywords.insert(std::make_pair("hspace", 0.75));
   keywords.insert(std::make_pair("wspace", 0.75));
@@ -255,3 +216,11 @@ void Demo::runDemo() {
   matplotlibcpp::show();
 }
 
+void Demo::plotDatum(const Demo::plotData &aDatum) {
+  matplotlibcpp::plot(aDatum.x, aDatum.y);
+  matplotlibcpp::xlim(aDatum.xlimMin, aDatum.xlimMax);
+  matplotlibcpp::ylim(aDatum.ylimMin, aDatum.ylimMax);
+  matplotlibcpp::title(aDatum.title);
+  matplotlibcpp::xlabel(aDatum.xlabel);
+  matplotlibcpp::ylabel(aDatum.ylabel);
+}

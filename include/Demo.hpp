@@ -52,4 +52,22 @@ class Demo {
 
    */
   void runDemo();
+
+  struct plotData {
+    std::vector<double> x;
+    std::vector<double> y;
+    std::string title;
+    std::string xlabel;
+    std::string ylabel;
+    double xlimMin;
+    double xlimMax;
+    double ylimMin;
+    double ylimMax;
+    double timeInc;
+    bool show;
+  };
+
+  void animatePlot(const plotData &aDatum);
+  void animateSubPlot(const std::vector<plotData> &aData, int, int);
+  void plotDatum(const plotData &aDatum);
 };
